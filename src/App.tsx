@@ -19,6 +19,7 @@ import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
 import './App.css';
 import { RootState } from './redux-toolkit/store';
+import Page404 from './components/Page404/Page404';
 
 const mapDispatchToProps = {
   loadCurrentUser,
@@ -58,6 +59,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
           }
           return <Login />;
         }}
+        exact
       />
       <Route path={routes.audio} component={Audio} />
       <Route path={routes.friends} component={Friends} />
@@ -118,6 +120,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         }}
         exact
       />
+      <Route component={Page404} />
     </Switch>
   );
 };
