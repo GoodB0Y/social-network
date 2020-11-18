@@ -3,9 +3,12 @@ import styled from 'styled-components';
 
 type Props = {
     name: string;
+    value: number | null;
+    active: boolean | null;
+    handler: () => void;
 };
 
-const ActionIcon: React.FC<Props> = ({ name }) => {
+const ActionButton: React.FC<Props> = ({ name, value, active, handler }) => {
   let path;
   switch (name) {
     case 'bookmark': path = 'M17.1429 0.5H2.85714C1.28571 0.5 0.014286 1.958 0.014286 3.74L0 29.66L10 24.8L20 29.66V3.74C20 1.958 18.7143 0.5 17.1429 0.5ZM17.1429 24.8L10 21.2684L2.85714 24.8V3.74H17.1429V24.8Z'; break;
@@ -15,7 +18,14 @@ const ActionIcon: React.FC<Props> = ({ name }) => {
     default: return null;
   }
 
-  return (<Icon><path d={path} /></Icon>);
+  return (
+    <Button onClick={handler}>
+      <Icon active={active}>
+        <path d={path} />
+      </Icon>
+      {value || 0}
+    </Button>
+  );
 };
 
 const Icon = styled.svg.attrs(() =>
@@ -24,11 +34,36 @@ const Icon = styled.svg.attrs(() =>
     height: '30px',
     viewBox: '0 0 30 30',
     xmlns: 'http://www.w3.org/2000/svg',
-  }))`
-  fill:#515151;
+  }))<{ active: boolean | null }>`
+  fill: ${({ active }) =>
+    (active ? '#ffb11b' : '#515151')}; 
   margin-right: 11px;
-  &:hover, &:active, &:focus {
-    fill: #ffb11b;
-  }
 `;
-export default ActionIcon;
+
+const Button = styled.button`
+min-width: 30px;
+height: 30px;
+padding: 0;
+display: flex;
+background: none;
+border: none;
+cursor: pointer;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 160.9%;
+color: #515151;
+transition: 0.1s;
+&:hover,
+&:active,
+&:focus {
+  transform: scale(1.05);
+  color: #ffb11b;   
+  ${Icon} {fill: #ffb11b;} 
+}
+&: focus {
+  outline: none;
+}
+`;
+
+export default ActionButton;

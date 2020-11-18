@@ -10,7 +10,6 @@ import 'swiper/swiper.scss';
 const Container = styled.div`
   position: relative;
   padding-bottom: 46px;
-  border-bottom: 1px solid #000000;
 `;
 
 const Arrow = styled.div<{ left?: boolean }>`
@@ -38,15 +37,20 @@ interface SliderComp {
   slidesPerView?: number;
   margin?: number;
   spaceBetween?: number;
-  children: React.ReactNode[];
+  children: React.ReactNode[] | JSX.Element;
   infinite?: boolean;
 }
 
-const SliderComp: React.FC<SliderComp> = ({ children, spaceBetween, slidesToShow, ...props }) =>
-  (
+const SliderComp: React.FC<SliderComp> = ({ children, spaceBetween, slidesToShow, ...props }) => {
+  const slides = () => {
+    if (!Array.isArray(children)) return 1;
+    if (!slidesToShow) return (children.length >= 3 ? 3 : children.length);
+    return slidesToShow;
+  };
+  return (
     <Container>
       <SliderWrapper
-        slidesToShow={slidesToShow || (children.length >= 3 ? 3 : children.length)}
+        slidesToShow={slides()/* slidesToShow  || (children.length >= 3 ? 3 : children.length) */}
         spaceBetween={spaceBetween || 40}
         nextArrow={<Arrow />}
         prevArrow={<Arrow left />}
@@ -56,5 +60,5 @@ const SliderComp: React.FC<SliderComp> = ({ children, spaceBetween, slidesToShow
       </SliderWrapper>
     </Container>
   );
-
+};
 export default SliderComp;

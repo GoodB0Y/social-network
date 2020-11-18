@@ -18,6 +18,9 @@ export interface IPost {
   text: string;
   title: string;
   userId: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
+  isShared: boolean;
 }
 
 export interface ICreatePost {

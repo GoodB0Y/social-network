@@ -28,6 +28,8 @@ type Props = StateProps & DispatchProps & {
     comments?: IComment[];
     loading: boolean;
     error: Error | null;
+    showComments: boolean;
+    setShowComments: () => void;
 };
 
 const mapStateToProps = (state: RootState): StateProps =>
@@ -39,14 +41,12 @@ const mapDispatchToProps = {
   getComments: loadCommentsByPost,
 };
 
-const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments }): JSX.Element => {
-  const [showComments, setShowComments] = useState(true);
+const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments, showComments, setShowComments }): JSX.Element => {
   useEffect(() => { getComments(id); }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
     if (loading) return (<LoadingBlock />);
-    if (error) return (<ErrorBlock errorMessage="Error occured with loading comments." />);
-    if (comments?.length === 0) return (<h1>Комментарии отсутствуют</h1>);
+    if (error) return (<ErrorBlock>Error occured with loading comments.</ErrorBlock>);
     return (
       <CommentsList>
         {
@@ -84,9 +84,7 @@ const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComm
       <CommentForm avatar={user?.avatar} submitNewComment={submitNewComment} />
       <ShowMoreBtn
         changeIcon={showComments}
-        heightHandler={(): void =>
-          setShowComments((prev) =>
-            !prev)}
+        heightHandler={setShowComments}
       />
     </Container>
   );

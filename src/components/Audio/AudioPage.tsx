@@ -100,15 +100,16 @@ const Audio: React.FC = () => {
     allAudiosReducer);
   const loaded = objAudiosState.loading.endsWith(pending);
   const playlistsData: Array<Record<string, any>> = objAudiosState.myPlaylists;
+  const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
 
   useEffect(() => {
     console.log(objAudiosState);
+    setDragging(false);
     if (objAudiosState.loading.endsWith(rejected)) {
       message.error(objAudiosState.msgFetchState);
     }
   }, [objAudiosState, objAudiosState.loading, objAudiosState.msgFetchState]);
 
-  const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
   const settings = {
     infinite: false,
     slidesToShow: 5,
@@ -190,13 +191,13 @@ const Audio: React.FC = () => {
   const Friends = objAudiosState
     && objAudiosState.friends.length > 0
     && objAudiosState.friends
-      .map(({ firstName, lastName, id, userId, avatar }: IfriendData) =>
+      .map(({ firstName, lastName, id, avatar }: IfriendData) =>
         (
           <button
             key={id}
             type="button"
             onClick={() => {
-              if (!dragging) dispatch(friendAudiosAction(userId));
+              if (!dragging) dispatch(friendAudiosAction(id));
             }}
           >
             <img src={pic || avatar} alt="" />

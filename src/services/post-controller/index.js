@@ -7,6 +7,10 @@ import {
   createNewPost,
   deletePost,
   getPostsByTag,
+  addLikeToPost,
+  deleteLikeToPost,
+  addBookmarkToPost,
+  deleteBookmarkToPost,
 } from './post-controller';
 
 export {
@@ -17,4 +21,8 @@ export {
   deletePost,
   getPostsByUser,
   getPostsByTag,
+  addLikeToPost,
+  deleteLikeToPost,
+  addBookmarkToPost,
+  deleteBookmarkToPost,
 };

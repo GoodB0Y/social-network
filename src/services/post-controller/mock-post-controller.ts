@@ -18,6 +18,9 @@ export const getPostsByUser = (id: number): IPost[] =>
     shareAmount: 4,
     likeAmount: 15,
     commentAmount: 2,
+    isLiked: false,
+    isBookmarked: false,
+    isShared: false,
     tags: [
       { id: 0, text: '#nunc' },
       { id: 1, text: '#dolor' },
@@ -37,6 +40,9 @@ export const getPostsByUser = (id: number): IPost[] =>
     shareAmount: 5,
     likeAmount: 1,
     commentAmount: 3,
+    isLiked: false,
+    isBookmarked: false,
+    isShared: false,
     tags: [
       { id: 0, text: '#nunc' },
       { id: 1, text: '#dolor' },

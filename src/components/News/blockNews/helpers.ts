@@ -13,8 +13,8 @@ const filterNews = (posts: IDataPost[], filter: string, request?: string | null)
         next.post.likeAmount! - prev.post.likeAmount!).splice(0, 5);
   }
   if (filter === 'request') {
-    posts.filter((item) =>
-      item.post.title === request).splice(0, 5);
+    return posts.filter((item) =>
+      item.post.title.includes(request!)).splice(0, 5);
   }
   return posts.splice(0, 5);
 };

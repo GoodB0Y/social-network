@@ -75,10 +75,10 @@ export const friendsAudioAction = createAsyncThunk(
     try {
       const arrFriendsIds = await fetchMyFriends();
       const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data
-        .map(async ({ friendId, id }: { friendId: number; id: number }) => {
+        .map(async ({ id }: { id: number }) => {
           try {
-            const friendData = await fetchFriends(friendId);
-            friendData.data.id = id; // на беке проблема с уникальностью friendId - это временный обход
+            const friendData = await fetchFriends(id);
+            friendData.data.id = id;
             return friendData.data;
           } catch (e) {
             return e.response.data;

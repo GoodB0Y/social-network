@@ -7,6 +7,7 @@ const StyledError = styled.div`
   border-radius:  15px;
   background-color: transparent;
   padding: 18px 36px 72px;
+  color: #FFB11B; 
 `;
 
 export default StyledError;

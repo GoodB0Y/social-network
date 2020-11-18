@@ -52,7 +52,15 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
     getAllPosts();
   }, [actualFilter, getAllPosts]);
 
-  const submitSearchNews = (key: string): void => {
+  useEffect(() => {
+    if (showSearchField) searchField!.current!.focus();
+  }, [showSearchField]);
+
+  const setNewsFilter = (event: any): void => {
+    setActualFilter(event.target.name);
+  };
+
+  const submitNewsRequest = (key: string): void => {
     if (key === 'Enter') {
       setActualFilter('request');
       setSearchRequest(searchField.current?.value!);
@@ -70,44 +78,49 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
               !prev);
           }}
           onKeyPress={({ key }) =>
-            submitSearchNews(key)}
+            submitNewsRequest(key)}
         />
       );
     }
-
     return (
-      <ButtonSearch onClick={(): void => {
-        setShowSearchField((prev) =>
-          !prev);
-      }}
+      <ButtonSearch
+        onClick={(): void => {
+          setShowSearchField((prev) =>
+            !prev);
+        }}
       />
     );
   };
 
   const renderNews = (): JSX.Element | JSX.Element[] => {
     if (loading) return (<LoadingBlock />);
-    if (error) return (<ErrorBlock errorMessage="Error occured with loading posts." />);
+    if (error) return (<ErrorBlock>Error occured with loading posts.</ErrorBlock>);
     if (!data) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
-    const newArr = filterNews([...data!], actualFilter, searchRequest);
-    if (newArr.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
-    return newArr.map((postData) =>
+
+    const filteredNews = filterNews([...data!], actualFilter, searchRequest);
+    if (filteredNews.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
+    return filteredNews.splice(0, 10).map((postData) =>
       <NewsItem key={postData.post.id} postData={postData} getPostsByTag={getPostsByTag} />);
-  };
+  };/* УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
+
+  const renderTagCloud = () => { console.log('ЖДЕМ ЭНДПОИНТ НА ВСЕ ТЕГИ'); };
 
   return (
     <Wrapper>
       <Container>
         <Label>Новости</Label>
         <MenuWrapper>
-          <Menu onClick={(event: React.SyntheticEvent): void => {
-            const target = event.target as HTMLInputElement;
-            setActualFilter(target.name);
-          }}
-          >
-            <MenuItem name="all">Все</MenuItem>
-            <MenuItem name="news">Новости</MenuItem>
-            <MenuItem name="popular">Интересные</MenuItem>
-            <MenuItem name="tags">Теги</MenuItem>
+          <Menu>
+            <MenuItem name="all" onClick={setNewsFilter}>
+              Все
+            </MenuItem>
+            <MenuItem name="fresh" onClick={setNewsFilter}>
+              Свежие
+            </MenuItem>
+            <MenuItem name="popular" onClick={setNewsFilter}>
+              Популярные
+            </MenuItem>
+            <MenuItem name="tags" onClick={renderTagCloud}>Теги</MenuItem>
           </Menu>
           {renderSearchField()}
         </MenuWrapper>
@@ -120,7 +133,7 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
 
 const Wrapper = styled.div`
   background: #111111;
-  padding: 100px;
+  padding: 100px 100px 100px 0;
 `;
 
 const Container = styled.div`
@@ -141,13 +154,15 @@ const Container = styled.div`
 
 const Label = styled.div`
   position: absolute;
-  width: 250px;
-  height: 75px;
-  top: -60px;
+  top: -100px;
+  width: 299px;
+  height: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ffb11b;
   border-radius: 15px;
-  padding-top: 20px;
-
+  
   font-style: normal;
   font-weight: 600;
   font-size: 32px;
@@ -182,7 +197,7 @@ const MenuItem = styled.button`
   padding: 0;
   padding-bottom: 7px;
   transition: 0.1s;
-  &:hover,  {
+  &:hover {
     transform: scale(1.05);
     border-bottom: 3px solid #ffb11b;
   }

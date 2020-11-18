@@ -6,14 +6,19 @@ import ReactMarkdown from 'react-markdown';
 import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
 import { IDataPost } from '../../../types/post';
-import IComment from '../../../types/comment';
 
-import foto from '../../../img/userFoto.png';
+import { addLikeToPost, deleteLikeToPost, addBookmarkToPost, deleteBookmarkToPost } from '../../../services/post-controller';
 
 import UserInfo from '../common/UserInfo';
-import ActionIcon from '../common/ActionIcon';
+import ActionButton from '../common/ActionButton';
+import MediaContent from './MediaContent';
 import ShowMoreBtn from '../common/ShowMoreBtn';
 import Comments from '../blockComments/Comments';
+
+const Scroll = require('react-scroll');
+
+const { Element } = Scroll;
+const { scroller } = Scroll;
 
 type Props = {
   postData: IDataPost;
@@ -22,9 +27,14 @@ type Props = {
 
 const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
   const { post, comments, loading, error } = postData;
-  const { id, firstName, lastName, avatar, persistDate, commentAmount, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
+  const { id, firstName, lastName, avatar, persistDate, commentAmount, isLiked, isBookmarked, isShared, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
   const [showContent, setShowContent] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const SmoothCollapseSettings = {
+    expanded: showContent,
+    heightTransition: '.70s ease',
+    collapsedHeight: '200px',
+  };
 
   const renderTags = (): JSX.Element =>
     (
@@ -42,43 +52,76 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
       </TagsList>
     );
 
+  const toggleLikes = (idx: number) => {
+    if (isLiked) return deleteLikeToPost(idx);
+    return addLikeToPost(idx);
+  };
+
+  const toggleBookmarks = (idx: number) => {
+    if (isBookmarked) return deleteBookmarkToPost(idx);
+    return addBookmarkToPost(idx);
+  };
+
+  const scrollToComments = (): void => {
+    scroller.scrollTo(id, {
+      duration: 1000,
+      delay: 10,
+      smooth: true,
+      offset: -100,
+    });
+    setShowComments(true);
+  };
+
+  const showBlockComment = (): void => {
+    setShowComments((prev) =>
+      !prev);
+  };
+
   return (
     <Container>
       <NewsHeader>
-        <UserInfo avatar={foto} firstName={firstName} lastName={lastName} date={persistDate} />
+        <UserInfo avatar={avatar} firstName={firstName} lastName={lastName} date={persistDate} />
         <ActionsWrapper>
-          <ActionButton>
-            <ActionIcon name="bookmark" />
-            {bookmarkAmount || 0}
-          </ActionButton>
-          <ActionButton>
-            <ActionIcon name="like" />
-            {likeAmount || 0}
-          </ActionButton>
           <ActionButton
-            onClick={(): void => {
-              setShowComments((prev) =>
-                !prev);
-            }}
-          >
-            <ActionIcon name="comments" />
-            {commentAmount || 0}
-          </ActionButton>
-          <ActionButton>
-            <ActionIcon name="share" />
-            {shareAmount || 0}
-          </ActionButton>
+            name="bookmark"
+            value={bookmarkAmount}
+            active={isBookmarked}
+            handler={() =>
+              toggleBookmarks(id)}
+          />
+
+          <ActionButton
+            name="like"
+            value={likeAmount}
+            active={isLiked}
+            handler={() =>
+              toggleLikes(id)}
+          />
+
+          <ActionButton
+            name="comments"
+            value={commentAmount}
+            active={commentAmount! > 0}
+            handler={scrollToComments}
+          />
+
+          <ActionButton
+            name="share"
+            value={shareAmount}
+            active={isShared}
+            handler={(): void => { console.log('ЖДЕМ ЭНДПОИНТ НА РЕПОСТЫ'); }}
+          />
         </ActionsWrapper>
       </NewsHeader>
 
       <NewsContent>
         <NewsTitle>{title}</NewsTitle>
 
-        <SmoothCollapse expanded={showContent} collapsedHeight="300px">
-          <NewsImage src="https://vecherka74.ru/uploads/posts/2017-03/1489665471_fcq3yav1a3o.jpg" />
+        <SmoothCollapse {...SmoothCollapseSettings}>
           <Article>
             {text}
           </Article>
+          <MediaContent media={media} />
         </SmoothCollapse>
 
         <ShowMoreBtn
@@ -89,10 +132,17 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
         />
       </NewsContent>
       {renderTags()}
-      <SmoothCollapse expanded={showComments}>
-        <Comments id={id} comments={comments} loading={loading} error={error} />
-      </SmoothCollapse>
 
+      <Element name={id.toString()}>
+        <Comments
+          id={id}
+          comments={comments}
+          loading={loading}
+          error={error}
+          showComments={showComments}
+          setShowComments={showBlockComment}
+        />
+      </Element>
     </Container>
   );
 };
@@ -120,31 +170,6 @@ const ActionsWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ActionButton = styled.button`
-  min-width: 30px;
-  height: 30px;
-  padding: 0;
-  display: flex;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 160.9%;
-  color: #000000;
-  transition: 0.1s;
-  &:hover,
-  &:active,
-  &:focus {
-    transform: scale(1.05);
-    color: #ffb11b;    
-  }
-  &: focus {
-    outline: none;
-  }
-`;
-
 const NewsContent = styled.article`
   position: relative;
   width: 100%;
@@ -162,15 +187,6 @@ const NewsTitle = styled.div`
   font-weight: 600;
   font-size: 20px;
   line-height: 160%;
-`;
-
-const NewsImage = styled.img`
-  display: block;
-  border-radius: 5px;
-  width: 100%;
-  object-fit: cover;
-  margin-bottom: 25px;
-  box-shadow: 1px 1px 8px 0px #d5d2d2;
 `;
 
 const Article = styled(ReactMarkdown)`
