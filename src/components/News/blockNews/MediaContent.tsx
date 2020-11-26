@@ -19,54 +19,12 @@ type Props = {
 const MediaContent: React.FC<Props> = ({ media }) => {
   const [showVideo, setShowVideo] = useState<string | null>(null);
 
-  /* const videoData = media?.filter((item) =>
+  const videoData = media?.filter((item) =>
     item.mediaType === 'VIDEO');
   const imageData = media?.filter((item) =>
     item.mediaType === 'IMAGE');
   const audioData = media?.filter((item) =>
-    item.mediaType === 'AUDIO'); */
-
-  const imageData = [
-    {
-      mediaType: 'IMAGE',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0bFQ5xD1SmvxL_acWoj0A1uFY43nGEzH0Lw&usqp=CAU',
-      userId: 65,
-    },
-    {
-      mediaType: 'IMAGE',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0bFQ5xD1SmvxL_acWoj0A1uFY43nGEzH0Lw&usqp=CAU',
-      userId: 65,
-    },
-    {
-      mediaType: 'IMAGE',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0bFQ5xD1SmvxL_acWoj0A1uFY43nGEzH0Lw&usqp=CAU',
-      userId: 65,
-    },
-  ];
-
-  const videoData = [
-    {
-      mediaType: 'VIDEO',
-      url: 'https://youtu.be/vw2FOYjCz38',
-      userId: 65,
-    },
-    {
-      mediaType: 'VIDEO',
-      url: 'https://youtu.be/n9xhJrPXop4',
-      userId: 65,
-    },
-
-  ];
-
-  const audioData = [{
-    mediaType: 'AUDIO',
-    url: 'https://music.yandex.ru/album/49799/track/471935',
-    userId: 1,
-  }, {
-    mediaType: 'AUDIO',
-    url: 'https://music.yandex.ru/album/49799/track/471935',
-    userId: 1,
-  }];
+    item.mediaType === 'AUDIO');
 
   const settings = {
     loop: true,
@@ -134,28 +92,11 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     );
   };
 
-  /*   const renderAudio = (): JSX.Element | null => {
-    if (audioData?.length === 0) return null;
-    return (
-      <SliderWrapper {...settings}>
-        {audioData?.map((audio) =>
-          (
-            <SliderItem key={audio.url}>
-              <iframe title={audio.url} frameBorder="0" width="100%" height="180" src="https://music.yandex.ru/iframe/#track/471935/49799" />
-            </SliderItem>
-          )
-          )}
-      </SliderWrapper>
-    );
-  }; */
-
   return (
     <Container>
       {renderImages()}
       {renderVideos()}
-      {/* {renderAudio()} */}
     </Container>
-
   );
 };
 
@@ -198,7 +139,6 @@ border-radius: 5px;
     @media (max-width: 1650px) {
       height: 350px;
     }
-
 `;
 
 const Arrow = styled.button<{next?: boolean}>`
