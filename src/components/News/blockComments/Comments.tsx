@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
 import { RootState } from '../../../redux-toolkit/store';
-import { loadCommentsByPost } from '../../../redux-toolkit/postsSlice';
-import { addNewCommentToPost } from '../../../services/post-controller/post-controller';
+import { loadCommentsByPost /*  addNewComment */ } from '../../../redux-toolkit/postsSlice';
+
 import IComment, { ICreateComment } from '../../../types/comment';
 import { IUser } from '../../../types/user';
 
@@ -21,6 +21,7 @@ interface StateProps {
 
 interface DispatchProps {
     getComments: (id: number) => void;
+    /* addComment: (postId: number, comment: ICreateComment) => void; */
 }
 
 type Props = StateProps & DispatchProps & {
@@ -39,31 +40,35 @@ const mapStateToProps = (state: RootState): StateProps =>
 
 const mapDispatchToProps = {
   getComments: loadCommentsByPost,
+  /* addComment: addNewComment, */
 };
 
-const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments, showComments, setShowComments }): JSX.Element => {
+const Comments: React.FC<Props> = ({
+  id,
+  user,
+  comments,
+  loading,
+  error,
+  getComments,
+  showComments,
+  setShowComments,
+  /*  addComment, */ }): JSX.Element => {
   useEffect(() => { getComments(id); }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
-    if (loading) return (<LoadingBlock />);
+    if (loading || !comments) return (<LoadingBlock />);
     if (error) return (<ErrorBlock>Error occured with loading comments.</ErrorBlock>);
-    return (
-      <CommentsList>
-        {
-        comments?.map((item) => {
-          const { userDto: { firstName, lastName, avatar }, lastRedactionDate, comment, id: commentId } = item;
-          return (
-            <CommentsItem key={commentId}>
-              <UserInfo avatar={avatar} firstName={firstName} lastName={lastName} date={lastRedactionDate} />
-              <Comment>
-                {comment}
-              </Comment>
-            </CommentsItem>
-          );
-        })
-        }
-      </CommentsList>
-    );
+    return comments?.map((item) => {
+      const { userDto: { firstName, lastName, avatar }, lastRedactionDate, comment, id: commentId } = item;
+      return (
+        <CommentsItem key={commentId}>
+          <UserInfo avatar={avatar} firstName={firstName} lastName={lastName} date={lastRedactionDate} />
+          <Comment>
+            {comment}
+          </Comment>
+        </CommentsItem>
+      );
+    });
   };
 
   const submitNewComment = async (comment: string) => {
@@ -71,16 +76,17 @@ const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComm
       comment,
       userDto: user!,
     };
-    await addNewCommentToPost(id, data!);
+    console.log('СЛОМАЛСЯ ЭНДПОИНТ НА ОТПРАВКУ НОВОГО КОММЕНТАРИЯ');
+    /* await addComment(id, data!); */
     await getComments(id);
   };
 
   return (
     <Container>
-      <Title>Коментарии</Title>
-      <SmoothCollapse expanded={showComments}>
+      <Title>Комментарии</Title>
+      <CommentsList as={SmoothCollapse} expanded={showComments}>
         {renderComments()}
-      </SmoothCollapse>
+      </CommentsList>
       <CommentForm avatar={user?.avatar} submitNewComment={submitNewComment} />
       <ShowMoreBtn
         changeIcon={showComments}
