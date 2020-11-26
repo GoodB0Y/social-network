@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
@@ -6,8 +7,6 @@ import ReactMarkdown from 'react-markdown';
 import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
 import { IDataPost } from '../../../types/post';
-
-import { addLikeToPost, deleteLikeToPost, addBookmarkToPost, deleteBookmarkToPost } from '../../../services/post-controller';
 
 import UserInfo from '../common/UserInfo';
 import ActionButton from '../common/ActionButton';
@@ -23,9 +22,20 @@ const { scroller } = Scroll;
 type Props = {
   postData: IDataPost;
   getPostsByTag: (tagName: string) => void;
+  addBookmarkToPost: (postId: number) => void;
+  removeBookmarkFromPost: (postId: number) => void;
+  addLikeToPost: (postId: number) => void;
+  removeLikeFromPost: (postId: number) => void;
+  sharePost: (postId: number) => void;
 };
 
-const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
+const NewsItem: React.FC<Props> = ({ postData,
+  getPostsByTag,
+  addBookmarkToPost,
+  removeBookmarkFromPost,
+  addLikeToPost,
+  removeLikeFromPost,
+  sharePost }) => {
   const { post, comments, loading, error } = postData;
   const { id, firstName, lastName, avatar, persistDate, commentAmount, isLiked, isBookmarked, isShared, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
   const [showContent, setShowContent] = useState(false);
@@ -36,30 +46,19 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
     collapsedHeight: '200px',
   };
 
-  const renderTags = (): JSX.Element =>
-    (
-      <TagsList>
-        {tags?.map((tag) =>
-          (
-            <TagItem
-              key={tag.id}
-              onClick={(): void =>
-                getPostsByTag(tag.text)}
-            >
-              {`#${tag.text} `}
-            </TagItem>
-          ))}
-      </TagsList>
-    );
-
   const toggleLikes = (idx: number) => {
-    if (isLiked) return deleteLikeToPost(idx);
+    if (isLiked) return removeLikeFromPost(idx);
     return addLikeToPost(idx);
   };
 
   const toggleBookmarks = (idx: number) => {
-    if (isBookmarked) return deleteBookmarkToPost(idx);
+    if (isBookmarked) return removeBookmarkFromPost(idx);
     return addBookmarkToPost(idx);
+  };
+
+  const toggleShared = (idx: number): void => {
+    if (isShared) return console.log('НЕОБХОДИМ НОВЫЙ ЭНДПОИНТ НА УДАЛЕНИЕ ИЗ РЕПОСТОВ');
+    return sharePost(idx);
   };
 
   const scrollToComments = (): void => {
@@ -86,16 +85,14 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
             name="bookmark"
             value={bookmarkAmount}
             active={isBookmarked}
-            handler={() =>
-              toggleBookmarks(id)}
+            handler={toggleBookmarks.bind(null, id)}
           />
 
           <ActionButton
             name="like"
             value={likeAmount}
             active={isLiked}
-            handler={() =>
-              toggleLikes(id)}
+            handler={toggleLikes.bind(null, id)}
           />
 
           <ActionButton
@@ -109,7 +106,7 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
             name="share"
             value={shareAmount}
             active={isShared}
-            handler={(): void => { console.log('ЖДЕМ ЭНДПОИНТ НА РЕПОСТЫ'); }}
+            handler={toggleShared.bind(null, id)}
           />
         </ActionsWrapper>
       </NewsHeader>
@@ -131,7 +128,19 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
               !prev)}
         />
       </NewsContent>
-      {renderTags()}
+
+      <TagsList>
+        {tags?.map((tag) =>
+          (
+            <TagItem
+              key={tag.id}
+              onClick={(): void =>
+                getPostsByTag(tag.text)}
+            >
+              {`#${tag.text} `}
+            </TagItem>
+          ))}
+      </TagsList>
 
       <Element name={id.toString()}>
         <Comments

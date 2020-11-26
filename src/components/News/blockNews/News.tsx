@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react/jsx-max-props-per-line */
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 import React, { useState, useRef, useEffect } from 'react';
@@ -7,12 +9,20 @@ import { RootState } from '../../../redux-toolkit/store';
 import {
   loadAllPosts,
   loadPostsByTag,
+  loadAllTags,
+  addBookmark,
+  removeBookmark,
+  addLike,
+  removeLike,
+  addShare,
 } from '../../../redux-toolkit/postsSlice';
 import { IDataPost } from '../../../types/post';
+import ITag from '../../../types/tag';
 import filterNews from './helpers';
 
 import ErrorBlock from '../../../common/errorBlock';
 import LoadingBlock from '../../../common/loadingBlock';
+import TagCloud from './TagCloud';
 import NewsItem from './NewsItem';
 
 import img from '../../../img/icons/search.svg';
@@ -21,11 +31,18 @@ interface StateProps {
   data: null | IDataPost[];
   loading: boolean;
   error: null | Error;
+  allTags: null | ITag[];
 }
 
 interface DispatchProps {
   getAllPosts: () => void;
   getPostsByTag: (tagName: string) => void;
+  getAllTags: () => void;
+  addBookmarkToPost: (postId: number) => void;
+  removeBookmarkFromPost: (postId: number) => void;
+  addLikeToPost: (postId: number) => void;
+  removeLikeFromPost: (postId: number) => void;
+  sharePost: (postId: number) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -35,36 +52,57 @@ const mapStateToProps = (state: RootState): StateProps =>
     data: state.posts.data,
     loading: state.posts.loading,
     error: state.posts.error,
+    allTags: state.posts.allTags,
   });
 
 const mapDispatchToProps = {
   getAllPosts: loadAllPosts,
   getPostsByTag: loadPostsByTag,
+  getAllTags: loadAllTags,
+  addBookmarkToPost: addBookmark,
+  removeBookmarkFromPost: removeBookmark,
+  addLikeToPost: addLike,
+  removeLikeFromPost: removeLike,
+  sharePost: addShare,
 };
 
-const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTag }) => {
+const News: React.FC<Props> = ({
+  data,
+  loading,
+  error,
+  allTags,
+  getAllPosts,
+  getPostsByTag,
+  getAllTags,
+  addBookmarkToPost,
+  removeBookmarkFromPost,
+  addLikeToPost,
+  removeLikeFromPost,
+  sharePost,
+}) => {
   const searchField = useRef<HTMLInputElement>(null);
   const [showSearchField, setShowSearchField] = useState(false);
   const [actualFilter, setActualFilter] = useState<string>('all');
   const [searchRequest, setSearchRequest] = useState<string | null>(null);
 
   useEffect(() => {
-    getAllPosts();
-  }, [actualFilter, getAllPosts]);
+    if (actualFilter === 'tags') getAllTags();
+    if (actualFilter !== 'tags' && actualFilter !== 'postByTag') getAllPosts();
+  }, [actualFilter, getAllPosts, getAllTags]);
 
   useEffect(() => {
     if (showSearchField) searchField!.current!.focus();
   }, [showSearchField]);
 
-  const setNewsFilter = (event: any): void => {
-    setActualFilter(event.target.name);
+  const setNewsFilter = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setActualFilter(event.currentTarget.name);
   };
 
-  const submitNewsRequest = (key: string): void => {
-    if (key === 'Enter') {
+  const submitNewsRequest = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
       setActualFilter('request');
-      setSearchRequest(searchField.current?.value!);
-      searchField.current!.value = '';
+      setSearchRequest(event.currentTarget.value);
+      event.currentTarget.value = '';
     }
   };
 
@@ -73,12 +111,8 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
       return (
         <SearchField
           ref={searchField}
-          onBlur={(): void => {
-            setShowSearchField((prev) =>
-              !prev);
-          }}
-          onKeyPress={({ key }) =>
-            submitNewsRequest(key)}
+          onBlur={(): void => setShowSearchField(false)}
+          onKeyPress={submitNewsRequest}
         />
       );
     }
@@ -92,18 +126,34 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
     );
   };
 
-  const renderNews = (): JSX.Element | JSX.Element[] => {
+  const showPostByTag = (tag: string): void => {
+    setActualFilter('postByTag');
+    getPostsByTag(tag);
+  };
+
+  const renderContent = (): JSX.Element | JSX.Element[] => {
     if (loading) return (<LoadingBlock />);
     if (error) return (<ErrorBlock>Error occured with loading posts.</ErrorBlock>);
-    if (!data) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
 
-    const filteredNews = filterNews([...data!], actualFilter, searchRequest);
-    if (filteredNews.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
-    return filteredNews.splice(0, 10).map((postData) =>
-      <NewsItem key={postData.post.id} postData={postData} getPostsByTag={getPostsByTag} />);
-  };/* УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
+    if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
 
-  const renderTagCloud = () => { console.log('ЖДЕМ ЭНДПОИНТ НА ВСЕ ТЕГИ'); };
+    if (!data) return (<h1>Ничего не найдено!</h1>);
+    const filteredNews = filterNews([...data], actualFilter, searchRequest);
+    if (filteredNews.length === 0) return (<h1>Ничего не найдено!</h1>);
+
+    return filteredNews.map((postData) => (
+      <NewsItem
+        key={postData.post.id}
+        postData={postData}
+        getPostsByTag={showPostByTag}
+        addBookmarkToPost={addBookmarkToPost}
+        removeBookmarkFromPost={removeBookmarkFromPost}
+        addLikeToPost={addLikeToPost}
+        removeLikeFromPost={removeLikeFromPost}
+        sharePost={sharePost}
+      />
+    ));
+  }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
 
   return (
     <Wrapper>
@@ -114,18 +164,20 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
             <MenuItem name="all" onClick={setNewsFilter}>
               Все
             </MenuItem>
-            <MenuItem name="fresh" onClick={setNewsFilter}>
-              Свежие
+            <MenuItem name="new" onClick={setNewsFilter}>
+              По дате
             </MenuItem>
             <MenuItem name="popular" onClick={setNewsFilter}>
-              Популярные
+              По популярности
             </MenuItem>
-            <MenuItem name="tags" onClick={renderTagCloud}>Теги</MenuItem>
+            <MenuItem name="tags" onClick={setNewsFilter}>
+              По тегам
+            </MenuItem>
           </Menu>
           {renderSearchField()}
         </MenuWrapper>
 
-        {renderNews()}
+        {renderContent()}
       </Container>
     </Wrapper>
   );

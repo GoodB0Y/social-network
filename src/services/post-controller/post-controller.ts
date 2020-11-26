@@ -1,12 +1,12 @@
+/* eslint-disable max-len */
+/* eslint-disable implicit-arrow-linebreak */
 import axiosLib, { AxiosResponse } from 'axios';
 import { ICreatePost, IPost } from '../../types/post';
 import IComment, { ICreateComment } from '../../types/comment';
 import { baseUrlv2 } from '../config';
 
 const axios = axiosLib.create();
-axios.interceptors.response.use((response) =>
-  response.data);
-/* axios.defaults.baseURL = `${baseUrlv2}posts`; */
+axios.interceptors.response.use((response) => response.data);
 axios.defaults.baseURL = `${baseUrlv2}`;
 
 export async function getAllPosts(): Promise<AxiosResponse<IPost[]>> {
@@ -37,18 +37,26 @@ export async function getPostsByUser(id: number): Promise<AxiosResponse<IPost[]>
   return axios.get(`posts/user/${id}`);
 }
 
-export async function addLikeToPost(postId: number) {
+export async function addLikeToPost(postId: number): Promise<AxiosResponse<IPost[]>> {
   return axios.post(`post/${postId}/like`);
 }
 
-export async function deleteLikeToPost(postId: number) {
+export async function deleteLikeFromPost(postId: number): Promise<AxiosResponse<IPost[]>> {
   return axios.delete(`post/${postId}/like`);
 }
 
-export async function addBookmarkToPost(postId: number) {
+export async function addBookmarkToPost(postId: number): Promise<AxiosResponse<IPost[]>> {
   return axios.post(`post/${postId}/bookmark`);
 }
 
-export async function deleteBookmarkToPost(postId: number) {
+export async function deleteBookmarkFromPost(postId: number): Promise<AxiosResponse<IPost[]>> {
   return axios.delete(`post/${postId}/bookmark`);
+}
+
+export async function sharePost(postId: number): Promise<AxiosResponse<IPost[]>> {
+  return axios.post(`post/${postId}/repost`);
+}
+
+export async function getAllTags(): Promise<AxiosResponse> {
+  return axios.get('posts/tags');
 }
