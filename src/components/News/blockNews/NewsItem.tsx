@@ -7,7 +7,7 @@ import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
 import { IDataPost } from '../../../types/post';
 
-import { addLikeToPost, deleteLikeToPost, addBookmarkToPost, deleteBookmarkToPost } from '../../../services/post-controller';
+import { addLikeToPost, addBookmarkToPost } from '../../../services/post-controller';
 
 import UserInfo from '../common/UserInfo';
 import ActionButton from '../common/ActionButton';
@@ -26,8 +26,8 @@ type Props = {
 };
 
 const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
-  const { post, comments, loading, error } = postData;
-  const { id, firstName, lastName, avatar, persistDate, commentAmount, isLiked, isBookmarked, isShared, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
+  /* const { post, comments, loading, error } = postData;
+  const { id, firstName, lastName, avatar, persistDate, commentAmount, isLiked, isBookmarked, isShared, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post; */
   const [showContent, setShowContent] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const SmoothCollapseSettings = {
@@ -36,7 +36,7 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
     collapsedHeight: '200px',
   };
 
-  const renderTags = (): JSX.Element =>
+  /* const renderTags = (): JSX.Element =>
     (
       <TagsList>
         {tags?.map((tag) =>
@@ -144,7 +144,8 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
         />
       </Element>
     </Container>
-  );
+  ); */
+  return <h1>!!!!</h1>;
 };
 
 export default NewsItem;

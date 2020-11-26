@@ -8,9 +8,11 @@ import {
   deletePost,
   getPostsByTag,
   addLikeToPost,
-  deleteLikeToPost,
+  deleteLikeFromPost,
   addBookmarkToPost,
-  deleteBookmarkToPost,
+  deleteBookmarkFromPost,
+  sharePost,
+  getAllTags,
 } from './post-controller';
 
 export {
@@ -22,7 +24,9 @@ export {
   getPostsByUser,
   getPostsByTag,
   addLikeToPost,
-  deleteLikeToPost,
+  deleteLikeFromPost,
   addBookmarkToPost,
-  deleteBookmarkToPost,
+  deleteBookmarkFromPost,
+  sharePost,
+  getAllTags,
 };
