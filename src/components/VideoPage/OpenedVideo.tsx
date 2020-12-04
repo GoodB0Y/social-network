@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+
+
 
 const OpenedVideoWrapper = styled.div`
   position: absolute;
@@ -42,7 +43,7 @@ const CloseButton = styled.button`
   align-self: flex-start;
 `;
 
-const OpenedVideo = ({ id, action }) =>
+export const OpenedVideo: React.FC = ({ id, action }:any) =>
   (
     <OpenedVideoWrapper onClick={action}>
       <VideoFrameWrapper>
@@ -50,22 +51,12 @@ const OpenedVideo = ({ id, action }) =>
           src={`https://www.youtube.com/embed/${id}`}
           frameBorder="0"
           allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen="allowfullscreen"
+          allowFullScreen
         />
         <CloseButton onClick={action}>+</CloseButton>
       </VideoFrameWrapper>
     </OpenedVideoWrapper>
   );
 
-OpenedVideo.defaultProps = {
-  id: '',
-  /* eslint-disable @typescript-eslint/no-empty-function */
-  action: () => {},
-};
 
-OpenedVideo.propTypes = {
-  id: PropTypes.string,
-  action: PropTypes.func,
-};
 
-export default OpenedVideo;

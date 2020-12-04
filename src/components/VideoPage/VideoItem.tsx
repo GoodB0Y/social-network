@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import arrowFilled from '../../common/img/icons/arrow_filled.svg';
 import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
+import defaultAlbum from '../../../src/img/albumDefault.jpg'
 
 const VideoImgOverlay = styled.a`
   height: 326px;
+  width: 87%;
   display: block;
   overflow: hidden;
   margin: 0;
   position: relative;
   margin-bottom: 46px;
+  margin-left: 30px;
   border-radius: 5px;
   cursor: pointer;
   &:hover {
@@ -59,6 +61,7 @@ const VideoUnderline = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  margin-left: 50px;
 `;
 
 const AddButton = styled.button`
@@ -71,37 +74,43 @@ const AddButton = styled.button`
   background: none;
 `;
 
-const VideoItem = (props) => {
-  const { id, name, isPopular, action } = props;
+ export  const VideoItem = (props: {author: string ,  url: string, name: string; isPopular: boolean; action: any; }) => {
+  const {  name, isPopular, action, url, author } = props;
+  const preview = `https://img.youtube.com/vi/${url}/2.jpg`
   return (
     <>
       <VideoImgOverlay role="button" onClick={action}>
         <ImgModifed
-          src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
+          src={preview}
           alt="wait for load"
         />
       </VideoImgOverlay>
       <VideoUnderline>
-        {name}
+        {author}-{name}
         {isPopular ? <AddButton onClick={action} /> : null}
       </VideoUnderline>
     </>
   );
 };
 
-VideoItem.defaultProps = {
-  id: '',
-  name: '',
-  isPopular: false,
-  /* eslint-disable @typescript-eslint/no-empty-function */
-  action: () => {},
+export  const AlbumItem = (props: {name: string; icon:string }) => {
+  const {  name,  icon } = props;
+
+  return (
+    <>
+        <ImgModifed
+          src={icon.length > 12 ?  icon  : defaultAlbum}
+          alt="wait for load"
+        />
+      <VideoUnderline>
+       {name}
+      </VideoUnderline>
+    </>
+  );
 };
 
-VideoItem.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  isPopular: PropTypes.bool,
-  action: PropTypes.func,
-};
 
-export default VideoItem;
+
+
+
+
