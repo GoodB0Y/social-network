@@ -45,10 +45,11 @@ export async function updateUserStatus(data: IUpdateStatusUser): Promise<AxiosRe
   return axios.patch('/status', data);
 }
 
-export async function removeUserById(id: number) {
+export async function removeUserById(id: number): Promise<AxiosResponse<string>> {
   return axios.delete(`/${id}`);
 }
 
-export async function getFriendsByUserId(id: number) {
-  return axios.get<IUserFriend[]>(`/${id}/friends`);
+export async function getFriendsByUserId(id: number): Promise<AxiosResponse<IUserFriend[]>> {
+  // Пока нет функционала фильтрации используем запрос на получение 15 друзей
+  return axios.get<IUserFriend[]>(`/${id}/friends?currentPage=0&itemsOnPage=15`);
 }

@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { uniqueId } from 'lodash';
-import { connect, ConnectedProps, useDispatch } from 'react-redux';
-import { Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { RootState } from '../../redux-toolkit/store';
 import SingleFriend from './SingleFriend';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { loadFriendsList, setFriendFilter } from '../../redux-toolkit/friendsListSlice';
+import LoadingBlock from '../../common/loadingBlock';
+import { IUser } from '../../types/user';
 
 export const FriendsWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
@@ -15,6 +17,7 @@ export const FriendsWrapper = styled.div`
   border-radius: 15px;
   padding: 114px 114px 114px 91px;
   margin-top: 275px;
+  margin-bottom: 50px;
   position: relative;
   min-height: 1200px;
 `;
@@ -32,41 +35,35 @@ export const PageMarker = styled.h2`
   background: #ffb11b;
 `;
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    friendsList: state.friends.data,
-    loading: state.friends.loading,
-    error: state.friends.error,
-    friendsFilter: state.friends.friendsFilter,
-  });
+const NoFriends = styled.h3`
+  margin: 25px auto 0px;
+  padding: 16px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  background: #ffb11b;
+  border-radius: 5px;
+`;
 
-const mapDispatch = { loadFriendsList };
-const connector = connect(mapStateToProps, mapDispatch);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
-
-const Friends: React.FC<Props> = ({
-  loadFriendsList: _loadFriendsList,
-  friendsList,
-  friendsFilter,
-  loading,
-  error,
-}) => {
-  useEffect(() => {
-    _loadFriendsList(2);
-  }, [_loadFriendsList]);
-  console.log(friendsList);
-  console.log(friendsFilter);
+const Friends: React.FC = (): React.ReactElement => {
+  const userId = useSelector((state: RootState) =>
+    state.user.data?.userId);
+  const friends = useSelector((state: RootState) =>
+    state.friends);
+  const { friendsFilter, data: friendsList, loading } = friends;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const filterInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (userId) dispatch(loadFriendsList(userId));
+  }, [dispatch, userId]);
+
+  const filterInputHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(setFriendFilter(event.target.value.toLowerCase()));
   };
 
-  const userFiltered = () => {
-    console.log('userFiltered');
+  const userFiltered = (): IUser[] => {
     if (friendsFilter.length > 0 && friendsList !== null) {
       return friendsList.filter(({ firstName, lastName }) => {
         const fullName = `${firstName} ${lastName}`.toLowerCase();
@@ -77,19 +74,19 @@ const Friends: React.FC<Props> = ({
   };
 
   const deleteButtonHandler = (event: React.MouseEvent, id: number) => {
-    console.log('Удалем пользовател из друзей, его id ', id);
+    console.log('Удален пользователь из друзей, его id ', id);
   };
 
   const messegeButtonHandler = (event: React.MouseEvent, id: number) => {
-    console.log(id);
+    history.push('/messages');
   };
 
   return (
     <FriendsWrapper>
       <PageMarker>Друзья</PageMarker>
-      <PageSearchInput action={filterInputHandler} placeholder="Начните поиск друзей..." />
-      {friendsList.length !== 0 ? (
+      {friendsList.length !== 0 && (
         <div>
+          <PageSearchInput action={filterInputHandler} placeholder="Начните поиск друзей..." />
           {userFiltered().map((item) =>
             (
               <SingleFriend
@@ -103,12 +100,13 @@ const Friends: React.FC<Props> = ({
                 id={item.userId}
               />
             ))}
+          {!userFiltered().length && <NoFriends>Друзей с таким именем нет.</NoFriends>}
         </div>
-      ) : (
-        <Spin size="large" />
       )}
+      {loading && <LoadingBlock />}
+      {(friendsList.length === 0 && !loading) && <NoFriends>У Вас нет друзей.</NoFriends>}
     </FriendsWrapper>
   );
 };
 
-export default connector(Friends);
+export default Friends;

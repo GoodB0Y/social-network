@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -38,22 +37,26 @@ const BaseButtonStyle = `
     height: 28px;
     width: 28px;
     border: none;
-    background-color: #515151;
     mask-size: cover;
-    &:hover{
-        background-color: #111;
-    };
+    background-color: #515151;
 `;
 
 const DeleteButton = styled.button`
   ${BaseButtonStyle};
   mask-image: url(${DeleteIcon});
   margin-left: 69px;
+  &:hover{
+    background-color: #CF0202;
+  };
 `;
 
 const MessageButton = styled.button`
   ${BaseButtonStyle};
+  margin-top: 5px;
   mask-image: url(${MessageIcon});
+  &:hover{
+    background-color: #ffb11b;
+  };
 `;
 
 const FriendInfo = styled.div`
@@ -95,7 +98,8 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
     <SingleFriendWrapper>
       <Placer>
         <FriendAvatarWrapper href="#">
-          <FriendAvatar src={avatarka || userFoto} alt="there should be avatarka" />
+          {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
+          <FriendAvatar src={userFoto || avatarka} alt="there should be avatarka" />
         </FriendAvatarWrapper>
         <FriendInfo>
           <FriendFullName to={funcsRoutes.mainWithId(id)}>
@@ -107,10 +111,10 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
         </FriendInfo>
       </Placer>
       <Placer>
-        <MessageButton onClick={(event) =>
+        <MessageButton onClick={(event: React.MouseEvent<HTMLElement>): void =>
           messegeButtonHandler(event, id)}
         />
-        <DeleteButton onClick={(event) =>
+        <DeleteButton onClick={(event: React.MouseEvent<HTMLElement>): void =>
           deleteButtonHandler(event, id)}
         />
       </Placer>

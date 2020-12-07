@@ -10,19 +10,10 @@ export interface ISingleFriendProps {
   messegeButtonHandler(event: React.MouseEvent, id: number): void;
 }
 
-// export interface IFrendsProps {
-//   loadFrendsList: (arg: number) => void;
-//   frendsList: Array<IUser>;
-//   loading: boolean;
-//   error: Error;
-//   frendsFilter:string
-// }
-
-// export interface IStore {
-//   frendList: {
-//     data: Array<IUser>;
-//     error: Error;
-//     loading: boolean;
-//     frendsFilter:string;
-//   };
-// }
+export interface IFrendsProps {
+  loadFrendsList: (arg: number) => IUser[];
+  frendsList: IUser[];
+  loading: boolean;
+  error: Error;
+  frendsFilter: string;
+}

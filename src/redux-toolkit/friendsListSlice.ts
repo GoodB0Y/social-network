@@ -7,7 +7,7 @@ const loadFriendsList = createAsyncThunk('friendList/loadFriendsList', async (id
   const response = await userController.getFriendsByUserId(id) as unknown as IUserFriend[];
   const temp: Array<Promise<AxiosResponse<IUser>>> = [];
   response.forEach((item) =>
-    temp.push(userController.getUserById(item.friendId)));
+    temp.push(userController.getUserById(item.id)));
   return Promise.all(temp);
 });
 
