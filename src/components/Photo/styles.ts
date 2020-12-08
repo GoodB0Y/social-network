@@ -6,25 +6,23 @@ import { secondaryColor } from '../../colors.module';
 export const Item = styled.div`
   border-radius: 7px;
   overflow: hidden;
+  height: 0;
+  padding: 50% 0;
   background-color: #efefef;
-  position: static;
-  flex-basis: 30%;
-  margin-bottom: 44px;
+  position: relative;
   transition: all 0.3s;
 
   &:hover {
     box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px ${secondaryColor};
   }
 
-  & > div {
-    width: 100%;
-    height: 100%;
-  }
-
   & img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 150%;
+    position: absolute;
+    top: 0;
+    left: 0; 
   }
 `;
 
@@ -97,8 +95,7 @@ export const SliderItemHeadline = styled.h2`
 `;
 
 export const GridContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 40px;
 `;

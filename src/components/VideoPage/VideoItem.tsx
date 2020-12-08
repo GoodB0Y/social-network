@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowFilled from '../../common/img/icons/arrow_filled.svg';
 import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
-import defaultAlbum from '../../../src/img/albumDefault.jpg'
+import defaultAlbum from '../../img/albumDefault.jpg';
 
 const VideoImgOverlay = styled.a`
   height: 326px;
@@ -74,9 +74,11 @@ const AddButton = styled.button`
   background: none;
 `;
 
- export  const VideoItem = (props: {author: string ,  url: string, name: string; isPopular: boolean; action: any; }) => {
-  const {  name, isPopular, action, url, author } = props;
-  const preview = `https://img.youtube.com/vi/${url}/2.jpg`
+export const VideoItem = (
+  props: {author: string; url: string; name: string; isPopular: boolean; action: any },
+) => {
+  const { name, isPopular, action, url, author } = props;
+  const preview = `https://img.youtube.com/vi/${url}/2.jpg`;
   return (
     <>
       <VideoImgOverlay role="button" onClick={action}>
@@ -86,31 +88,27 @@ const AddButton = styled.button`
         />
       </VideoImgOverlay>
       <VideoUnderline>
-        {author}-{name}
+        {author}
+        -
+        {name}
         {isPopular ? <AddButton onClick={action} /> : null}
       </VideoUnderline>
     </>
   );
 };
 
-export  const AlbumItem = (props: {name: string; icon:string }) => {
-  const {  name,  icon } = props;
+export const AlbumItem = (props: {name: string; icon: string }) => {
+  const { name, icon } = props;
 
   return (
     <>
-        <ImgModifed
-          src={icon.length > 12 ?  icon  : defaultAlbum}
-          alt="wait for load"
-        />
+      <ImgModifed
+        src={icon.length > 12 ? icon : defaultAlbum}
+        alt="wait for load"
+      />
       <VideoUnderline>
-       {name}
+        {name}
       </VideoUnderline>
     </>
   );
 };
-
-
-
-
-
-

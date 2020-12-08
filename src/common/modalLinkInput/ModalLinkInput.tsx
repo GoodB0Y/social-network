@@ -11,13 +11,16 @@ export interface IModalLinkInput<T> {
   visible: boolean;
   setUnvisible?: () => void;
   onLinkSend: (link: T) => void;
+  children?: JSX.Element | null;
+
 }
 
 const ModalLinkInput = <T extends string | string[]>({
   title,
   onLinkSend,
   setUnvisible,
-}: IModalLinkInput<T>) => {
+  children,
+}: IModalLinkInput<T>): JSX.Element => {
   const titleIsArray = Array.isArray(title);
   const initialValue = titleIsArray ? (title as string[]).map(() =>
     '') : '';
@@ -75,6 +78,8 @@ const ModalLinkInputWrapper = <T extends string | string[]>(props: IModalLinkInp
       centered
       className="custom-antd-modal"
     >
+      {/* eslint-disable-next-line react/destructuring-assignment */}
+      {props.children}
       <ModalLinkInput {...props} />
     </Modal>
   );

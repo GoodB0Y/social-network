@@ -14,11 +14,7 @@ const allPhotoItems = (
     return images.map((image) =>
       (
         <Item key={`${image.persistDateTime} ${image.id} of ${image.userId}`}>
-          <ModalImage
-            small={image.url}
-            large={image.url}
-            alt={`${image.description} at ${image.persistDateTime}. image#${image.id}`}
-          />
+          <img src={image.url} alt={`${image.description}`} />
         </Item>
       ));
   }

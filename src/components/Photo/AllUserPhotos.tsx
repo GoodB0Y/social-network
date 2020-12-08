@@ -6,10 +6,13 @@ import createImagePhoto from './funcs/createImage';
 
 import { RootState } from '../../redux-toolkit/store';
 import { loadImages, resetImages } from '../../redux-toolkit/imagesSlice';
-import ModalLinkInput from '../../common/modalLinkInput';
+import ModalLinkInput from '../../common/modalLinkInput/ModalLinkInput';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import UploadForm from './UploadForm';
 import { GridContainer, LinkArrow } from './styles';
+import ModalPhoto from './ModalPhoto';
+import FullScreen from './FullScreen';
+import ImageGrid from './ImageGrid';
 
 const mapStateToProps = (state: RootState) =>
   ({
@@ -38,6 +41,12 @@ const AllUserPhotos: React.FC<Props> = ({
   error,
 }) => {
   const [isCreateImageModalOpen, setCreateImageModalOpen] = useState(false);
+  const [file, setFile] = useState<null | File>(null);
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
+  const [selectedImage, setSelectedImage] = useState<undefined | string>(undefined);
+
+  const types = ['image/png', 'image/jpg', 'image/jpeg'];
   useEffect(() => {
     resetImages();
     _loadImages(userId);
@@ -51,30 +60,60 @@ const AllUserPhotos: React.FC<Props> = ({
     },
     [currentUserId, _loadImages, userId],
   );
+  const selectFileHandler:
+  React.ReactEventHandler<HTMLInputElement> = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    const fileList = evt.target.files;
+    if (fileList) {
+      const selected = fileList[0];
+      if (selected && types.includes(selected.type)) {
+        setFile(selected);
+        setErrorMessage(null);
+        setCreateImageModalOpen(true);
+      } else {
+        setFile(null);
+        setErrorMessage('Please select an image file(png, jpeg or jpg)');
+      }
+    }
+  };
   return (
     <>
       <SectionHeader headline="Все фотографии">
         <Element name="all" />
         {isCurrentUser ? (
-          <Button onClick={() =>
-            setCreateImageModalOpen(true)}
-          >
-            Добавить
-          </Button>
+          <UploadForm
+            onChange={(evt): void =>
+              selectFileHandler(evt)}
+            error={errorMessage}
+            file={file}
+          />
         ) : undefined}
         <ModalLinkInput
-          title={['Ссылка на изображение:', 'Описание:']}
+          title={['Описание:']}
           visible={isCreateImageModalOpen}
-          setUnvisible={() =>
-            setCreateImageModalOpen(false)}
-          onLinkSend={(texts) =>
-            createImage({ url: texts[0], desc: texts[1] })}
-        />
+          setUnvisible={(): void => {
+            setCreateImageModalOpen(false);
+            setFile(null);
+          }}
+          onLinkSend={(texts): void => {
+            createImage({ url: imageUrl, desc: texts[0] });
+          }}
+        >
+          {file && <ModalPhoto file={file} setImageUrl={setImageUrl} />}
+        </ModalLinkInput>
       </SectionHeader>
-      <GridContainer>
-        <LinkArrow to="all" duration={500} smooth spy />
-        {allPhotoItems(images, loading, error)}
-      </GridContainer>
+      <ImageGrid
+        images={images}
+        loading={loading}
+        error={error}
+        setSelectedImage={setSelectedImage}
+      />
+      { /* <LinkArrow to="all" duration={500} smooth spy /> */ }
+      { selectedImage && (
+      <FullScreen
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+      />
+      )}
     </>
   );
 };

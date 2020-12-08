@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { uniqueId } from 'lodash';
-import {VideoItem, OpenedVideo} from './index';
+import { Controller, useForm } from 'react-hook-form';
+import Alert from 'antd/lib/alert';
+// import { VideoItem, OpenedVideo } from './index';
+import { VideoItem, AlbumItem } from './VideoItem';
+import { OpenedVideo } from './OpenedVideo';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
 import arrowNotFilled from '../../common/img/icons/arr_left.svg';
@@ -15,10 +19,7 @@ import {
   allVideosAction,
 } from '../../redux-toolkit/videos/allVideosSlice';
 import 'swiper/swiper.scss';
-import {Controller,  useForm } from 'react-hook-form';
-import { AlbumItem } from './VideoItem';
-import Alert from 'antd/lib/alert';
-
+import { RootState } from '../../redux-toolkit/store';
 
 const ComponentWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
@@ -51,10 +52,10 @@ const MyVideos = styled.div`
   margin-bottom: 63px;
 `;
 
-const Divider =   styled.div`
+const Divider = styled.div`
   
   border: 1px solid #000000
-`
+`;
 
 const PopularVideos = styled.div`
   width: 100%;
@@ -70,13 +71,11 @@ const PopularVideosItemWrapper = styled.div`
   flex-basis: 48%;
 `;
 
-
-
 type OtherDataWrapperType = {
-  show: boolean
-}
+  show: boolean;
+};
 
-const PopularVideoList =  styled.div<OtherDataWrapperType>`
+const PopularVideoList = styled.div<OtherDataWrapperType>`
   flex-wrap: wrap;
   max-width: 100%;
   display: flex;
@@ -84,7 +83,7 @@ const PopularVideoList =  styled.div<OtherDataWrapperType>`
   flex-direction: row;
   overflow: hidden;
   transition: all 0.5s;
-  max-height: ${({ show  }) =>
+  max-height: ${({ show }) =>
     (show ? 'auto' : '412px')};
 `;
 
@@ -96,15 +95,15 @@ const ShowHideButton = styled.button<OtherDataWrapperType>`
   border: none;
   height: 25px;
   width: 15px;
-  transform: ${({ show }) => 
-   (show ? 'rotate(90deg)' : 'rotate(-90deg)')
+  transform: ${({ show }) =>
+    (show ? 'rotate(90deg)' : 'rotate(-90deg)')
 };
   background: #515151;
   mask-image: url(${arrowNotFilled});
   mask-position: center;
   mask-repeat: no-repeat;
   cursor: pointer;
-`
+`;
 const VideoModalContainer = styled.div`
   width: 1700px;
   height: 3000px;
@@ -119,9 +118,9 @@ const VideoModalContainer = styled.div`
     font-weight: bolder
   }
   
-`
+`;
 
-const  Form = styled.form`
+const Form = styled.form`
   width: 800px;
   border: 3px solid orange;  
   background-color: white;
@@ -149,13 +148,13 @@ border: 1px solid black;
  margin: 20px;
  padding: 5px 10px;
  
-`
+`;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   
-`
+`;
 const Button = styled.button`
   background-color: #FFB11B;
   color: white;
@@ -169,12 +168,12 @@ const Button = styled.button`
   background-color:#FF6A00;
   transition: .5s;
   }
-`
+`;
 
- const VideoPage: React.FC  = () => {
-  // @ts-ignore
-  const {allVideos, allAlbums, error} = useSelector(state => state.videos);
-   const { handleSubmit, errors, control } = useForm({});
+const VideoPage: React.FC = () => {
+  const { allVideos, allAlbums, error } = useSelector((state: RootState) =>
+    state.videos);
+  const { handleSubmit, errors, control } = useForm({});
   const [showPopular, setShowPopular] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showModalAlbum, setShowModalAlbum] = useState(false);
@@ -182,13 +181,13 @@ const Button = styled.button`
     showVideo: false,
     videoId: '',
   });
-  const dispatch = useDispatch()
-  useEffect( ()=>{
-    dispatch(allVideosAction(3))
-    dispatch(AllAlbumAction())
-  },[dispatch])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(allVideosAction(3));
+    dispatch(AllAlbumAction());
+  }, [dispatch]);
 
-  const showVideo = (id:string) => {
+  const showVideo = (id: string) => {
     setVideoToShow({
       showVideo: true,
       videoId: id,
@@ -201,7 +200,7 @@ const Button = styled.button`
       videoId: '',
     });
   };
-// убирает полосу прокрутки при активном видео или при форме добавления
+  // убирает полосу прокрутки при активном видео или при форме добавления
   useEffect(() => {
     if (videoToShow.showVideo || showModal) {
       document.body.style.overflow = 'hidden';
@@ -209,94 +208,114 @@ const Button = styled.button`
     }
     document.body.style.overflow = 'unset';
   }, [videoToShow, showModal]);
-   const  addVideo = async (data:any) =>
-   {
-     await dispatch(addVideoAction(data))
-     setShowModal(false)
-   }
-   const  addAlbum = async (data:any) =>
-   {
-     await dispatch(addAlbumAction(data))
-     setShowModalAlbum(false)
-   }
-  const createModal = (data : any)=>
-    <VideoModalContainer onClick = {()=>{
-      setShowModal(false)
-      setShowModalAlbum(()=> false)
-    }}>
-    <Form method = 'POST' onClick = {(e)=>e.stopPropagation()}>
-      <h2>Добавление нового {showModalAlbum ? 'альбома' : 'видео' } </h2>
-      {!showModalAlbum ?
-        <h3>Для добавления видео необходимо вставить в поля icon и url код, для примера https://www.youtube.com/watch?v=<b>fnzO0U1mSb8</b></h3>
-      : null }
-        {data.map((elem:any)  =>
-        <Controller
-          name={elem.name}
-          control={control}
-          type = {elem.type}
-          key = {elem.name}
-          defaultValue=''
-          rules={{
-            required: elem.rules,
-          }}
-          as={<Input name="name" type={elem.type} placeholder={elem.placeholder}    />}
+  const addVideo = async (data: any) => {
+    await dispatch(addVideoAction(data));
+    setShowModal(false);
+  };
+  const addAlbum = async (data: any) => {
+    await dispatch(addAlbumAction(data));
+    setShowModalAlbum(false);
+  };
+  const createModal = (data: any) =>
+    (
+      <VideoModalContainer onClick={() => {
+        setShowModal(false);
+        setShowModalAlbum(() =>
+          false);
+      }}
+      >
+        <Form
+          method="POST"
+          onClick={(e) =>
+            e.stopPropagation()}
+        >
+          <h2>
+            Добавление нового
+            {showModalAlbum ? 'альбома' : 'видео' }
+          </h2>
+          {!showModalAlbum
+            ? (
+              <h3>
+                Для добавления видео необходимо вставить в поля icon и url код, для примера https://www.youtube.com/watch?v=
+                <b>fnzO0U1mSb8</b>
+              </h3>
+            )
+            : null }
+          {data.map((elem: any) =>
+            (
+              <Controller
+                name={elem.name}
+                control={control}
+                type={elem.type}
+                key={elem.name}
+                defaultValue=""
+                rules={{
+                  required: elem.rules,
+                }}
+                as={<Input name="name" type={elem.type} placeholder={elem.placeholder} />}
+              />
+            ))}
 
-        />
-      )}
-
-      <ButtonGroup>
-        <Button type="button"  onClick= { handleSubmit( showModalAlbum ? addAlbum : addVideo)} >Ok</Button>
-        <Button type="button" onClick={()=> {
-          setShowModal(()=> false)
-          setShowModalAlbum(()=> false)
-        }
-        }>Cancel</Button>
-      </ButtonGroup>
-    </Form>
-  </VideoModalContainer>
-   return (
+          <ButtonGroup>
+            <Button type="button" onClick={handleSubmit(showModalAlbum ? addAlbum : addVideo)}>Ok</Button>
+            <Button
+              type="button"
+              onClick={() => {
+                setShowModal(() =>
+                  false);
+                setShowModalAlbum(() =>
+                  false);
+              }}
+            >
+              Cancel
+            </Button>
+          </ButtonGroup>
+        </Form>
+      </VideoModalContainer>
+    );
+  return (
     <>
 
-      {   showModal ? createModal([
+      { showModal ? createModal([
         {
           name: 'name',
           placeholder: 'Название видео',
           type: 'text',
-          rules: 'Введите название видео'
+          rules: 'Введите название видео',
         },
         {
           name: 'author',
           placeholder: 'Автор видео',
           type: 'text',
-          rules: 'Введите автора видео'
+          rules: 'Введите автора видео',
         },
         {
           name: 'url',
           placeholder: 'Ссылка на видео',
           type: 'url',
-          rules: 'Введите ссылку на видео'
+          rules: 'Введите ссылку на видео',
         },
         {
-        name: 'icon',
-        placeholder: 'Превью для видео',
-        type: 'url',
-        rules: 'Введите ссылку на превью'
-      },
+          name: 'icon',
+          placeholder: 'Превью для видео',
+          type: 'url',
+          rules: 'Введите ссылку на превью',
+        },
 
       ]) : null}
-      {   showModalAlbum ? createModal([
+      { showModalAlbum ? createModal([
         {
           name: 'name',
           placeholder: 'Название альбома',
           type: 'text',
-          rules: 'Введите название альбома'
+          rules: 'Введите название альбома',
         },
         {
-        name: 'icon',
-        placeholder: 'Превью для альбома',
-        type: 'url',
-        rules: 'Введите ссылку на превью'
-      },
+          name: 'icon',
+          placeholder: 'Превью для альбома',
+          type: 'url',
+          rules: 'Введите ссылку на превью',
+        },
 
       ]) : null}
       {' '}
@@ -307,18 +326,24 @@ const Button = styled.button`
           <PageMarker>Видеозаписи</PageMarker>
           <MyVideos>
             <SectionHeader headline="Мои видео">
-              <StyledButton onClick = {()=>setShowModal((prev)=>!prev)}>Добавить</StyledButton>
+              <StyledButton onClick={() =>
+                setShowModal((prev) =>
+                  !prev)}
+              >
+                Добавить
+              </StyledButton>
             </SectionHeader>
-            <Slider   slidesToShow={2}  slidesToScroll = {2} loop>
+            <Slider slidesToShow={2} slidesToScroll={2} loop>
               {[...allVideos].map((obj) =>
                 (
                   <VideoItem
                     key={uniqueId()}
                     id={obj.id}
-                    url = {obj.url}
+                    url={obj.url}
                     name={obj.name}
                     author={obj.author}
-                    action={() => showVideo(obj.url)}
+                    action={() =>
+                      showVideo(obj.url)}
                     isPopular={false}
                   />
                 ))}
@@ -328,15 +353,20 @@ const Button = styled.button`
           <MyVideos>
             <SectionHeader headline="Мои альбомы">
 
-              <StyledButton onClick = {()=>setShowModalAlbum((prev)=>!prev)}>Создать</StyledButton>
+              <StyledButton onClick={() =>
+                setShowModalAlbum((prev) =>
+                  !prev)}
+              >
+                Создать
+              </StyledButton>
             </SectionHeader>
-            {error ? <Alert type = 'error' closable message = {error}/> : null}
-            <Slider   slidesToShow={2}  slidesToScroll = {2} loop>
+            {error ? <Alert type="error" closable message={error} /> : null}
+            <Slider slidesToShow={2} slidesToScroll={2} loop>
               {[...allAlbums].map((obj) =>
                 (
                   <AlbumItem
                     key={uniqueId()}
-                    icon = {obj.icon}
+                    icon={obj.icon}
                     name={obj.name}
                   />
                 ))}
@@ -345,7 +375,7 @@ const Button = styled.button`
           <Divider />
           <PopularVideos>
             <SectionHeader headline="Популярные" />
-            <PopularVideoList  show={showPopular}>
+            <PopularVideoList show={showPopular}>
               <ShowHideButton
                 show={showPopular}
                 onClick={() =>
@@ -357,10 +387,11 @@ const Button = styled.button`
                     <VideoItem
                       key={uniqueId()}
                       id={obj.id}
-                      url = {obj.url}
+                      url={obj.url}
                       author={obj.author}
                       name={obj.name}
-                      action={() => showVideo(obj.url)}
+                      action={() =>
+                        showVideo(obj.url)}
                       isPopular={false}
                     />
                   </PopularVideosItemWrapper>
@@ -369,8 +400,8 @@ const Button = styled.button`
           </PopularVideos>
         </ComponentWrapper>
       </PageWrapper>
-   </>
+    </>
   );
 };
 
-export default VideoPage
+export default VideoPage;
