@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import swal from 'sweetalert';
 import funcsRoutes from '../../routes/funcsRoutes';
 import userFoto from '../../img/userFoto.png';
 import DeleteIcon from '../../common/img/icons/delete.svg';
 import MessageIcon from '../../common/img/icons/message.svg';
 import { ISingleFriendProps } from './FriendsInterface';
+import './helpers/deleteConfirm.scss';
 
 const SingleFriendWrapper = styled.div`
   display: flex;
@@ -38,22 +39,26 @@ const BaseButtonStyle = `
     height: 28px;
     width: 28px;
     border: none;
-    background-color: #515151;
     mask-size: cover;
-    &:hover{
-        background-color: #111;
-    };
+    background-color: #515151;
 `;
 
 const DeleteButton = styled.button`
   ${BaseButtonStyle};
   mask-image: url(${DeleteIcon});
   margin-left: 69px;
+  &:hover{
+    background-color: #CF0202;
+  };
 `;
 
 const MessageButton = styled.button`
   ${BaseButtonStyle};
+  margin-top: 5px;
   mask-image: url(${MessageIcon});
+  &:hover{
+    background-color: #ffb11b;
+  };
 `;
 
 const FriendInfo = styled.div`
@@ -75,6 +80,7 @@ const FriendProfession = styled.span`
 `;
 
 const Placer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -89,13 +95,14 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
   avatarka,
   id,
   deleteButtonHandler,
-  messegeButtonHandler,
+  messageButtonHandler,
 }: ISingleFriendProps) =>
   (
     <SingleFriendWrapper>
       <Placer>
         <FriendAvatarWrapper href="#">
-          <FriendAvatar src={avatarka || userFoto} alt="there should be avatarka" />
+          {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
+          <FriendAvatar src={userFoto || avatarka} alt="there should be avatarka" />
         </FriendAvatarWrapper>
         <FriendInfo>
           <FriendFullName to={funcsRoutes.mainWithId(id)}>
@@ -107,11 +114,20 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
         </FriendInfo>
       </Placer>
       <Placer>
-        <MessageButton onClick={(event) =>
-          messegeButtonHandler(event, id)}
+        <MessageButton onClick={(): void =>
+          messageButtonHandler(id)}
         />
-        <DeleteButton onClick={(event) =>
-          deleteButtonHandler(event, id)}
+        <DeleteButton onClick={(): void => {
+          swal({
+            title: 'Вы уверены?',
+            text: `Удалить ${firstname} ${lastname} из списка друзей?`,
+            buttons: ['Нет', 'Да'],
+            className: 'confirm__bg',
+          })
+            .then((value) => {
+              if (value) deleteButtonHandler(id);
+            });
+        }}
         />
       </Placer>
     </SingleFriendWrapper>
