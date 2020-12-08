@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { uniqueId } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import Alert from 'antd/lib/alert';
-// import { VideoItem, OpenedVideo } from './index';
-import { VideoItem, AlbumItem } from './VideoItem';
-import { OpenedVideo } from './OpenedVideo';
+// eslint-disable-next-line import/no-cycle
+import { VideoItem, OpenedVideo } from './index';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
 import arrowNotFilled from '../../common/img/icons/arr_left.svg';
@@ -19,7 +18,7 @@ import {
   allVideosAction,
 } from '../../redux-toolkit/videos/allVideosSlice';
 import 'swiper/swiper.scss';
-import { RootState } from '../../redux-toolkit/store';
+import { AlbumItem } from './VideoItem';
 
 const ComponentWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
@@ -53,7 +52,7 @@ const MyVideos = styled.div`
 `;
 
 const Divider = styled.div`
-  
+
   border: 1px solid #000000
 `;
 
@@ -110,50 +109,50 @@ const VideoModalContainer = styled.div`
   z-index: 100;
   background-color: rgba(0,0,0,0.5);
   position: absolute;
-  
+
   display: block;
   content:'';
- h2 {
+  h2 {
     margin-top: 20px;
     font-weight: bolder
   }
-  
+
 `;
 
 const Form = styled.form`
   width: 800px;
-  border: 3px solid orange;  
+  border: 3px solid orange;
   background-color: white;
   display: block;
   position: fixed;
   top:150px;
   border-radius: 5px;
   left: 300px;
-  z-index: 999;  
-  opacity: 1;  
+  z-index: 999;
+  opacity: 1;
   box-shadow: 5px 3px 5px #FF6A00;
   text-align: center;
- 
+
   &  p {
- color: red;
- margin: -10px 0 0 0 }
+    color: red;
+    margin: -10px 0 0 0 }
 `;
 
 const Input = styled.input`
-width: 600px;
-display:inline-block;
-border: 1px solid black;
- border-radius: 5px;
- cursor: text;
- margin: 20px;
- padding: 5px 10px;
- 
+  width: 600px;
+  display:inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: text;
+  margin: 20px;
+  padding: 5px 10px;
+
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
-  
+
 `;
 const Button = styled.button`
   background-color: #FFB11B;
@@ -163,15 +162,17 @@ const Button = styled.button`
   border: none;
   height: 40px;
   margin: 0 20px 20px 0;
-   transition: .5s;
-  &:hover {
-  background-color:#FF6A00;
   transition: .5s;
+  &:hover {
+    background-color:#FF6A00;
+    transition: .5s;
   }
 `;
 
 const VideoPage: React.FC = () => {
-  const { allVideos, allAlbums, error } = useSelector((state: RootState) =>
+  const { allVideos, allAlbums, error } = useSelector((state) =>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
     state.videos);
   const { handleSubmit, errors, control } = useForm({});
   const [showPopular, setShowPopular] = useState(false);
