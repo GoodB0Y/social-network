@@ -12,7 +12,7 @@ interface IImageGridProps {
   setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
 }
 const ImageGrid: React.FC<IImageGridProps> = ({ images, loading, error, setSelectedImage }):
-  ReactElement | null => {
+ReactElement | null => {
   if (images) {
     return (
       <ImageList>
@@ -55,16 +55,18 @@ const ImageItem = styled.li`
   background-color: #efefef;
   position: relative;
   transition: all 0.3s;
+
   &:hover {
     box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px ${secondaryColor};
   }
+
   & img {
     min-width: 100%;
     min-height: 100%;
     max-width: 150%;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0; 
   }
 `;
 
