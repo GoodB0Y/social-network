@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from '../../redux-toolkit/store';
 import SingleFriend from './SingleFriend';
 import PageSearchInput from '../../common/Inputs/PageSearch';
-import { loadFriendsList, setFriendFilter } from '../../redux-toolkit/friendsListSlice';
+import { loadFriendsList, setFriendFilter, setData } from '../../redux-toolkit/friendsListSlice';
 import LoadingBlock from '../../common/loadingBlock';
 import { IUser } from '../../types/user';
 
@@ -47,7 +47,7 @@ const NoFriends = styled.h3`
 
 const Friends: React.FC = (): React.ReactElement => {
   const userId = useSelector((state: RootState) =>
-    state.user.data?.userId);
+    state.currentUser.data?.userId);
   const friends = useSelector((state: RootState) =>
     state.friends);
   const { friendsFilter, data: friendsList, loading } = friends;
@@ -73,12 +73,16 @@ const Friends: React.FC = (): React.ReactElement => {
     return friendsList;
   };
 
-  const deleteButtonHandler = (event: React.MouseEvent, id: number) => {
-    console.log('Удален пользователь из друзей, его id ', id);
+  const deleteButtonHandler = (deleteId: number): void => {
+    const data = friendsList.filter(({ userId: id }) =>
+      id !== deleteId);
+    dispatch(setData(data));
   };
 
-  const messegeButtonHandler = (event: React.MouseEvent, id: number) => {
+  const messageButtonHandler = (id: number): void => {
     history.push('/messages');
+    // eslint-disable-next-line no-console
+    console.log('Сообщение для пользователя с id', id);
   };
 
   return (
@@ -92,7 +96,7 @@ const Friends: React.FC = (): React.ReactElement => {
               <SingleFriend
                 key={uniqueId()}
                 deleteButtonHandler={deleteButtonHandler}
-                messegeButtonHandler={messegeButtonHandler}
+                messageButtonHandler={messageButtonHandler}
                 firstname={item.firstName}
                 lastname={item.lastName}
                 profesion="No field in api"

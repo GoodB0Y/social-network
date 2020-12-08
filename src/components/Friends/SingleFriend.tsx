@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import swal from 'sweetalert';
 import funcsRoutes from '../../routes/funcsRoutes';
 import userFoto from '../../img/userFoto.png';
 import DeleteIcon from '../../common/img/icons/delete.svg';
 import MessageIcon from '../../common/img/icons/message.svg';
 import { ISingleFriendProps } from './FriendsInterface';
+import './helpers/deleteConfirm.scss';
 
 const SingleFriendWrapper = styled.div`
   display: flex;
@@ -78,6 +80,7 @@ const FriendProfession = styled.span`
 `;
 
 const Placer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -92,7 +95,7 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
   avatarka,
   id,
   deleteButtonHandler,
-  messegeButtonHandler,
+  messageButtonHandler,
 }: ISingleFriendProps) =>
   (
     <SingleFriendWrapper>
@@ -111,11 +114,20 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
         </FriendInfo>
       </Placer>
       <Placer>
-        <MessageButton onClick={(event: React.MouseEvent<HTMLElement>): void =>
-          messegeButtonHandler(event, id)}
+        <MessageButton onClick={(): void =>
+          messageButtonHandler(id)}
         />
-        <DeleteButton onClick={(event: React.MouseEvent<HTMLElement>): void =>
-          deleteButtonHandler(event, id)}
+        <DeleteButton onClick={(): void => {
+          swal({
+            title: 'Вы уверены?',
+            text: `Удалить ${firstname} ${lastname} из списка друзей?`,
+            buttons: ['Нет', 'Да'],
+            className: 'confirm__bg',
+          })
+            .then((value) => {
+              if (value) deleteButtonHandler(id);
+            });
+        }}
         />
       </Placer>
     </SingleFriendWrapper>

@@ -11,14 +11,14 @@ const loadFriendsList = createAsyncThunk('friendList/loadFriendsList', async (id
   return Promise.all(temp);
 });
 
-interface FriendsState {
+interface IFriendsState {
   data: IUser[];
   loading: boolean;
   error: null | Error;
   friendsFilter: string;
 }
 
-const initialState: FriendsState = {
+const initialState: IFriendsState = {
   data: [],
   loading: false,
   error: null,
@@ -29,25 +29,25 @@ const friendsListSlice = createSlice({
   name: 'friendList',
   initialState,
   reducers: {
-    setData: (state, action) =>
+    setData: (state, action): IFriendsState =>
       ({ ...state, data: action.payload, loading: false }),
-    setError: (state, action) =>
+    setError: (state, action): IFriendsState =>
       ({ ...state, error: action.payload, loading: false }),
-    setFriendFilter: (state, action) =>
+    setFriendFilter: (state, action): IFriendsState =>
       ({ ...state, friendsFilter: action.payload }),
-    setLoading: (state) =>
+    setLoading: (state): IFriendsState =>
       ({ ...state, loading: true }),
   },
   extraReducers: {
-    [loadFriendsList.pending.type]: (state) =>
+    [loadFriendsList.pending.type]: (state): IFriendsState =>
       ({ ...state, loading: true }),
-    [loadFriendsList.fulfilled.type]: (state, action) =>
+    [loadFriendsList.fulfilled.type]: (state, action): IFriendsState =>
       ({
         ...state,
         data: action.payload,
         loading: false,
       }),
-    [loadFriendsList.rejected.type]: (state, action) =>
+    [loadFriendsList.rejected.type]: (state, action): IFriendsState =>
       ({
         ...state,
         error: action.error,
