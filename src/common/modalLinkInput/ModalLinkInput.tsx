@@ -67,7 +67,7 @@ const ModalLinkInput = <T extends string | string[]>({
 
 // Написан, чтобы можно было вообще тестить, рендерится ли что-либо
 const ModalLinkInputWrapper = <T extends string | string[]>(props: IModalLinkInput<T>) => {
-  const { visible, title } = props;
+  const { visible, title, children } = props;
   const setUnvisible = props?.setUnvisible;
   return (
     <Modal
@@ -78,8 +78,7 @@ const ModalLinkInputWrapper = <T extends string | string[]>(props: IModalLinkInp
       centered
       className="custom-antd-modal"
     >
-      {/* eslint-disable-next-line react/destructuring-assignment */}
-      {props.children}
+      {children}
       <ModalLinkInput {...props} />
     </Modal>
   );
