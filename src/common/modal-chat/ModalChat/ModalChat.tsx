@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
+import { nanoid } from 'nanoid';
 import Author from '../message-author';
 import Messages from '../../chat/messages';
 import SubmitMessage from '../../chat/Submitmessage/SubmitMessage';
 import { dataMessages1 } from '../../../services/chat-controller/testFetch';
-
 import {
   Content,
   ContentWrapper,
@@ -20,6 +20,18 @@ const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 35 };
 
 const ModalChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [broadcastMessage, setBroadcastMessage] = useState<{
+    message: string;
+    lastReductionDate: string;
+    usersenderImage: string; }[]>([]);
+
+  const onMessageReceivedWithoutSocket = (payload: any) => {
+    if (payload.message) {
+      setBroadcastMessage([...broadcastMessage, { message: payload.message,
+        lastReductionDate: payload.lastReductionDate,
+        usersenderImage: payload.usersenderImage }]);
+    }
+  };
 
   const switchModalStatus = () => {
     setIsOpen(!isOpen);
@@ -28,29 +40,42 @@ const ModalChat: React.FC = () => {
     dataMessages1.map((el) => {
       if (el.username === 'bogdan13') {
         return (
-          <ModalChatMessageWrapper key={el.idMessage}>
+          <ModalChatMessageWrapper type="our" key={el.idMessage}>
             <Messages messages={el.message} messagesType="our" date={el.persistDate} />
             <Author img={el.userSenderImage} name={el.username} />
           </ModalChatMessageWrapper>
         );
       }
       return (
-        <ModalChatMessageWrapper key={el.idMessage}>
+        <ModalChatMessageWrapper type="their" key={el.idMessage}>
           <Author img={el.userSenderImage} name={el.username} />
           <Messages messages={el.message} messagesType="their" date={el.persistDate} />
         </ModalChatMessageWrapper>
       );
     });
+
+  const renderBroadcastMessage = broadcastMessage.map((el) =>
+    (
+      <ModalChatMessageWrapper type="our" key={nanoid()}>
+        <Messages messages={el.message} messagesType="our" date={el.lastReductionDate} />
+        <Author img="" name="bogdan13" />
+      </ModalChatMessageWrapper>
+    ));
+
   return (
     <ModalChatWrapper isOpen={isOpen}>
       <ContentWrapper isOpen={isOpen}>
         <Header>Чат JMSN</Header>
         <Content>
-          <ScrollBar style={scrollBarStyles}>{renderMessages()}</ScrollBar>
+          <ScrollBar style={scrollBarStyles}>
+            {renderMessages()}
+            {renderBroadcastMessage}
+          </ScrollBar>
         </Content>
         <SubmitMessageWrap>
-          <SubmitMessage onSubmitMessage={(mess) =>
-            console.log(mess)}
+          <SubmitMessage onSubmitMessage={(message) => {
+            onMessageReceivedWithoutSocket({ message, userSenderImage: '', lastReductionDate: `${new Date()}` });
+          }}
           />
         </SubmitMessageWrap>
       </ContentWrapper>

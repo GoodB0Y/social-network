@@ -12,12 +12,12 @@ const MessagesWrap = styled.div<{type: string}>`
     (type === 'our' ? '#FFF5E3' : '#EFEFEF')};
   border-radius: 15px;
   margin: ${({ type }) =>
-    (type === 'our' ? '0 30px 0 0' : '0 0 0 30px')};
+    ((type === 'our') ? '0 0 0 auto' : '0 auto 0 0')};
   font-size: 16px;
   color: #000000;
   font-weight: 500;
   font-style: normal;
-
+  width: fit-content;
   & > p {
     padding-left: 20px;
     padding-right: 20px;
@@ -38,18 +38,17 @@ const MessageInfo = styled.div<{type: string}>`
   display: flex;
   flex-direction: row;
   justify-content: ${({ type }) =>
-    (type === 'our' ? 'flex-start' : 'flex-end')};
+    (type === 'our' ? 'flex-end' : 'flex-start')};
   margin-top: 10px;
 `;
 
 const MessageDate = styled.span<{type: string}>`
-  
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
   color: #b6b6b6;
   margin: ${({ type }) =>
-    (type === 'our' ? '0 15px 0 0' : '0 0 0 30px')};
+    (type === 'our' ? '0 0 0 30px' : '0 15px 0 0')};
 `;
 
 interface Props {

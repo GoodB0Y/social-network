@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
+import { Frame } from 'stompjs';
+import { nanoid } from 'nanoid';
 import { Ichat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../img/icons/chat-more-options.svg';
@@ -10,6 +12,8 @@ import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchIn
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
+import { sendMessage, startWSConnection } from '../../services/chat-controller/ws-chat';
+import MessagesChat from '../../common/chat/messages';
 
 // import {
 //   getChats,
@@ -44,17 +48,65 @@ const Messages: React.FC<Props> = ({
   loadCurrentChat,
   user,
 }) => {
+  type BroadCast = {
+    message: string;
+    lastReductionDate: string;
+    usersenderImage: string;
+  };
   const [filterChats, setFilterChats] = useState<Ichat[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [broadcastMessage, setBroadcastMessage] = useState<BroadCast[]>([]);
+
+  // получение ответа от сервера по вебсокету
+  const onMessageReceived = (payload: any) => {
+    const response = JSON.parse(payload.body);
+    console.log('RESPONSE RESPONSE ', response);
+    if (response.message) {
+      setBroadcastMessage(
+        [...broadcastMessage,
+          { message: response.message,
+            lastReductionDate: response.lastReductionDate,
+            usersenderImage: response.usersenderImage }],
+      );
+    }
+    // return response;
+  };
+
+  const onMessageReceivedWithoutSocket = (payload: any) => {
+    if (payload.message) {
+      setBroadcastMessage([...broadcastMessage, { message: payload.message,
+        lastReductionDate: payload.lastReductionDate,
+        usersenderImage: payload.usersenderImage }]);
+    }
+  };
+
+  const onError = (error: string | Frame) => {
+    console.log('ERROR ERROR ', error);
+    setErrorMessage('No connection');
+  };
+
+  const renderBroadcastMessage = broadcastMessage.map((el) =>
+    (
+      <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`} key={nanoid()}>
+        <MessagesChat messages={el.message} messagesType="our" date={el.lastReductionDate} />
+        <img className={messagesClass.avatarIcon} alt="avatar" src={el.usersenderImage} />
+      </div>
+    ));
+
+  // подключаем сокет
+  // useEffect(() => {
+  //   startWSConnection({}, onMessageReceived, onError);
+  // });
 
   useEffect(() => {
     setFilterChats(chats.data);
   }, [chats.data]);
 
   useEffect(() => {
-    if (chats.data.length === 0) {
-      loadChatsOfUser();
+    if (user && chats.data.length === 0) {
+      loadChatsOfUser(user.userId);
     }
-  }, [chats.data.length, loadChatsOfUser]);
+  }, [chats.data.length, user, loadChatsOfUser]);
 
   useEffect(() => {
     if (currentChat.data.length === 0 && chats.data.length !== 0) {
@@ -84,11 +136,10 @@ const Messages: React.FC<Props> = ({
           <div className={messagesClass.contentHeader}>
             <img
               alt="avatar"
-              src="https://st.kp.yandex.net/images/actor_iphone/iphone360_1746394.jpg"
+              src={user?.avatar}
             />
             <div className={messagesClass.contentUserInfo}>
               <span>{`${user?.firstName} ${user?.lastName}`}</span>
-              {/* <p>Программист</p> */}
             </div>
           </div>
 
@@ -103,14 +154,23 @@ const Messages: React.FC<Props> = ({
             </button>
 
             <div className={messagesClass.messagesWrapper}>
+              {errorMessage && <p className={messagesClass.messageError}>{errorMessage}</p>}
               <ScrollBar scrollTop={9999} style={scrollBarStyles}>
-                {renderMessages(currentChat)}
+                <div>
+                  {renderMessages(currentChat)}
+                  {renderBroadcastMessage}
+                </div>
               </ScrollBar>
             </div>
 
             <div>
-              <SubmitMessage onSubmitMessage={(mess) =>
-                console.log(mess)}
+              <SubmitMessage onSubmitMessage={(message) => {
+                // отправить сообщение через вебсокет
+                // sendMessage({ message });
+
+                // без сокета
+                onMessageReceivedWithoutSocket({ message, userSenderImage: user?.avatar, lastReductionDate: `${new Date()}` });
+              }}
               />
             </div>
           </div>

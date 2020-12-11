@@ -8,7 +8,7 @@ export const ModalChatWrapper = styled.div<IisOpen>`
     height: 840px;
     padding-bottom: 40px;
     overflow: hidden;
-    margin: 0px auto;
+    margin: 0 auto;
     border-radius: 15px;
 `;
 
@@ -57,9 +57,11 @@ export const Content = styled.div`
     overflow: hidden;
 `;
 
-export const ModalChatMessageWrapper = styled.div`
+export const ModalChatMessageWrapper = styled.div<{ type?: string }>`
     display: flex;
     flex-direction: row;
+    justify-content: ${({ type }) =>
+    (type === 'our' ? 'flex-end' : 'flex-start')};
     padding-right: 35px;
 `;
 
