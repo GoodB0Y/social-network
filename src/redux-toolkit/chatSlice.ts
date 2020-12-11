@@ -1,18 +1,24 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getChats, getSingleChats } from '../services/chat-controller/testFetch'; // !! TEST API
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { getChats, getSingleChats } from '../services/chat-controller/chat-controller';
 import { Ichat, IsingleChat } from '../types/chat';
+import { getSingleChatMessages, getUserChats } from '../services/chat-controller/chat-controller';
 
-const loadChatsOfUser = createAsyncThunk('chat/loadChatsOfUser', async () => {
-  const response = await getChats();
-  return response;
-});
+// const loadChatsOfUser = createAsyncThunk('chat/loadChatsOfUser', async () => {
+//   const response = await getChats();
+//   return response;
+// });
+//
+// const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id: number) => {
+//   console.log('chat', id);
+//   const response = await getSingleChats(id);
+//   return response;
+// });
 
-const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id: number) => {
-  console.log('chat', id);
-  const response = await getSingleChats(id);
-  return response;
-});
+const loadChatsOfUser = createAsyncThunk('chat/loadChatsOfUser', async (userId: number) =>
+  getUserChats(userId));
+
+const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id: number) =>
+  getSingleChatMessages(id));
 
 export interface StateChat {
   chats: {

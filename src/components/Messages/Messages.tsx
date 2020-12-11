@@ -10,6 +10,7 @@ import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchIn
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
+import { sendMessage, startWSConnection } from '../../services/chat-controller/ws-chat';
 
 // import {
 //   getChats,
@@ -34,6 +35,12 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatch = actions;
 const connector = connect(mapStateToProps, mapDispatch);
 
+// получение ответа по вебсокету
+const onMessageReceived = (payload: any) => {
+  const response = JSON.parse(payload.body);
+  return response;
+};
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
@@ -47,14 +54,18 @@ const Messages: React.FC<Props> = ({
   const [filterChats, setFilterChats] = useState<Ichat[]>([]);
 
   useEffect(() => {
+    startWSConnection({}, onMessageReceived);
+  });
+
+  useEffect(() => {
     setFilterChats(chats.data);
   }, [chats.data]);
 
   useEffect(() => {
-    if (chats.data.length === 0) {
-      loadChatsOfUser();
+    if (user && chats.data.length === 0) {
+      loadChatsOfUser(user.userId);
     }
-  }, [chats.data.length, loadChatsOfUser]);
+  }, [chats.data.length, user, loadChatsOfUser]);
 
   useEffect(() => {
     if (currentChat.data.length === 0 && chats.data.length !== 0) {
@@ -109,8 +120,11 @@ const Messages: React.FC<Props> = ({
             </div>
 
             <div>
-              <SubmitMessage onSubmitMessage={(mess) =>
-                console.log(mess)}
+              <SubmitMessage onSubmitMessage={(mess) => {
+                // отправить сообщение через вебсокет
+                // sendMessage(mess);
+                console.log(mess);
+              }}
               />
             </div>
           </div>
