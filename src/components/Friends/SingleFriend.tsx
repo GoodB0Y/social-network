@@ -10,7 +10,6 @@ import userFoto from '../../img/userFoto.png';
 import DeleteIcon from '../../common/img/icons/delete.svg';
 import MessageIcon from '../../common/img/icons/message.svg';
 import { ISingleFriendProps } from './FriendsInterface';
-import './helpers/deleteConfirm.scss';
 
 const SingleFriendWrapper = styled.div`
   display: flex;
