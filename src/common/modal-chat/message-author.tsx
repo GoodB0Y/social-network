@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const Wrapper = styled.div`
   width: 60px;
@@ -27,22 +29,14 @@ const UserName = styled.div`
 `;
 
 // нужно добавить ссылку на страницу пользователя от роутера
-const MessageAuthor = ({ img, name }) =>
+const MessageAuthor = (arg: { img: string; name: string }) =>
   (
     <Wrapper>
-      <UserImg src={img} />
-      <UserName>{name}</UserName>
+      {/* <UserImg src={img} /> */}
+      <Avatar style={{ backgroundColor: '#87d068' }} size={60} icon={<UserOutlined />} />
+
+      <UserName>{arg.name}</UserName>
     </Wrapper>
   );
 
 export default MessageAuthor;
-
-MessageAuthor.propTypes = {
-  img: PropTypes.string,
-  name: PropTypes.string,
-};
-
-MessageAuthor.defaultProps = {
-  img: null,
-  name: null,
-};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import ErrorBlock from '../../common/errorBlock/ErrorBlock';
 import MessagesChat from '../../common/chat/messages';
 import messagesClass from './Messages.module.scss';
@@ -48,14 +49,14 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
   return currentChat.data.map((el) => {
     if (el.username === 'bogdan13') {
       return (
-        <div className={messagesClass.messageWrapper} key={el.idMessage}>
+        <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`} key={nanoid()}>
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
           <img alt="avatar" src={el.userSenderImage} />
         </div>
       );
     }
     return (
-      <div className={messagesClass.messageWrapper} key={el.idMessage}>
+      <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--theirs']}`} key={nanoid()}>
         <img alt="avatar" src={el.userSenderImage} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>
