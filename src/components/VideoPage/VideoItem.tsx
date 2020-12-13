@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowFilled from '../../common/img/icons/arrow_filled.svg';
 import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
-import defaultAlbum from '../../img/albumDefault.jpg';
+import defaultAlbum from '../../../src/img/albumDefault.jpg'
 
 const VideoImgOverlay = styled.a`
   height: 326px;
@@ -47,11 +47,20 @@ const VideoImgOverlay = styled.a`
 `;
 
 const ImgModifed = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+ height: 250px;
+  width: 87%;
+  display: block;
+  overflow: hidden;
+  margin: 0;
 `;
-
+const AlbumImgOverlay = styled.div `
+  display: block; 
+  width: 100%;
+  height:250px;
+  margin-left: 30px;
+  cursor: pointer;
+   overflow: hidden;
+`
 const VideoUnderline = styled.div`
   font-weight: 500;
   font-size: 24px;
@@ -74,11 +83,9 @@ const AddButton = styled.button`
   background: none;
 `;
 
-export const VideoItem = (
-  props: {author: string; url: string; name: string; isPopular: boolean; action: any },
-) => {
-  const { name, isPopular, action, url, author } = props;
-  const preview = `https://img.youtube.com/vi/${url}/2.jpg`;
+ export  const VideoItem = (props: {author: string ,  url: string, name: string; isPopular: boolean; action: any; }) => {
+  const {  name, isPopular, action, url, author } = props;
+  const preview = `https://img.youtube.com/vi/${url}/2.jpg`
   return (
     <>
       <VideoImgOverlay role="button" onClick={action}>
@@ -88,27 +95,33 @@ export const VideoItem = (
         />
       </VideoImgOverlay>
       <VideoUnderline>
-        {author}
-        -
-        {name}
+        {author}-{name}
         {isPopular ? <AddButton onClick={action} /> : null}
       </VideoUnderline>
     </>
   );
 };
 
-export const AlbumItem = (props: {name: string; icon: string }) => {
-  const { name, icon } = props;
+export  const AlbumItem = (props: {name: string; icon:string; action:any }) => {
+  const {  name,  icon, action } = props;
 
   return (
     <>
-      <ImgModifed
-        src={icon.length > 12 ? icon : defaultAlbum}
-        alt="wait for load"
-      />
+      <AlbumImgOverlay onClick = {action}>
+        <ImgModifed
+          src={icon.length > 12 ?  icon  : defaultAlbum}
+          alt="wait for load"
+        />
+      </AlbumImgOverlay>
       <VideoUnderline>
-        {name}
+       {name}
       </VideoUnderline>
     </>
   );
 };
+
+
+
+
+
+

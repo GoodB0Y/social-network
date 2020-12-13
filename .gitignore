@@ -26,4 +26,6 @@ yarn-error.log*
 
 #files
 /test.js
+/package.json
+/package-lock.json
 
