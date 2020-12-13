@@ -7,6 +7,7 @@ import {
   fetchAllAlbum,
   fetchAddAlbum,
   fetchAllVideosInAlbum,
+  fetchAddVideoInAlbum,
 } from '../../services/videos-controller/video-controller';
 
 export const allVideosAction = createAsyncThunk(
@@ -25,6 +26,18 @@ export const addVideoAction = createAsyncThunk(
   async (video:any, argThunkAPI) => {
     try {
       const response = await fetchAddVideo(65, video);
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  },
+);
+
+export const addVideoInAlbumAction = createAsyncThunk(
+  'videos/addVideoInAlbumAction',
+  async ( videoId:number, argThunkAPI) => {
+    try {
+      const response = await fetchAddVideoInAlbum(2766, videoId);
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -95,6 +108,21 @@ export const AllVideosInAlbumAction = createAsyncThunk(
         state.loading = action.type;
       });
     builder.addCase(addVideoAction.rejected,
+      (state: Draft<any>, action) => {
+        state.loading = action.type;
+        state.error = action.error.message;
+      });
+    builder.addCase(addVideoInAlbumAction.pending,
+      (state, action: PayloadAction<any>) => {
+
+      });
+    builder.addCase(addVideoInAlbumAction.fulfilled,
+      (state: Draft<any>, action: PayloadAction<any>) => {
+
+        state.videosInAlbum = [action.payload, ...state.videosInAlbum]
+        state.loading = action.type;
+      });
+    builder.addCase(addVideoInAlbumAction.rejected,
       (state: Draft<any>, action) => {
         state.loading = action.type;
         state.error = action.error.message;

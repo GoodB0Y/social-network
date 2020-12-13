@@ -9,7 +9,7 @@ export const fetchVideos = async (page = 2, total = 200): Promise<AxiosResponse>
 export const fetchAllVideosInAlbum = async (albumId = 10 ): Promise<AxiosResponse> =>
   axios.get(`${baseUrl}/album/${albumId}/video`);
 
-export const fetchAddVideoInAlbum = async (albumId = 10, videoId = 13): Promise<AxiosResponse> =>
+export const fetchAddVideoInAlbum = async (albumId:number, videoId:number): Promise<AxiosResponse> =>
   axios.put(`${baseUrl}/album/video?albumId=${albumId}&videoId=${videoId}`);
 
 export const fetchVideoFromName = async (videoName= "Test video 3"): Promise<AxiosResponse> =>

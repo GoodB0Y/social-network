@@ -10,7 +10,7 @@ import PageWrapper from '../../common/pageWrapper';
 import SectionHeader from '../../common/sectionHeader';
 import {
   addAlbumAction,
-  addVideoAction,
+  addVideoAction, addVideoInAlbumAction,
   AllAlbumAction,
   allVideosAction, AllVideosInAlbumAction,
 } from '../../redux-toolkit/videos/allVideosSlice';
@@ -334,7 +334,7 @@ const Button = styled.button`
                   (<>
                    <h2>{obj.name}</h2>
                       <img style={{width:200}} src={`https://img.youtube.com/vi/${obj.url}/2.jpg`} alt="alt"/>
-                      <StyledButton onClick = {()=>setShowModal((prev)=>!prev)}>Добавить</StyledButton>
+                      <StyledButton onClick = {()=>dispatch(addVideoInAlbumAction(obj.id))}>Добавить</StyledButton>
                     </>
                   ))}
 
