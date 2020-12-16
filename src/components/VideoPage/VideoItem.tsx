@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowFilled from '../../common/img/icons/arrow_filled.svg';
 import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
-import defaultAlbum from '../../../src/img/albumDefault.jpg'
+import defaultAlbum from '../../../src/img/albumDefault.jpg';
 
 const VideoImgOverlay = styled.a`
   height: 326px;
@@ -47,20 +47,20 @@ const VideoImgOverlay = styled.a`
 `;
 
 const ImgModifed = styled.img`
- height: 250px;
-  width: 87%;
+  height: 326px;
+  width: 100%;
   display: block;
   overflow: hidden;
   margin: 0;
 `;
-const AlbumImgOverlay = styled.div `
-  display: block; 
-  width: 100%;
-  height:250px;
+const AlbumImgOverlay = styled.div`
+  display: block;
+  width: 310px;
+  height: 250px;
   margin-left: 30px;
   cursor: pointer;
-   overflow: hidden;
-`
+  overflow: hidden;
+`;
 const VideoUnderline = styled.div`
   font-weight: 500;
   font-size: 24px;
@@ -83,16 +83,19 @@ const AddButton = styled.button`
   background: none;
 `;
 
- export  const VideoItem = (props: {author: string ,  url: string, name: string; isPopular: boolean; action: any; }) => {
-  const {  name, isPopular, action, url, author } = props;
-  const preview = `https://img.youtube.com/vi/${url}/2.jpg`
+export const VideoItem = (props: {
+  author: string;
+  url: string;
+  name: string;
+  isPopular: boolean;
+  action: any;
+}) => {
+  const { name, isPopular, action, url, author } = props;
+  const preview = `https://img.youtube.com/vi/${url}/2.jpg`;
   return (
     <>
       <VideoImgOverlay role="button" onClick={action}>
-        <ImgModifed
-          src={preview}
-          alt="wait for load"
-        />
+        <ImgModifed src={preview} alt="wait for load" />
       </VideoImgOverlay>
       <VideoUnderline>
         {author}-{name}
@@ -102,26 +105,15 @@ const AddButton = styled.button`
   );
 };
 
-export  const AlbumItem = (props: {name: string; icon:string; action:any }) => {
-  const {  name,  icon, action } = props;
+export const AlbumItem = (props: { name: string; icon: string; action: any }) => {
+  const { name, icon, action } = props;
 
   return (
     <>
-      <AlbumImgOverlay onClick = {action}>
-        <ImgModifed
-          src={icon.length > 12 ?  icon  : defaultAlbum}
-          alt="wait for load"
-        />
+      <AlbumImgOverlay onClick={action}>
+        <ImgModifed src={icon.length > 12 ? icon : defaultAlbum} alt="wait for load" />
       </AlbumImgOverlay>
-      <VideoUnderline>
-       {name}
-      </VideoUnderline>
+      <VideoUnderline>{name}</VideoUnderline>
     </>
   );
 };
-
-
-
-
-
-

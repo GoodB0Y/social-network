@@ -37,7 +37,7 @@ export const addVideoInAlbumAction = createAsyncThunk(
   'videos/addVideoInAlbumAction',
   async ( videoId:number, argThunkAPI) => {
     try {
-      const response = await fetchAddVideoInAlbum(2766, videoId);
+      const response = await fetchAddVideoInAlbum(2768, videoId);
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -80,7 +80,7 @@ export const AllVideosInAlbumAction = createAsyncThunk(
 
  const allVideosSlice = createSlice({
   name: 'allVideosSlice',
-  initialState: { allVideos: [],allAlbums:[], videosInAlbum:[], loading: '', error: '' },
+  initialState: { allVideos: [],allAlbums:[], videosInAlbum:[], loading: '', error: '', message: '' },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(allVideosAction.pending,
@@ -118,12 +118,12 @@ export const AllVideosInAlbumAction = createAsyncThunk(
       });
     builder.addCase(addVideoInAlbumAction.fulfilled,
       (state: Draft<any>, action: PayloadAction<any>) => {
-
-        state.videosInAlbum = [action.payload, ...state.videosInAlbum]
+        state.message = action.payload
         state.loading = action.type;
       });
     builder.addCase(addVideoInAlbumAction.rejected,
       (state: Draft<any>, action) => {
+
         state.loading = action.type;
         state.error = action.error.message;
       });
