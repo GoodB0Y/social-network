@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import routes from '../../routes';
+import RoutePath from '../../routes/RoutePath';
 
 import { Wrapper, List } from '../styledComponents';
 
@@ -37,15 +37,15 @@ const Sidebar: React.FC<ReduxProps> = ({ userId }) =>
   (
     <Wrapper>
       <List>
-        <ItemLink to={routes.main}>Моя страница</ItemLink>
-        <ItemLink to={routes.friends}>Друзья</ItemLink>
-        <ItemLink to={routes.messages}>Сообщения</ItemLink>
-        <ItemLink to={routes.news}>Новости</ItemLink>
-        <ItemLink to={routes.bookmarks}>Закладки</ItemLink>
-        <ItemLink to={routes.groups}>Группы</ItemLink>
-        <ItemLink to={routes.photo}>Фотографии</ItemLink>
-        <ItemLink to={routes.video}>Видеозаписи</ItemLink>
-        <ItemLink to={routes.audio}>Аудиозаписи</ItemLink>
+        <ItemLink to={RoutePath.Main}>Моя страница</ItemLink>
+        <ItemLink to={RoutePath.Friends}>Друзья</ItemLink>
+        <ItemLink to={RoutePath.Messages}>Сообщения</ItemLink>
+        <ItemLink to={RoutePath.News}>Новости</ItemLink>
+        <ItemLink to={RoutePath.Bookmarks}>Закладки</ItemLink>
+        <ItemLink to={RoutePath.Groups}>Группы</ItemLink>
+        <ItemLink to={RoutePath.Photo}>Фотографии</ItemLink>
+        <ItemLink to={RoutePath.Video}>Видеозаписи</ItemLink>
+        <ItemLink to={RoutePath.Audio}>Аудиозаписи</ItemLink>
         <ItemLink to="#">Настройки</ItemLink>
       </List>
       <Player />
