@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-
 const OpenedVideoWrapper = styled.div`
   position: absolute;
   width: 100vw;
@@ -43,7 +41,7 @@ const CloseButton = styled.button`
   align-self: flex-start;
 `;
 
-export const OpenedVideo: React.FC = ({ id, action }:any) =>
+export const OpenedVideo: React.FC = ({ id, action }: any) =>
   (
     <OpenedVideoWrapper onClick={action}>
       <VideoFrameWrapper>
@@ -57,6 +55,3 @@ export const OpenedVideo: React.FC = ({ id, action }:any) =>
       </VideoFrameWrapper>
     </OpenedVideoWrapper>
   );
-
-
-

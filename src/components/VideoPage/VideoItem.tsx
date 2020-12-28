@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowFilled from '../../common/img/icons/arrow_filled.svg';
 import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
-import defaultAlbum from '../../../src/img/albumDefault.jpg';
+import defaultAlbum from '../../img/albumDefault.jpg';
 
 const VideoImgOverlay = styled.a`
   height: 326px;
@@ -98,7 +98,9 @@ export const VideoItem = (props: {
         <ImgModifed src={preview} alt="wait for load" />
       </VideoImgOverlay>
       <VideoUnderline>
-        {author}-{name}
+        {author}
+        -
+        {name}
         {isPopular ? <AddButton onClick={action} /> : null}
       </VideoUnderline>
     </>
