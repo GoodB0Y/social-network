@@ -9,7 +9,7 @@ import Audio from './components/Audio';
 import Friends from './components/Friends';
 import VideoPage from './components/VideoPage';
 import News from './components/News';
-import routes from './routes';
+import RoutePath from './routes/RoutePath';
 import funcRoutes from './routes/funcsRoutes';
 import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo';
@@ -41,7 +41,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
   const checkUserIsLoggedIn = useCallback(() => {
     if (currentUserModel?.error) {
       alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
-      return <Redirect to={routes.login} />;
+      return <Redirect to={RoutePath.Login} />;
     }
     if (!currentUserModel?.loading) {
       _loadCurrentUser();
@@ -52,7 +52,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
     <Switch>
       {/* <Route path={routes.login} component={Login} /> */}
       <Route
-        path={routes.login}
+        path={RoutePath.Login}
         render={() => {
           if (currentUserModel.data) {
             return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
@@ -61,14 +61,14 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         }}
         exact
       />
-      <Route path={routes.audio} component={Audio} />
-      <Route path={routes.friends} component={Friends} />
-      <Route path={routes.news} component={News} />
-      <Route path={routes.video} component={VideoPage} />
-      <Route path={routes.messages} component={Messages} />
-      <Route path={routes.bookmarks} component={Bookmarks} />
+      <Route path={RoutePath.Audio} component={Audio} />
+      <Route path={RoutePath.Friends} component={Friends} />
+      <Route path={RoutePath.News} component={News} />
+      <Route path={RoutePath.Video} component={VideoPage} />
+      <Route path={RoutePath.Messages} component={Messages} />
+      <Route path={RoutePath.Bookmarks} component={Bookmarks} />
       <Route
-        path={routes.photo}
+        path={RoutePath.Photo}
         render={() => {
           if (currentUserModel?.data) {
             return <Redirect to={funcRoutes.photosWithId(currentUserModel.data.userId)} />;
@@ -78,7 +78,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         exact
       />
       <Route
-        path={routes.photoWithId}
+        path={RoutePath.PhotoWithId}
         render={({ match }) => {
           const { userId } = match.params;
           return <Photo userId={userId} />;
@@ -86,17 +86,17 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         exact
       />
       <Route
-        path={routes.albumWithId}
+        path={RoutePath.AlbumWithId}
         render={({ match }) => {
           const { userId, albumId } = match.params;
           return <Photo userId={userId} albumId={albumId} />;
         }}
         exact
       />
-      <Route path={routes.group} exact component={Group} />
-      <Route path={routes.groups} exact component={Groups} />
+      <Route path={RoutePath.Group} exact component={Group} />
+      <Route path={RoutePath.Groups} exact component={Groups} />
       <Route
-        path={routes.main}
+        path={RoutePath.Main}
         render={() => {
           /*
         Если пользователь заходит по главному адресу, его редиректит
@@ -113,7 +113,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         exact
       />
       <Route
-        path={routes.mainWithId}
+        path={RoutePath.MainWithId}
         render={({ match }) => {
           const { id } = match.params;
           return <Main userId={id} />;
