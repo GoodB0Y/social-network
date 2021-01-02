@@ -8,6 +8,7 @@ import Alert from 'antd/lib/alert';
 import { Pagination } from 'antd';
 // eslint-disable-next-line import/no-cycle
 import { VideoItem, OpenedVideo } from './index';
+import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
 import arrowNotFilled from '../../common/img/icons/arr_left.svg';
@@ -168,12 +169,8 @@ const Button = styled.button`
 `;
 
 const VideoPage: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
   const { allVideos, allAlbums, error, videosInAlbum, message } = useSelector(
-    (state) =>
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
+    (state: RootState) =>
       state.videos,
   );
   const { handleSubmit, control } = useForm({});
@@ -343,44 +340,48 @@ const VideoPage: React.FC = () => {
               </SectionHeader>
               <Slider slidesToShow={2} slidesToScroll={2} loop>
                 {videosInAlbum.length ? (
-                  [...videosInAlbum].map((obj) =>
-                    (
+                  [...videosInAlbum].map((obj) => {
+                    const { id, url, name, author } = obj;
+                    return (
                       <VideoItem
-                        key={uniqueId() + obj.id}
-                        id={obj.id}
-                        url={obj.url}
-                        name={obj.name}
-                        author={obj.author}
+                        key={uniqueId() + id}
+                        id={id}
+                        url={url}
+                        name={name}
+                        author={author}
                         action={() =>
-                          showVideo(obj.url)}
+                          showVideo(url)}
                         isPopular={false}
                       />
-                    ))
+                    );
+                  })
                 ) : (
                   <h2>В данном альбоме видео пока нет!</h2>
                 )}
               </Slider>
 
               <h1> Добавьте видео в альбом </h1>
-              {[...allVideos].map((obj) =>
-                (
+              {[...allVideos].map((obj) => {
+                const { name, url, id } = obj;
+                return (
                   <>
-                    <h2>{obj.name}</h2>
+                    <h2>{name}</h2>
                     <img
                       style={{ width: 200 }}
-                      src={`https://img.youtube.com/vi/${obj.url}/2.jpg`}
+                      src={`https://img.youtube.com/vi/${url}/2.jpg`}
                       alt="alt"
                     />
                     <StyledButton
                       onClick={() => {
-                        dispatch(addVideoInAlbumAction(obj.id));
+                        dispatch(addVideoInAlbumAction(id));
                         alert(message || 'ERROR');
                       }}
                     >
                       Добавить
                     </StyledButton>
                   </>
-                ))}
+                );
+              })}
             </MyVideos>
           ) : (
             <div>
@@ -394,19 +395,21 @@ const VideoPage: React.FC = () => {
                   </StyledButton>
                 </SectionHeader>
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
-                  {[...allVideos].map((obj) =>
-                    (
+                  {[...allVideos].map((obj) => {
+                    const { id, url, name, author } = obj;
+                    return (
                       <VideoItem
                         key={uniqueId()}
-                        id={obj.id}
-                        url={obj.url}
-                        name={obj.name}
-                        author={obj.author}
+                        id={id}
+                        url={url}
+                        name={name}
+                        author={author}
                         action={() =>
-                          showVideo(obj.url)}
+                          showVideo(url)}
                         isPopular={false}
                       />
-                    ))}
+                    );
+                  })}
                 </Slider>
               </MyVideos>
               <Divider />
@@ -421,18 +424,20 @@ const VideoPage: React.FC = () => {
                 </SectionHeader>
                 {error ? <Alert type="error" closable message={error} /> : null}
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
-                  {[...allAlbums].map((obj) =>
-                    (
+                  {[...allAlbums].map((obj) => {
+                    const { id, icon, name } = obj;
+                    return (
                       <AlbumItem
                         key={uniqueId()}
-                        icon={obj.icon}
-                        name={obj.name}
+                        icon={icon}
+                        name={name}
                         action={() => {
                           setOpenAlbum(true);
-                          dispatch(AllVideosInAlbumAction(obj.id));
+                          dispatch(AllVideosInAlbumAction(id));
                         }}
                       />
-                    ))}
+                    );
+                  })}
                 </Slider>
               </MyVideos>
               <Divider />
@@ -446,21 +451,23 @@ const VideoPage: React.FC = () => {
                     onClick={() =>
                       setShowPopular(!showPopular)}
                   />
-                  {[...allVideos].map((obj) =>
-                    (
+                  {[...allVideos].map((obj) => {
+                    const { id, url, name, author } = obj;
+                    return (
                       <PopularVideosItemWrapper key={uniqueId()}>
                         <VideoItem
                           key={uniqueId()}
-                          id={obj.id}
-                          url={obj.url}
-                          author={obj.author}
-                          name={obj.name}
+                          id={id}
+                          url={url}
+                          author={author}
+                          name={name}
                           action={() =>
-                            showVideo(obj.url)}
+                            showVideo(url)}
                           isPopular={false}
                         />
                       </PopularVideosItemWrapper>
-                    ))}
+                    );
+                  })}
                 </PopularVideoList>
               </PopularVideos>
             </div>
