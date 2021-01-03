@@ -4,7 +4,7 @@ import { projectStorage, projectFirestore, timestamp } from '../../../firebase/c
 // хук для работы с FireBase
 // используется для сохранения фото из файловой системы в Storage и Cloud Firestore
 // и предоставления url для последующих запросов при добавлении новых фото
-type Error = null | object;
+type Error = null | Record<string, unknown>;
 type Url = null | string;
 interface StorageObject {
   url: Url;

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-unresolved,@typescript-eslint/ban-ts-ignore
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
 import swal from 'sweetalert';
 import funcsRoutes from '../../routes/funcsRoutes';
 import userFoto from '../../img/userFoto.png';
