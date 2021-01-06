@@ -114,7 +114,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint **/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint --fix **/*.{js,jsx,ts,tsx}",
-    "format": "prettier --write .",
+    "format": "prettier --write --ignore-unknown .",
     "storybook": "start-storybook"
   },
   "husky": {
