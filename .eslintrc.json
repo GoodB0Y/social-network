@@ -1,52 +1,52 @@
 {
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "plugins": ["react", "@typescript-eslint"],
-  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "jest": true
   },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["import", "jsx-a11y", "react", "react-hooks", "@typescript-eslint"],
   "rules": {
-    "import/prefer-default-export": "warn",
-    "implicit-arrow-linebreak": ["warn", "below"],
+    "curly": ["error"],
+    "id-length": ["warn", { "exceptions": ["i", "j", "a", "b", "e"], "min": 2 }],
     "max-depth": ["warn", 4],
-    "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
     "no-lonely-if": ["error"],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "react/require-default-props": 0,
-    "react/prop-types": 0,
-    "react/state-in-constructor": ["off"],
-    "jsx-a11y/href-no-hash": ["off"],
-    "react/jsx-props-no-spreading": ["off"],
-    "curly": "error",
-    "react/jsx-filename-extension": [0],
-    "import/extensions": "off",
     "no-param-reassign": ["error", { "props": false }],
-    "linebreak-style": "off",
-    "@typescript-eslint/interface-name-prefix": 0,
-    "@typescript-eslint/no-var-requires": 0,
-    "semi": "off",
-    "no-undef": "warn",
-    "@typescript-eslint/semi": "error",
-    "object-curly-newline": [
-      "error",
-      {
-        "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
-      }
-    ],
-    "no-use-before-define": [0],
-    "@typescript-eslint/no-use-before-define": [1]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-restricted-syntax": ["off"],
+    "class-methods-use-this": ["off"],
+    "import/extensions": ["error", { "ts": "never", "tsx": "never" }],
+    "jsx-a11y/anchor-is-valid": ["off"],
+    "jsx-a11y/href-no-hash": ["off"],
+    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-props-no-spreading": ["off"],
+    "react/state-in-constructor": ["off"],
+    "react/static-property-placement": ["off"],
+    "no-shadow": ["off"],
+    "@typescript-eslint/no-shadow": ["error"],
+    "semi": ["off"],
+    "@typescript-eslint/semi": ["error"],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+
+    "react/prop-types": ["warn"] // delete after fix
   },
   "settings": {
-    "react": {
-      "pragma": "React",
-      "version": "detect"
-    },
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
