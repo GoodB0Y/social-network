@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
-import { Frame } from 'stompjs';
 import { nanoid } from 'nanoid';
 import { Ichat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
@@ -12,7 +11,6 @@ import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchIn
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
-import { sendMessage, startWSConnection } from '../../services/chat-controller/ws-chat';
 import MessagesChat from '../../common/chat/messages';
 
 // import {
@@ -54,44 +52,51 @@ const Messages: React.FC<Props> = ({
     usersenderImage: string;
   };
   const [filterChats, setFilterChats] = useState<Ichat[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage] = useState<string>('');
   const [broadcastMessage, setBroadcastMessage] = useState<BroadCast[]>([]);
 
   // получение ответа от сервера по вебсокету
-  const onMessageReceived = (payload: any) => {
-    const response = JSON.parse(payload.body);
-    console.log('RESPONSE RESPONSE ', response);
-    if (response.message) {
-      setBroadcastMessage(
-        [...broadcastMessage,
-          { message: response.message,
-            lastReductionDate: response.lastReductionDate,
-            usersenderImage: response.usersenderImage }],
-      );
-    }
-    // return response;
-  };
+  // const onMessageReceived = (payload: any) => {
+  //   const response = JSON.parse(payload.body);
+  //   console.log('RESPONSE RESPONSE ', response);
+  //   if (response.message) {
+  //     setBroadcastMessage(
+  //       [...broadcastMessage,
+  //         { message: response.message,
+  //           lastReductionDate: response.lastReductionDate,
+  //           usersenderImage: response.usersenderImage }],
+  //     );
+  //   }
+  //   // return response;
+  // };
 
   const onMessageReceivedWithoutSocket = (payload: any) => {
     if (payload.message) {
-      setBroadcastMessage([...broadcastMessage, { message: payload.message,
-        lastReductionDate: payload.lastReductionDate,
-        usersenderImage: payload.usersenderImage }]);
+      setBroadcastMessage([
+        ...broadcastMessage,
+        {
+          message: payload.message,
+          lastReductionDate: payload.lastReductionDate,
+          usersenderImage: payload.usersenderImage,
+        },
+      ]);
     }
   };
 
-  const onError = (error: string | Frame) => {
-    console.log('ERROR ERROR ', error);
-    setErrorMessage('No connection');
-  };
+  // const onError = (error: string | Frame) => {
+  //   console.log('ERROR ERROR ', error);
+  //   setErrorMessage('No connection');
+  // };
 
-  const renderBroadcastMessage = broadcastMessage.map((el) =>
-    (
-      <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`} key={nanoid()}>
-        <MessagesChat messages={el.message} messagesType="our" date={el.lastReductionDate} />
-        <img className={messagesClass.avatarIcon} alt="avatar" src={el.usersenderImage} />
-      </div>
-    ));
+  const renderBroadcastMessage = broadcastMessage.map((el) => (
+    <div
+      className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`}
+      key={nanoid()}
+    >
+      <MessagesChat messages={el.message} messagesType="our" date={el.lastReductionDate} />
+      <img className={messagesClass.avatarIcon} alt="avatar" src={el.usersenderImage} />
+    </div>
+  ));
 
   // подключаем сокет
   // useEffect(() => {
@@ -121,8 +126,7 @@ const Messages: React.FC<Props> = ({
           <div className={messagesClass.pageSearchInputWrapper}>
             <PageSearchInput
               placeholder="Поиск..."
-              action={(value) =>
-                setFilterChats(onFilterChats(value, chats.data))}
+              action={(value) => setFilterChats(onFilterChats(value, chats.data))}
             />
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
@@ -134,10 +138,7 @@ const Messages: React.FC<Props> = ({
 
         <div className={messagesClass.contentWrapper}>
           <div className={messagesClass.contentHeader}>
-            <img
-              alt="avatar"
-              src={user?.avatar}
-            />
+            <img alt="avatar" src={user?.avatar} />
             <div className={messagesClass.contentUserInfo}>
               <span>{`${user?.firstName} ${user?.lastName}`}</span>
             </div>
@@ -147,8 +148,7 @@ const Messages: React.FC<Props> = ({
             <button
               className={messagesClass.menu}
               type="button"
-              onClick={() =>
-                console.log('menu chats')}
+              onClick={() => console.log('menu chats')}
             >
               <img alt="more" src={moreOptionSrc} />
             </button>
@@ -164,13 +164,18 @@ const Messages: React.FC<Props> = ({
             </div>
 
             <div>
-              <SubmitMessage onSubmitMessage={(message) => {
-                // отправить сообщение через вебсокет
-                // sendMessage({ message });
+              <SubmitMessage
+                onSubmitMessage={(message) => {
+                  // отправить сообщение через вебсокет
+                  // sendMessage({ message });
 
-                // без сокета
-                onMessageReceivedWithoutSocket({ message, userSenderImage: user?.avatar, lastReductionDate: `${new Date()}` });
-              }}
+                  // без сокета
+                  onMessageReceivedWithoutSocket({
+                    message,
+                    userSenderImage: user?.avatar,
+                    lastReductionDate: `${new Date()}`,
+                  });
+                }}
               />
             </div>
           </div>

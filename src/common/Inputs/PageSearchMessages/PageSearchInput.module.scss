@@ -6,7 +6,7 @@
   position: relative;
   min-width: 100%;
   border-top: 1px solid #b3b3b3;
-  border-bottom: 1px solid #b3b3b3;  
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .input {
@@ -33,7 +33,7 @@
   width: 30px;
   background-color: #515151;
   mask-image: url('../../img/icons/search.svg');
-  mask-size: cover; 
+  mask-size: cover;
 
   &:hover {
     transform: scale(1.05);

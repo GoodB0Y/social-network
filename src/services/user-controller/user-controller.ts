@@ -10,8 +10,7 @@ import {
 import { baseUrlv2 } from '../config';
 
 const axios = axiosLib.create();
-axios.interceptors.response.use((response: AxiosResponse) =>
-  response.data);
+axios.interceptors.response.use((response: AxiosResponse) => response.data);
 axios.defaults.baseURL = `${baseUrlv2}users`;
 
 export async function getUserById(id: number): Promise<AxiosResponse<IUser>> {
@@ -36,7 +35,7 @@ export async function updateUser(data: IUpdateInfoUser): Promise<AxiosResponse<I
 
 export async function updatePassword(
   userId: number,
-  data: IUpdatePasswordUser,
+  data: IUpdatePasswordUser
 ): Promise<AxiosResponse<IUpdatePasswordUser>> {
   return axios.patch(`/${userId}/password`, data);
 }

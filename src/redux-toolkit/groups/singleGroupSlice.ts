@@ -34,60 +34,49 @@ const singleGroupSlice = createSlice({
   name: 'groupInfo',
   initialState,
   reducers: {
-    getGroupInfo: (state, action): State =>
-      ({
-        ...state,
-        groupInfo: action.payload,
-      }),
-    getGroupPosts: (state, action): State =>
-      ({
-        ...state,
-        posts: action.payload,
-      }),
+    getGroupInfo: (state, action): State => ({
+      ...state,
+      groupInfo: action.payload,
+    }),
+    getGroupPosts: (state, action): State => ({
+      ...state,
+      posts: action.payload,
+    }),
   },
   extraReducers: {
-    [loadGroupInfo.pending.type]: (state): State =>
-      ({ ...state, loading: true }),
-    [loadGroupInfo.fulfilled.type]: (state, action): State =>
-      ({
-        ...state,
-        groupInfo: action.payload,
-        loading: false,
-      }),
-    [loadGroupInfo.rejected.type]: (state, action): State =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
-    [loadGroupPosts.pending.type]: (state): State =>
-      ({ ...state, loading: true }),
-    [loadGroupPosts.fulfilled.type]: (state, action): State =>
-      ({
-        ...state,
-        posts: action.payload,
-        loading: false,
-      }),
-    [loadGroupPosts.rejected.type]: (state, action): State =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
-    [updateGroup.pending.type]: (state): State =>
-      ({ ...state, loading: true }),
-    [updateGroup.fulfilled.type]: (state, action): State =>
-      ({
-        ...state,
-        groupInfo: action.payload,
-        loading: false,
-      }),
-    [updateGroup.rejected.type]: (state, action): State =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
+    [loadGroupInfo.pending.type]: (state): State => ({ ...state, loading: true }),
+    [loadGroupInfo.fulfilled.type]: (state, action): State => ({
+      ...state,
+      groupInfo: action.payload,
+      loading: false,
+    }),
+    [loadGroupInfo.rejected.type]: (state, action): State => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
+    [loadGroupPosts.pending.type]: (state): State => ({ ...state, loading: true }),
+    [loadGroupPosts.fulfilled.type]: (state, action): State => ({
+      ...state,
+      posts: action.payload,
+      loading: false,
+    }),
+    [loadGroupPosts.rejected.type]: (state, action): State => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
+    [updateGroup.pending.type]: (state): State => ({ ...state, loading: true }),
+    [updateGroup.fulfilled.type]: (state, action): State => ({
+      ...state,
+      groupInfo: action.payload,
+      loading: false,
+    }),
+    [updateGroup.rejected.type]: (state, action): State => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
   },
 });
 

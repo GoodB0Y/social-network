@@ -1,14 +1,5 @@
-// eslint-disable-next-line
 import React from 'react';
 import styled from 'styled-components';
-
-const Card = ({ image }: { image: string }): JSX.Element =>
-  (
-  // const { data }: PaletteState = usePalette(image);
-  // Ругается на переданный в img пропс data
-    <Img src={image} alt="cover" />
-  );
-export default Card;
 
 const Img = styled.img`
   display: block;
@@ -20,3 +11,11 @@ const Img = styled.img`
   object-position: left;
   background: #808080;
 `;
+
+const Card = ({ image }: { image: string }): JSX.Element => (
+  // const { data }: PaletteState = usePalette(image);
+  // Ругается на переданный в img пропс data
+  <Img src={image} alt="cover" />
+);
+
+export default Card;

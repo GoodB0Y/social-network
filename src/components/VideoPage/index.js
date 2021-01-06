@@ -1,6 +1,6 @@
-import VideoPage from './VideoPage.tsx';
-import { VideoItem } from './VideoItem.tsx';
-import { OpenedVideo } from './OpenedVideo.tsx';
+import VideoPage from './VideoPage';
+import { VideoItem } from './VideoItem';
+import OpenedVideo from './OpenedVideo';
 
 export { OpenedVideo, VideoItem };
 export default VideoPage;

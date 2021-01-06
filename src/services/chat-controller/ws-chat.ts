@@ -1,8 +1,7 @@
-import React from 'react';
 import SockJS from 'sockjs-client';
 import Stomp, { Frame } from 'stompjs';
 
-const SOCKET_URL = 'http://91.241.64.178:5561/wsp';
+// const SOCKET_URL = 'http://91.241.64.178:5561/wsp';
 
 // пока нет бэка, необходимо запустить сервер локально
 const SOCKET_URL_LOCAL = 'http://localhost:5557/wsp';
@@ -15,18 +14,25 @@ export const sendMessage = (message: any) => {
 };
 
 const joinChat = (data: any) => {
-  stopmClient.send('/message/chat.addUser', { 'content-type': 'application/json' }, JSON.stringify(data));
+  stopmClient.send(
+    '/message/chat.addUser',
+    { 'content-type': 'application/json' },
+    JSON.stringify(data)
+  );
 };
 
-export const startWSConnection = (data: any,
+export const startWSConnection = (
+  data: any,
   onMessageReceived: (payload: any) => void,
-  onError: (error: string | Frame) => void) => {
-  stopmClient.connect({},
-    (frame) => {
+  onError: (error: string | Frame) => void
+) => {
+  stopmClient.connect(
+    {},
+    () => {
       stopmClient.debug('connected to Stomp');
       stopmClient.subscribe('/topic/public', onMessageReceived);
       joinChat(data);
     },
-    (error) =>
-      onError(error));
+    (error) => onError(error)
+  );
 };

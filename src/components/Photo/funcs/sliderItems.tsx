@@ -13,17 +13,16 @@ const sliderItems = (
   loading: boolean,
   error: { status: number; data?: string } | null,
   userId?: number,
-  selectedAlbumId?: number,
+  selectedAlbumId?: number
 ) => {
   if (albums && userId) {
     return (
       <Slider infinite>
-        {albums.map(({ icon, name, id }) =>
-          (
-            <Link to={funcsRoutes.photosAlbumWithId(userId, id)} key={`album_${id}`}>
-              <SliderItem url={icon} headline={name} isSelected={Number(selectedAlbumId) === id} />
-            </Link>
-          ))}
+        {albums.map(({ icon, name, id }) => (
+          <Link to={funcsRoutes.photosAlbumWithId(userId, id)} key={`album_${id}`}>
+            <SliderItem url={icon} headline={name} isSelected={Number(selectedAlbumId) === id} />
+          </Link>
+        ))}
       </Slider>
     );
   }

@@ -11,89 +11,6 @@ import photogroup from '../../img/icons/photogroup.svg';
 
 import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/groups/singleGroupSlice';
 
-interface StateProps {
-  groupInfo: GroupInt | null;
-  posts: GroupPosts[] | null;
-  loading: boolean;
-}
-interface DispatchProps {
-  loadGroupInfo: (id: string) => void;
-  loadGroupPosts: (id: string) => void;
-}
-type Props = StateProps & DispatchProps & RouteComponentProps;
-
-interface RouteParams {
-  slug: string;
-}
-
-const mapStateToProps = (state: RootState): StateProps =>
-  ({
-    groupInfo: state.singleGroup.groupInfo,
-    posts: state.singleGroup.posts,
-    loading: state.singleGroup.loading,
-  });
-
-const mapDispatchToProps = {
-  loadGroupInfo,
-  loadGroupPosts,
-};
-
-const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
-  loadGroupPosts: _loadGroupPosts,
-  loading,
-  groupInfo,
-  posts }) => {
-  const params = useParams<RouteParams>();
-  const { slug } = params;
-
-  useEffect(() => {
-    _loadGroupInfo(slug);
-    _loadGroupPosts(slug);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (posts && groupInfo) {
-    let { addressImageGroup } = groupInfo;
-    const {
-      groupCategory,
-      name,
-    } = groupInfo;
-    if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
-      addressImageGroup = photogroup;
-    }
-    const postsUpg = posts.map((element: GroupPosts) =>
-      ({ ...element,
-        addressImageGroup,
-        groupName: name }));
-
-    return (
-      <Wrapper>
-        {(loading) ? <LoadingBlock /> : (
-          <Container>
-            <Label>
-              <GroupIco>
-                <Img src={addressImageGroup} alt="Фото группы" />
-              </GroupIco>
-              <DataContainer>
-                <NameGroup>{name}</NameGroup>
-                <Category>
-                  Категория:
-                  {' '}
-                  {groupCategory}
-                </Category>
-              </DataContainer>
-            </Label>
-            <GroupHeader data={groupInfo} />
-            <NewsList news={postsUpg} />
-          </Container>
-        )}
-
-      </Wrapper>
-    );
-  }
-  return null;
-};
-
 const Wrapper = styled.div`
   font-family: Montserrat;
   background: #111222;
@@ -135,7 +52,7 @@ const Label = styled.div`
 const GroupIco = styled.div`
   width: 155px;
   height: 155px;
-  border: 50%;
+  border-radius: 50%;
   margin-right: 20px;
 `;
 
@@ -171,5 +88,84 @@ const Category = styled.div`
   color: #b2b2b2;
   text-align: left;
 `;
+
+interface StateProps {
+  groupInfo: GroupInt | null;
+  posts: GroupPosts[] | null;
+  loading: boolean;
+}
+interface DispatchProps {
+  loadGroupInfo: (id: string) => void;
+  loadGroupPosts: (id: string) => void;
+}
+type Props = StateProps & DispatchProps & RouteComponentProps;
+
+interface RouteParams {
+  slug: string;
+}
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  groupInfo: state.singleGroup.groupInfo,
+  posts: state.singleGroup.posts,
+  loading: state.singleGroup.loading,
+});
+
+const mapDispatchToProps = {
+  loadGroupInfo,
+  loadGroupPosts,
+};
+
+const Group: React.FC<Props> = ({
+  loadGroupInfo: _loadGroupInfo,
+  loadGroupPosts: _loadGroupPosts,
+  loading,
+  groupInfo,
+  posts,
+}) => {
+  const params = useParams<RouteParams>();
+  const { slug } = params;
+
+  useEffect(() => {
+    _loadGroupInfo(slug);
+    _loadGroupPosts(slug);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (posts && groupInfo) {
+    let { addressImageGroup } = groupInfo;
+    const { groupCategory, name } = groupInfo;
+    if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
+      addressImageGroup = photogroup;
+    }
+    const postsUpg = posts.map((element: GroupPosts) => ({
+      ...element,
+      addressImageGroup,
+      groupName: name,
+    }));
+
+    return (
+      <Wrapper>
+        {loading ? (
+          <LoadingBlock />
+        ) : (
+          <Container>
+            <Label>
+              <GroupIco>
+                <Img src={addressImageGroup} alt="Фото группы" />
+              </GroupIco>
+              <DataContainer>
+                <NameGroup>{name}</NameGroup>
+                <Category>Категория: {groupCategory}</Category>
+              </DataContainer>
+            </Label>
+            <GroupHeader data={groupInfo} />
+            <NewsList news={postsUpg} />
+          </Container>
+        )}
+      </Wrapper>
+    );
+  }
+  return null;
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Group));

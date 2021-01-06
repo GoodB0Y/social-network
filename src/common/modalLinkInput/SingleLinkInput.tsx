@@ -15,13 +15,12 @@ const SingleLinkInput: React.FC<ISingleLinkInput> = ({ setValue, isError }) => {
       const innerValue = event.target.value;
       setValue(innerValue);
     },
-    [setValue],
+    [setValue]
   );
   return (
     <>
       <Input onChange={onChange} autoFocus $error={isError} />
-      {isError && <ErrorText>Это поле обязательно</ErrorText>}
-      ,
+      {isError && <ErrorText>Это поле обязательно</ErrorText>},
     </>
   );
 };

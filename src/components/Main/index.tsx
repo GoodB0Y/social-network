@@ -10,13 +10,12 @@ import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
 import ErrorBlock from '../../common/errorBlock';
 import LoadingBlock from '../../common/loadingBlock';
-import { StyledLoadingWrapped } from './styled';
+import StyledLoadingWrapped from './styled';
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    userModel: state.user,
-    currentUserId: state.currentUser.data?.userId,
-  });
+const mapStateToProps = (state: RootState) => ({
+  userModel: state.user,
+  currentUserId: state.currentUser.data?.userId,
+});
 
 const mapDispatch = {
   loadUser,

@@ -2,14 +2,7 @@
 import React from 'react';
 import { Avatar } from 'antd';
 import IComment from '../../../../../types/comment';
-import {
-  Wrapper,
-  UserInfo,
-  TitleWrap,
-  Title,
-  SubtitleTime,
-  Text,
-} from './styles';
+import { Wrapper, UserInfo, TitleWrap, Title, SubtitleTime, Text } from './styles';
 
 interface Props {
   comment: IComment;

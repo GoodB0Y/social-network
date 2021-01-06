@@ -3,14 +3,6 @@ import styled from 'styled-components';
 import { CommentData } from '../../types/group';
 import CommentsList from './CommentsList';
 
-const Comments: React.FC<CommentData> = ({ data }) =>
-  (
-    <Container>
-      <Heading>Комментарии</Heading>
-      <CommentsList data={data} />
-    </Container>
-  );
-
 const Container = styled.div`
   padding-left: 60px;
   margin-bottom: 5px;
@@ -26,4 +18,12 @@ const Heading = styled.div`
   line-height: 125px;
   text-align: left;
 `;
+
+const Comments: React.FC<CommentData> = ({ data }) => (
+  <Container>
+    <Heading>Комментарии</Heading>
+    <CommentsList data={data} />
+  </Container>
+);
+
 export default Comments;

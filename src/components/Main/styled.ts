@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledLoadingWrapped = styled.div`
-    margin-top: 250px;
+const StyledLoadingWrapped = styled.div`
+  margin-top: 250px;
 `;
+
+export default StyledLoadingWrapped;

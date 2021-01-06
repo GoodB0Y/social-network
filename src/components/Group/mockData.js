@@ -132,6 +132,10 @@ export const mockMediaSingleImage = [
 ];
 
 export const mockAudio = [
-  { userId: null, mediaType: 'AUDIO', url: 'https://soundcloud.com/recordmakers/11-kavinsky-nightcall-1' },
+  {
+    userId: null,
+    mediaType: 'AUDIO',
+    url: 'https://soundcloud.com/recordmakers/11-kavinsky-nightcall-1',
+  },
   { userId: null, mediaType: 'AUDIO', url: 'https://soundcloud.com/miami-nights-1984/accelerated' },
 ];

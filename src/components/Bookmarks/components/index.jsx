@@ -14,12 +14,11 @@ const Wrapper = styled.div`
   min-height: 1200px;
 `;
 
-const BookMarksPage = () =>
-  (
-    <Wrapper>
-      <PageMarker>Закладки</PageMarker>
-      <BlockNotes />
-    </Wrapper>
-  );
+const BookMarksPage = () => (
+  <Wrapper>
+    <PageMarker>Закладки</PageMarker>
+    <BlockNotes />
+  </Wrapper>
+);
 
 export default BookMarksPage;

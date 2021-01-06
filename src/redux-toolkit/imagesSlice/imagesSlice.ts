@@ -10,7 +10,7 @@ const loadAlbums = createAsyncThunk(
   'images/loadAlbums',
   async (
     { userId, limit, offset }: { userId: number; limit: number; offset: number },
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
       const data = await getAllAlbumsOfUser({ limit, offset, userId });
@@ -21,14 +21,14 @@ const loadAlbums = createAsyncThunk(
         data: error.response.data,
       });
     }
-  },
+  }
 );
 
 const loadImages = createAsyncThunk(
   'images/loadImages',
   async (
     { userId, limit, offset }: { userId: number; limit: number; offset: number },
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
       const data = await getAllImagesByUserId({ limit, offset, userId });
@@ -39,14 +39,14 @@ const loadImages = createAsyncThunk(
         data: error.response.data,
       });
     }
-  },
+  }
 );
 
 const loadImagesFromAlbum = createAsyncThunk(
   'images/loadImagesFromAlbum',
   async (
     { albumId, limit, offset }: { albumId: number; limit: number; offset: number },
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
       const data = await getImagesInAlbum({ limit, offset, albumId });
@@ -57,7 +57,7 @@ const loadImagesFromAlbum = createAsyncThunk(
         data: error.response.data,
       });
     }
-  },
+  }
 );
 
 interface ImagesState {
@@ -78,64 +78,53 @@ const imagesSlice = createSlice({
   name: 'images',
   initialState,
   reducers: {
-    resetImages: (state) =>
-      ({ ...state, images: null }),
-    resetAlbums: (state) =>
-      ({ ...state, albums: null }),
+    resetImages: (state) => ({ ...state, images: null }),
+    resetAlbums: (state) => ({ ...state, albums: null }),
   },
   extraReducers: {
     /*
     LOAD ALBUMS
       Загружает альбомы текущего юзера.
     */
-    [loadAlbums.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [loadAlbums.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        albums: action.payload,
-        loading: false,
-      }),
-    [loadAlbums.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.payload || action.error,
-        loading: false,
-      }),
+    [loadAlbums.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadAlbums.fulfilled.type]: (state, action) => ({
+      ...state,
+      albums: action.payload,
+      loading: false,
+    }),
+    [loadAlbums.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.payload || action.error,
+      loading: false,
+    }),
     /*
     LOAD Images
       Загружает изобаражения текущего юзера.
     */
-    [loadImages.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [loadImages.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        images: action.payload,
-      }),
-    [loadImages.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.payload || action.error,
-      }),
+    [loadImages.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadImages.fulfilled.type]: (state, action) => ({
+      ...state,
+      images: action.payload,
+    }),
+    [loadImages.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.payload || action.error,
+    }),
     /*
     LOAD IMAGES FROM ALBUMS
       Загружает изображения по определенному альбому
     */
-    [loadImagesFromAlbum.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [loadImagesFromAlbum.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        images: action.payload,
-        loading: false,
-      }),
-    [loadImagesFromAlbum.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.payload || action.error,
-        loading: false,
-      }),
+    [loadImagesFromAlbum.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadImagesFromAlbum.fulfilled.type]: (state, action) => ({
+      ...state,
+      images: action.payload,
+      loading: false,
+    }),
+    [loadImagesFromAlbum.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.payload || action.error,
+      loading: false,
+    }),
   },
 });
 

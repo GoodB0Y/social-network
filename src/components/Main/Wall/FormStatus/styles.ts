@@ -13,8 +13,7 @@ export const StatusInput = styled.input<{ disabled: boolean }>`
   font-size: 16px;
   line-height: 20px;
   color: #515151;
-  cursor: ${({ disabled }) =>
-    (disabled ? 'text' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? 'text' : 'pointer')};
 `;
 
 export const StatusForm = styled.form`

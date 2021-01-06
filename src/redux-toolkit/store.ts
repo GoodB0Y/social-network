@@ -6,6 +6,7 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const newRootReducer = require('./rootReducer').default;
 
 if (process.env.NODE_ENV === 'development' && module.hot) {

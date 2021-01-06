@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/prop-types */
 import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import { Avatar } from 'antd';
@@ -12,7 +10,7 @@ import { WrapperForm, Input, BtnSend, BtnOpenNote, StyledLoading } from './style
 import LoadingBlock from '../../../../../common/loadingBlock';
 
 interface Props {
-  user: IUser;
+  user: IUser | null;
   postId: number;
   setIsOpen: (state: boolean) => void;
   loadCommentsByPost: (id: number) => void;
@@ -44,7 +42,7 @@ const ComponentInput: React.FC<Props> = ({
       }}
     >
       <WrapperForm>
-        <Avatar src={user.avatar} />
+        <Avatar src={user?.avatar} />
         {isLoading && (
           <StyledLoading>
             <LoadingBlock size={30} />

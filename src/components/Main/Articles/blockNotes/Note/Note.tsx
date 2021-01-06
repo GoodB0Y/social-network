@@ -37,12 +37,8 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
   const { post, comments, loading, error } = dataPost;
   const [isOpen, setIsOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(Boolean(comments));
-  const revertOpen = useCallback(() =>
-    setIsOpen((_isOpen) =>
-      !_isOpen), [setIsOpen]);
-  const revertCommentsOpen = useCallback(() =>
-    setIsCommentsOpen((_isOpen) =>
-      !_isOpen), [
+  const revertOpen = useCallback(() => setIsOpen((_isOpen) => !_isOpen), [setIsOpen]);
+  const revertCommentsOpen = useCallback(() => setIsCommentsOpen((_isOpen) => !_isOpen), [
     setIsCommentsOpen,
   ]);
   const renderState = useCallback(() => {

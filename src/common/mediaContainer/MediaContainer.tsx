@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import MediaBlock from './MediaBlock';
 import { MediaContainerWrapper } from './styles';
 
 import IMedia from '../../types/media';
 
-const renderMedia = (media: IMedia[], postId: number, onDeleteMedia?: (index: number) => void) =>
+const renderMedia = (media: IMedia[], postId?: number, onDeleteMedia?: (index: number) => void) =>
   media.map((mediaItem, index) => {
-    const onClose = onDeleteMedia ? () =>
-      onDeleteMedia(index) : null;
+    const onClose = onDeleteMedia ? () => onDeleteMedia(index) : null;
     /* eslint-disable react/no-array-index-key */
     /* Отключил правило, так как медия ни на что больше не опирается, нежели на положение
     в массиве медиа поста, и сам айдишник поста - картинки, пользователь или тип медии
@@ -20,7 +18,7 @@ const renderMedia = (media: IMedia[], postId: number, onDeleteMedia?: (index: nu
 
 interface Props {
   media?: IMedia[];
-  postId: number;
+  postId?: number;
   onDeleteMedia?: (index: number) => void;
 }
 

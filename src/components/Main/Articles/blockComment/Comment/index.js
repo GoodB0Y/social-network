@@ -1,3 +1,3 @@
-import Comment from './Comment.tsx';
+import Comment from './Comment';
 
 export default Comment;

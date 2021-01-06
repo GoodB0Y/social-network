@@ -18,13 +18,15 @@ const useStorage = (file: File): StorageObject => {
   useEffect(() => {
     const storageRef = projectStorage.ref(file.name);
     const collectionRef = projectFirestore.collection('images');
-    storageRef.put(file).then(async () => {
-      const downloadedUrl: string = await storageRef.getDownloadURL();
-      const createdAt = timestamp();
-      collectionRef.add({ url: downloadedUrl, createdAt });
-      setUrl(downloadedUrl);
-    }).catch((err) =>
-      setError(err));
+    storageRef
+      .put(file)
+      .then(async () => {
+        const downloadedUrl: string = await storageRef.getDownloadURL();
+        const createdAt = timestamp();
+        collectionRef.add({ url: downloadedUrl, createdAt });
+        setUrl(downloadedUrl);
+      })
+      .catch((err) => setError(err));
   }, [file]);
   return { url, error };
 };

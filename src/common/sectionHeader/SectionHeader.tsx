@@ -24,12 +24,11 @@ interface ISectionHeader {
   children?: (React.ReactElement | undefined)[] | React.ReactElement;
 }
 
-const SectionHeader: React.FC<ISectionHeader> = ({ headline, children }) =>
-  (
-    <Container>
-      <Headline>{headline}</Headline>
-      {children || null}
-    </Container>
-  );
+const SectionHeader: React.FC<ISectionHeader> = ({ headline, children }) => (
+  <Container>
+    <Headline>{headline}</Headline>
+    {children || null}
+  </Container>
+);
 
 export default SectionHeader;

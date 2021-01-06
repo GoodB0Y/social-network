@@ -17,7 +17,7 @@ global.matchMedia =
     };
 };
 */
-const enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() });

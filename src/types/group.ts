@@ -71,11 +71,7 @@ export interface GroupUser {
   activeName: string;
 }
 export interface GroupStateProps {
-  groups:
-    { groups: Group[];
-      memberOf: number[];
-      loading: boolean;
-      error: Error; };
+  groups: { groups: Group[]; memberOf: number[]; loading: boolean; error: Error };
 }
 
 // Single group types
@@ -150,12 +146,12 @@ export interface ModalData {
 }
 
 export interface SubmitData {
-    description: string;
-    linkSite: string;
-    addressImageGroup: string;
-    groupCategory: string;
-    name: string;
-    id: number;
+  description: string;
+  linkSite: string;
+  addressImageGroup: string;
+  groupCategory: string;
+  name: string;
+  id: number;
 }
 
 export interface GroupInt {

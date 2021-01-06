@@ -7,8 +7,7 @@ interface Idata {
 }
 
 const NewsList: React.FC<Idata> = ({ news }) => {
-  const ListNews = news.map((item: NewsData) =>
-    <NewsItem key={item.id} item={item} />);
+  const ListNews = news.map((item: NewsData) => <NewsItem key={item.id} item={item} />);
   return <>{ListNews}</>;
 };
 export default NewsList;

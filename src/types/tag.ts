@@ -1,8 +1,8 @@
 export default interface ITag {
-    id: number;
-    text: string;
+  id: number;
+  text: string;
 }
 
 export interface ICreateTag {
-    text: string;
+  text: string;
 }

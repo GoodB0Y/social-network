@@ -17,8 +17,7 @@ const Arrow = styled.div<{ left?: boolean }>`
   width: 15px;
   height: 25px;
   background-color: #515151;
-  mask-image: url(${({ left }) =>
-    (left ? arrowLeft : arrowRigth)});
+  mask-image: url(${({ left }) => (left ? arrowLeft : arrowRigth)});
   top: 158px;
   &:hover {
     cursor: pointer;
@@ -26,8 +25,7 @@ const Arrow = styled.div<{ left?: boolean }>`
 `;
 
 const SliderWrapper = styled(Slider)<{ spaceBetween: number }>`
-  margin: 0 -${({ spaceBetween }) =>
-    spaceBetween / 2}px;
+  margin: 0 -${({ spaceBetween }) => spaceBetween / 2}px;
 `;
 
 interface SliderComp {
@@ -44,13 +42,13 @@ interface SliderComp {
 const SliderComp: React.FC<SliderComp> = ({ children, spaceBetween, slidesToShow, ...props }) => {
   const slides = () => {
     if (!Array.isArray(children)) return 1;
-    if (!slidesToShow) return (children.length >= 3 ? 3 : children.length);
+    if (!slidesToShow) return children.length >= 3 ? 3 : children.length;
     return slidesToShow;
   };
   return (
     <Container>
       <SliderWrapper
-        slidesToShow={slides()/* slidesToShow  || (children.length >= 3 ? 3 : children.length) */}
+        slidesToShow={slides() /* slidesToShow  || (children.length >= 3 ? 3 : children.length) */}
         spaceBetween={spaceBetween || 40}
         nextArrow={<Arrow />}
         prevArrow={<Arrow left />}

@@ -4,47 +4,6 @@ import styled from 'styled-components';
 import { GroupHeaderData } from '../../types/group';
 import ModalEdit from './ModalEdit';
 
-const GroupHeader: React.FC<GroupHeaderData> = ({
-  data: {
-    description,
-    linkSite,
-    ownerFio,
-    persistDate,
-  },
-  data,
-}) => {
-  const originDate = persistDate ? format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm") : null;
-
-  const [isModalOpen, setModal] = useState(false);
-
-  const closeModal = (): void =>
-    setModal(false);
-
-  return (
-    <NavbarWrapper className="hello">
-      <EditButton>
-        <button
-          type="button"
-          onClick={(): void =>
-            setModal(true)}
-        >
-          Edit group
-        </button>
-      </EditButton>
-      {isModalOpen && <ModalEdit closeModal={closeModal} groupData={data} />}
-      <OriginDate>{originDate}</OriginDate>
-      <GroupDescription>{description}</GroupDescription>
-      <Link href={linkSite}>{linkSite}</Link>
-      <Owner>
-        Group owner:
-        {' '}
-        {ownerFio}
-      </Owner>
-    </NavbarWrapper>
-  );
-};
-export default GroupHeader;
-
 const NavbarWrapper = styled.nav`
   font-style: normal;
   font-weight: normal;
@@ -62,7 +21,7 @@ const EditButton = styled.div`
   align-self: flex-end;
   button {
     padding: 5px;
-    background-color: #FFB11B;
+    background-color: #ffb11b;
     border-radius: 5px;
     outline: none;
     color: black;
@@ -107,3 +66,31 @@ const Owner = styled.div`
   color: #000000;
   margin-bottom: 15px;
 `;
+
+const GroupHeader: React.FC<GroupHeaderData> = ({
+  data: { description, linkSite, ownerFio, persistDate },
+  data,
+}) => {
+  const originDate = persistDate ? format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm") : null;
+
+  const [isModalOpen, setModal] = useState(false);
+
+  const closeModal = (): void => setModal(false);
+
+  return (
+    <NavbarWrapper className="hello">
+      <EditButton>
+        <button type="button" onClick={(): void => setModal(true)}>
+          Edit group
+        </button>
+      </EditButton>
+      {isModalOpen && <ModalEdit closeModal={closeModal} groupData={data} />}
+      <OriginDate>{originDate}</OriginDate>
+      <GroupDescription>{description}</GroupDescription>
+      <Link href={linkSite}>{linkSite}</Link>
+      <Owner>Group owner: {ownerFio}</Owner>
+    </NavbarWrapper>
+  );
+};
+
+export default GroupHeader;

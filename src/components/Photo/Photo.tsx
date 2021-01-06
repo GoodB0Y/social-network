@@ -16,22 +16,19 @@ import AlbumPhotos from './AlbumPhotos';
 
 import { Headline } from './styles';
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    currentUserId: state.currentUser.data?.userId,
-    userFirstName: state.user.data?.firstName,
-    userLastName: state.user.data?.lastName,
-    albums: state.image.albums,
-    images: state.image.images,
-    loading: state.image.loading,
-    error: state.image.error,
-  });
+const mapStateToProps = (state: RootState) => ({
+  currentUserId: state.currentUser.data?.userId,
+  userFirstName: state.user.data?.firstName,
+  userLastName: state.user.data?.lastName,
+  albums: state.image.albums,
+  images: state.image.images,
+  loading: state.image.loading,
+  error: state.image.error,
+});
 
 const mapDispatchToProps = {
-  loadImages: (userId: number) =>
-    loadImages({ userId, limit: 6, offset: 0 }),
-  loadAlbums: (userId: number) =>
-    loadAlbums({ userId, limit: 15, offset: 0 }),
+  loadImages: (userId: number) => loadImages({ userId, limit: 6, offset: 0 }),
+  loadAlbums: (userId: number) => loadAlbums({ userId, limit: 15, offset: 0 }),
   loadUser,
 };
 
@@ -47,7 +44,6 @@ const Photo: React.FC<Props> = ({
   userLastName,
   currentUserId,
   albums,
-  images,
   loading,
   error,
   loadImages: _loadImages,
@@ -74,42 +70,32 @@ const Photo: React.FC<Props> = ({
         _loadAlbums(userId);
       }
     },
-    [userId, _loadAlbums],
+    [userId, _loadAlbums]
   );
 
   return (
     <PageWrapper>
       <ContentBox>
         <Headline>
-          {isCurrentUser && 'Ваши'}
-          {' '}
-          Фотографии
-          {userFirstName || ''}
-          {' '}
-          {userLastName || ''}
+          {isCurrentUser && 'Ваши'} Фотографии
+          {userFirstName || ''} {userLastName || ''}
         </Headline>
         <SectionHeader headline="Альбомы">
           {isCurrentUser ? (
-            <Button onClick={() =>
-              setCreateAlbumModalOpen(true)}
-            >
-              Создать
-            </Button>
+            <Button onClick={() => setCreateAlbumModalOpen(true)}>Создать</Button>
           ) : undefined}
         </SectionHeader>
         <ModalLinkInput
           title={['Название альбома:', 'Ссылка на обложку:']}
           visible={isCreateAlbumModalOpen}
-          setUnvisible={() =>
-            setCreateAlbumModalOpen(false)}
+          setUnvisible={() => setCreateAlbumModalOpen(false)}
           /*
           В name вставляется значение индекса 1 по той причине, что сверху
           в поле title первым индексом передается описание поля для ввода как название альбома
           Если хотите сделать абстракцию - вынесите забитые значения названий полей и соотнесите
           их с их индексами в структуре по типу "коллекция ключей"
           */
-          onLinkSend={(texts) =>
-            createAlbum({ name: texts[0], icon: texts[1] })}
+          onLinkSend={(texts) => createAlbum({ name: texts[0], icon: texts[1] })}
         />
         {sliderItems(albums, loading, error, userId, albumId)}
         {albumId ? (

@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components'
+import { DefaultTheme } from 'styled-components';
 
 const myTheme: DefaultTheme = {
   borderRadius: '5px',
@@ -7,6 +7,6 @@ const myTheme: DefaultTheme = {
     main: 'cyan',
     secondary: 'magenta',
   },
-}
+};
 
-export { myTheme };
+export default myTheme;

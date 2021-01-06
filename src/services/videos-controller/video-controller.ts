@@ -10,7 +10,10 @@ export const fetchAllVideosInAlbum = async (albumId = 10): Promise<AxiosResponse
   axios.get(`${baseUrl}/album/${albumId}/video`);
 
 // eslint-disable-next-line max-len
-export const fetchAddVideoInAlbum = async (albumId: number, videoId: number): Promise<AxiosResponse> =>
+export const fetchAddVideoInAlbum = async (
+  albumId: number,
+  videoId: number
+): Promise<AxiosResponse> =>
   axios.put(`${baseUrl}/album/video?albumId=${albumId}&videoId=${videoId}`);
 
 export const fetchVideoFromName = async (videoName = 'Test video 3'): Promise<AxiosResponse> =>
@@ -23,7 +26,10 @@ export const fetchAddAlbum = async (userId = 60, data = {}): Promise<AxiosRespon
   axios.post(`${baseUrl}/user/${userId}/album`, data);
 
 // eslint-disable-next-line max-len
-export const fetchGetSomeVideoFromCollection = async (page = 0, count = 15): Promise<AxiosResponse> =>
+export const fetchGetSomeVideoFromCollection = async (
+  page = 0,
+  count = 15
+): Promise<AxiosResponse> =>
   axios.get(`${baseUrl}/user/60/video?currentPage=${page}&itemsOnPage=${count}`);
 
 export const fetchAddVideo = async (userId = 60, data = {}): Promise<AxiosResponse> =>

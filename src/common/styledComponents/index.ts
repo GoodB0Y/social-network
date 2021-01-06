@@ -16,8 +16,7 @@ export const HeaderContainer = styled.div`
   z-index: 15;
 `;
 
-export const Logo = styled.img.attrs((props: Iimg) =>
-  ({ src: props.img }))`
+export const Logo = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
   height: 32px;
   width: 67px;
   margin-top: 57px;
@@ -27,8 +26,7 @@ export const Logo = styled.img.attrs((props: Iimg) =>
   }
 `;
 
-export const IconHeader = styled.img.attrs((props: Iimg) =>
-  ({ src: props.img }))`
+export const IconHeader = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
   height: 30px;
   width: 30px;
   margin-left: 55px;
@@ -36,8 +34,7 @@ export const IconHeader = styled.img.attrs((props: Iimg) =>
     cursor: pointer;
   }
 `;
-export const IconSearch = styled.img.attrs((props: Iimg) =>
-  ({ src: props.img }))`
+export const IconSearch = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
   height: 30px;
   width: 30px;
   &:hover {
@@ -316,15 +313,13 @@ export const WallCreateArticleHeaderBlockRight = styled.div`
   justify-content: space-between;
 `;
 
-export const IconArticle = styled.img.attrs<Iimg>((props) =>
-  ({ src: props.img }))<Iimg>`
+export const IconArticle = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
   margin-left: 13px;
   cursor: pointer;
 `;
 
 export const IconCross = styled(IconArticle)<{ $isOpen: boolean }>`
-  transform: rotate(${({ $isOpen }) =>
-    ($isOpen ? '45' : '0')}deg);
+  transform: rotate(${({ $isOpen }) => ($isOpen ? '45' : '0')}deg);
   transition: 0.3s;
   background: white;
 `;
@@ -336,8 +331,7 @@ export const WallCreateArticleIconContainer = styled.div`
 
 export const WallCreateArticleAdditionIcons = styled.div<{ $isOpen: boolean }>`
   transition: transform 0.3s;
-  transform: translate(${({ $isOpen }) =>
-    ($isOpen ? '0%' : '100%')});
+  transform: translate(${({ $isOpen }) => ($isOpen ? '0%' : '100%')});
 `;
 
 export const ArticleName = styled.div`
@@ -348,8 +342,7 @@ export const ArticleName = styled.div`
 `;
 
 // Article Form
-export const ButtonMore = styled.img.attrs<Iimg>((props) =>
-  ({ src: props.img }))<Iimg>`
+export const ButtonMore = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
   position: absolute;
   right: 0;
   bottom: 0;

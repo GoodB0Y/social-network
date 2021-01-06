@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Field, Formik } from 'formik';
@@ -24,10 +23,9 @@ const ArticleSchema = Yup.object().shape({
   articleText: Yup.string().required('В статье должен быть текст'),
 });
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    currentUser: state?.currentUser?.data,
-  });
+const mapStateToProps = (state: RootState) => ({
+  currentUser: state?.currentUser?.data,
+});
 
 const mapDispatchToProps = {
   loadPostsByUser,
@@ -89,51 +87,46 @@ const ArticleForm: React.FC<Props> = ({
       validateOnBlur={false}
       validateOnChange={false}
     >
-      {({ errors, touched }) =>
-        (
-          <SmoothCollapse expanded={isOpen} heightTransition="1s">
-            <ArticleStyledForm>
-              <ArticleName>Название статьи</ArticleName>
-              <Field
-                name="articleName"
-                as={InputName}
-                autoComplete="off"
-                $isError={errors.articleName && touched.articleName}
-              />
-              {errors.articleName && touched.articleName && (
+      {({ errors, touched }) => (
+        <SmoothCollapse expanded={isOpen} heightTransition="1s">
+          <ArticleStyledForm>
+            <ArticleName>Название статьи</ArticleName>
+            <Field
+              name="articleName"
+              as={InputName}
+              autoComplete="off"
+              $isError={errors.articleName && touched.articleName}
+            />
+            {errors.articleName && touched.articleName && (
               <ErrorLine>{errors.articleName}</ErrorLine>
-              )}
-              <MediaContainer media={media} onDeleteMedia={onDeleteMedia} />
-              <ArticleName>Текст</ArticleName>
-              <Field
-                name="articleText"
-                rows="12"
-                as={InputText}
-                $isError={errors.articleText && touched.articleText}
-              />
-              {errors.articleText && touched.articleText && (
+            )}
+            <MediaContainer media={media} onDeleteMedia={onDeleteMedia} />
+            <ArticleName>Текст</ArticleName>
+            <Field
+              name="articleText"
+              rows="12"
+              as={InputText}
+              $isError={errors.articleText && touched.articleText}
+            />
+            {errors.articleText && touched.articleText && (
               <ErrorLine>{errors.articleText}</ErrorLine>
-              )}
-              <ArticleName>Теги</ArticleName>
-              <Tags
-                tags={tags}
-                setTags={(_tags) =>
-                  setTags(_tags.filter((tag) =>
-                    tag !== ''))}
-                deleteTag={(index) => {
-                  setTags((_tags) =>
-                    _tags.filter((item, _index) =>
-                      _index !== index));
-                }}
-              />
-              {loading && <LoadingBlock />}
-              <ArticleButton className="articleButton" type="submit">
-                Опубликовать
-              </ArticleButton>
-              <ButtonMore img={imgButtonMore} onClick={changeOpen} />
-            </ArticleStyledForm>
-          </SmoothCollapse>
-        )}
+            )}
+            <ArticleName>Теги</ArticleName>
+            <Tags
+              tags={tags}
+              setTags={(_tags) => setTags(_tags.filter((tag) => tag !== ''))}
+              deleteTag={(index) => {
+                setTags((_tags) => _tags.filter((item, _index) => _index !== index));
+              }}
+            />
+            {loading && <LoadingBlock />}
+            <ArticleButton className="articleButton" type="submit">
+              Опубликовать
+            </ArticleButton>
+            <ButtonMore img={imgButtonMore} onClick={changeOpen} />
+          </ArticleStyledForm>
+        </SmoothCollapse>
+      )}
     </Formik>
   );
 };

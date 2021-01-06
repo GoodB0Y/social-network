@@ -11,19 +11,14 @@ export const ModalInput: React.FC = () => {
   const [visible, setVisible] = useState(false);
   return (
     <div>
-      <Button onClick={() =>
-        setVisible((state) =>
-          !state)}
-      >
-        {' '}
-        Modal
-      </Button>
+      <Button onClick={() => setVisible((state) => !state)}> Modal</Button>
       <ModalLinkInput
         title="Загрузите фотографию"
-        onLinkSend={(link: string) => { alert(link); }}
+        onLinkSend={(link: string) => {
+          alert(link);
+        }}
         visible={visible}
-        setUnvisible={() =>
-          setVisible(false)}
+        setUnvisible={() => setVisible(false)}
       />
     </div>
   );

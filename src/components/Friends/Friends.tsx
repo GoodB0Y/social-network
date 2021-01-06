@@ -46,10 +46,8 @@ const NoFriends = styled.h3`
 `;
 
 const Friends: React.FC = (): React.ReactElement => {
-  const userId = useSelector((state: RootState) =>
-    state.currentUser.data?.userId);
-  const friends = useSelector((state: RootState) =>
-    state.friends);
+  const userId = useSelector((state: RootState) => state.currentUser.data?.userId);
+  const friends = useSelector((state: RootState) => state.friends);
   const { friendsFilter, data: friendsList, loading } = friends;
 
   const dispatch = useDispatch();
@@ -74,8 +72,7 @@ const Friends: React.FC = (): React.ReactElement => {
   };
 
   const deleteButtonHandler = (deleteId: number): void => {
-    const data = friendsList.filter(({ userId: id }) =>
-      id !== deleteId);
+    const data = friendsList.filter(({ userId: id }) => id !== deleteId);
     dispatch(setData(data));
   };
 
@@ -91,24 +88,23 @@ const Friends: React.FC = (): React.ReactElement => {
       {friendsList.length !== 0 && (
         <div>
           <PageSearchInput action={filterInputHandler} placeholder="Начните поиск друзей..." />
-          {userFiltered().map((item) =>
-            (
-              <SingleFriend
-                key={uniqueId()}
-                deleteButtonHandler={deleteButtonHandler}
-                messageButtonHandler={messageButtonHandler}
-                firstname={item.firstName}
-                lastname={item.lastName}
-                profesion="No field in api"
-                avatarka={item.avatar}
-                id={item.userId}
-              />
-            ))}
+          {userFiltered().map((item) => (
+            <SingleFriend
+              key={uniqueId()}
+              deleteButtonHandler={deleteButtonHandler}
+              messageButtonHandler={messageButtonHandler}
+              firstname={item.firstName}
+              lastname={item.lastName}
+              profesion="No field in api"
+              avatarka={item.avatar}
+              id={item.userId}
+            />
+          ))}
           {!userFiltered().length && <NoFriends>Друзей с таким именем нет.</NoFriends>}
         </div>
       )}
       {loading && <LoadingBlock />}
-      {(friendsList.length === 0 && !loading) && <NoFriends>У Вас нет друзей.</NoFriends>}
+      {friendsList.length === 0 && !loading && <NoFriends>У Вас нет друзей.</NoFriends>}
     </FriendsWrapper>
   );
 };

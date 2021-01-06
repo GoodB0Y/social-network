@@ -6,10 +6,10 @@ headline | string, children
 
 >
 
-## Пример: 
+## Пример:
+
 ```html
- <SectionHeader headline="Все фотографии">
-    <Button>Добавить</Button>
+<SectionHeader headline="Все фотографии">
+  <button>Добавить</button>
 </SectionHeader>
 ```
-

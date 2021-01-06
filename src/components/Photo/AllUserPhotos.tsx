@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Element } from 'react-scroll';
-import allPhotoItems from './funcs/allPhotoItems';
 import createImagePhoto from './funcs/createImage';
 
 import { RootState } from '../../redux-toolkit/store';
@@ -9,22 +8,19 @@ import { loadImages, resetImages } from '../../redux-toolkit/imagesSlice';
 import ModalLinkInput from '../../common/modalLinkInput/ModalLinkInput';
 import SectionHeader from '../../common/sectionHeader';
 import UploadForm from './UploadForm';
-import { GridContainer, LinkArrow } from './styles';
 import ModalPhoto from './ModalPhoto';
 import FullScreen from './FullScreen';
 import ImageGrid from './ImageGrid';
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    images: state.image.images,
-    loading: state.image.loading,
-    error: state.image.error,
-    currentUserId: state.currentUser.data?.userId,
-  });
+const mapStateToProps = (state: RootState) => ({
+  images: state.image.images,
+  loading: state.image.loading,
+  error: state.image.error,
+  currentUserId: state.currentUser.data?.userId,
+});
 
 const mapDispatchToProps = {
-  loadImages: (userId: number) =>
-    loadImages({ userId, limit: 15, offset: 0 }),
+  loadImages: (userId: number) => loadImages({ userId, limit: 15, offset: 0 }),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -58,10 +54,11 @@ const AllUserPhotos: React.FC<Props> = ({
         _loadImages(userId);
       }
     },
-    [currentUserId, _loadImages, userId],
+    [currentUserId, _loadImages, userId]
   );
-  const selectFileHandler:
-  React.ReactEventHandler<HTMLInputElement> = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+  const selectFileHandler: React.ReactEventHandler<HTMLInputElement> = (
+    evt: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const fileList = evt.target.files;
     if (fileList) {
       const selected = fileList[0];
@@ -81,8 +78,7 @@ const AllUserPhotos: React.FC<Props> = ({
         <Element name="all" />
         {isCurrentUser ? (
           <UploadForm
-            onChange={(evt): void =>
-              selectFileHandler(evt)}
+            onChange={(evt): void => selectFileHandler(evt)}
             error={errorMessage}
             file={file}
           />
@@ -107,12 +103,9 @@ const AllUserPhotos: React.FC<Props> = ({
         error={error}
         setSelectedImage={setSelectedImage}
       />
-      { /* <LinkArrow to="all" duration={500} smooth spy /> */ }
-      { selectedImage && (
-      <FullScreen
-        selectedImage={selectedImage}
-        setSelectedImage={setSelectedImage}
-      />
+      {/* <LinkArrow to="all" duration={500} smooth spy /> */}
+      {selectedImage && (
+        <FullScreen selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
       )}
     </>
   );

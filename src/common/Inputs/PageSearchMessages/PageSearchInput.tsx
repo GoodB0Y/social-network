@@ -17,17 +17,12 @@ const PageSearchInput: React.FC<Props> = ({ action, placeholder, defaultValue })
   };
 
   return (
-    <form
-      onSubmit={(event) =>
-        handlerSubmit(event)}
-      className={style.searchBlock}
-    >
+    <form onSubmit={(event) => handlerSubmit(event)} className={style.searchBlock}>
       <input
         className={style.input}
         defaultValue={defaultValue}
         placeholder={placeholder}
-        onChange={(event) =>
-          setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}
         value={value}
       />
       <button className={style.button} type="submit" aria-label="filter-messages" />
