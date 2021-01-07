@@ -23,9 +23,7 @@ const renderAddPhotoBlock = (setIsOpen: (newValue: boolean) => void, isCurrentUs
     return null;
   }
   return (
-    <AddPhotoBlock onClick={() =>
-      setIsOpen(true)}
-    >
+    <AddPhotoBlock onClick={() => setIsOpen(true)}>
       <AddPhotoIcon src={addPhotoIcon} alt="Изменить аватар" />
     </AddPhotoBlock>
   );
@@ -46,7 +44,7 @@ const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, is
     (link: string) => {
       _updateAvatar(Array.isArray(link) ? link[0] : link);
     },
-    [_updateAvatar],
+    [_updateAvatar]
   );
   const { avatar, firstName, lastName, profession, activeName } = user;
   const lastStatus = activeName === 'ACTIVE' ? 'online' : 'offline';
@@ -58,17 +56,14 @@ const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, is
         <ModalLinkInput
           onLinkSend={onLinkSend}
           visible={isOpen}
-          setUnvisible={() =>
-            setIsOpen(false)}
+          setUnvisible={() => setIsOpen(false)}
           title="Загрузите фотографию"
         />
         {lastStatus === 'online' && <UserOnlineIcon />}
       </UserInfoAvatar>
       <UserInfoNameBlock>
         <UserName>
-          {firstName}
-          {' '}
-          {lastName}
+          {firstName} {lastName}
         </UserName>
         <UserProfession>{profession}</UserProfession>
         <UserOnlineStatus>{lastStatus}</UserOnlineStatus>

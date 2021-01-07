@@ -50,8 +50,7 @@ export const BtnOpenNote = styled.button<{ isOpen: boolean }>`
   background-image: url(${openNote});
   background-position: center center;
   background-repeat: no-repeat;
-  transform: rotate(${({ isOpen }) =>
-    (isOpen ? '0' : '180')}deg);
+  transform: rotate(${({ isOpen }) => (isOpen ? '0' : '180')}deg);
   transition: transform 0.3s;
   cursor: pointer;
   border: none;

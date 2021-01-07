@@ -15,23 +15,13 @@ import {
 } from './mediaContainer.stories';
 
 storiesOf('Social network', module)
-  .add('Страница авторизации', () =>
-    <Login />)
-  .add('Страница сообщений', () =>
-    <MessagesPage />)
-  .add('Блок комментариев', () =>
-    <BlockComments />)
-  .add('Блок записей', () =>
-    <BlockNotes />)
-  .add('Аватар', () =>
-    <UserInfoHeader />)
-  .add('Стена', () =>
-    <Wall />)
-  .add('Создание записи на стене', () =>
-    <WallCreateArticle />)
-  .add('Теги', () =>
-    <TagsComponent />)
-  .add('Поле с медиа', () =>
-    <MediaContainerComponent />)
-  .add('Поле с медиа без удаления', () =>
-    <MediaContainerComponentWithoutDelete />);
+  .add('Страница авторизации', () => <Login />)
+  .add('Страница сообщений', () => <MessagesPage />)
+  .add('Блок комментариев', () => <BlockComments />)
+  .add('Блок записей', () => <BlockNotes />)
+  .add('Аватар', () => <UserInfoHeader />)
+  .add('Стена', () => <Wall />)
+  .add('Создание записи на стене', () => <WallCreateArticle />)
+  .add('Теги', () => <TagsComponent />)
+  .add('Поле с медиа', () => <MediaContainerComponent />)
+  .add('Поле с медиа без удаления', () => <MediaContainerComponentWithoutDelete />);

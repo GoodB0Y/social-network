@@ -11,20 +11,17 @@ import SectionHeader from '../../common/sectionHeader';
 import Button from '../../common/button';
 import { GridContainer, LinkArrow } from './styles';
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    albumImages: state.image.images,
-    loadedAlbums: state.image.albums,
-    loading: state.image.loading,
-    error: state.image.error,
-    currentUserId: state.currentUser.data?.userId,
-  });
+const mapStateToProps = (state: RootState) => ({
+  albumImages: state.image.images,
+  loadedAlbums: state.image.albums,
+  loading: state.image.loading,
+  error: state.image.error,
+  currentUserId: state.currentUser.data?.userId,
+});
 
 const mapDispatchToProps = {
-  loadImagesFromAlbum: (albumId: number) =>
-    loadImagesFromAlbum({ albumId, limit: 15, offset: 0 }),
-  loadAlbums: (userId: number) =>
-    loadAlbums({ userId, limit: 15, offset: 0 }),
+  loadImagesFromAlbum: (albumId: number) => loadImagesFromAlbum({ albumId, limit: 15, offset: 0 }),
+  loadAlbums: (userId: number) => loadAlbums({ userId, limit: 15, offset: 0 }),
   resetImages,
 };
 
@@ -49,8 +46,7 @@ const AlbumPhotos: React.FC<Props> = ({
   // Суть проверки - не дать пользователю вбить неверного пользователя
   // и загрузить изображения корректного альбома без корректной загрузки альбомов
   // пусть из React Router уже приходит вся нужная инфа
-  const currentAlbum = loadedAlbums?.find((album) =>
-    album.id === Number(albumId));
+  const currentAlbum = loadedAlbums?.find((album) => album.id === Number(albumId));
   useEffect(() => {
     if (!currentAlbum && loadedAlbums) {
       _loadAlbums(userId);
@@ -74,7 +70,7 @@ const AlbumPhotos: React.FC<Props> = ({
         _loadImagesFromAlbum(currentAlbum.id);
       }
     },
-    [currentUserId, _loadImagesFromAlbum, currentAlbum],
+    [currentUserId, _loadImagesFromAlbum, currentAlbum]
   );
   if (currentAlbum) {
     return (
@@ -82,19 +78,13 @@ const AlbumPhotos: React.FC<Props> = ({
         <SectionHeader headline={`Фотографии альбома\n\r${currentAlbum.name}`}>
           <Element name="all" />
           {isCurrentUser ? (
-            <Button onClick={() =>
-              setCreateImageModalOpen(true)}
-            >
-              Добавить
-            </Button>
+            <Button onClick={() => setCreateImageModalOpen(true)}>Добавить</Button>
           ) : undefined}
           <ModalLinkInput
             title={['Ссылка на изображение:', 'Описание:']}
             visible={isCreateImageModalOpen}
-            setUnvisible={() =>
-              setCreateImageModalOpen(false)}
-            onLinkSend={(texts) =>
-              createImage({ url: texts[0], desc: texts[1] })}
+            setUnvisible={() => setCreateImageModalOpen(false)}
+            onLinkSend={(texts) => createImage({ url: texts[0], desc: texts[1] })}
           />
         </SectionHeader>
         <GridContainer>

@@ -1,28 +1,6 @@
 import { uniqueId } from 'lodash';
 import { IsingleChat, Ichat } from '../../types/chat';
 
-export async function getChats(): Promise<Ichat[]> {
-  return new Promise((resolve) => {
-    setTimeout(() =>
-      resolve(dataChats), 1000);
-  });
-}
-
-export async function getSingleChats(id: number): Promise<IsingleChat[]> {
-  switch (id) {
-    case 1: return new Promise((resolve) => {
-      setTimeout(() =>
-        resolve(dataMessages1), 200);
-    });
-    case 2: return new Promise((resolve) => {
-      setTimeout(() =>
-        resolve(dataMessages2), 500);
-    });
-    default:
-      return [];
-  }
-}
-
 const dataChats: Ichat[] = [
   {
     id: 1,
@@ -179,3 +157,24 @@ const dataMessages2: IsingleChat[] = [
     active: 'DISABLED',
   },
 ];
+
+export async function getChats(): Promise<Ichat[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(dataChats), 1000);
+  });
+}
+
+export async function getSingleChats(id: number): Promise<IsingleChat[]> {
+  switch (id) {
+    case 1:
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(dataMessages1), 200);
+      });
+    case 2:
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(dataMessages2), 500);
+      });
+    default:
+      return [];
+  }
+}

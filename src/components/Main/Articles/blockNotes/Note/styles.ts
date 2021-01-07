@@ -113,8 +113,7 @@ export const TextWithMarkdown = styled(ReactMarkdown)`
   text-align: start;
   height: auto;
   word-break: break-all;
-  max-height: ${({ $isOpen }: { $isOpen: boolean }) =>
-    ($isOpen ? '100%' : '100px')};
+  max-height: ${({ $isOpen }: { $isOpen: boolean }) => ($isOpen ? '100%' : '100px')};
   //transition: 1s;
   overflow: hidden;
 `;
@@ -127,8 +126,7 @@ export const BtnOpenNote = styled.button`
   background-image: url(${closeNote});
   background-position: center center;
   background-repeat: no-repeat;
-  transform: rotate(${({ $isOpen }: { $isOpen: boolean }) =>
-    ($isOpen ? '0' : '180')}deg);
+  transform: rotate(${({ $isOpen }: { $isOpen: boolean }) => ($isOpen ? '0' : '180')}deg);
   transition: transform 0.5s;
   border: none;
   position: absolute;

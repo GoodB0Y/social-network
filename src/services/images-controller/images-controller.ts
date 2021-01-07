@@ -4,8 +4,7 @@ import { GetImages, IGetImagesInAlbum, GetAlbums } from './images-interfaces';
 import { baseUrlv2 } from '../config';
 
 const axios = axiosLib.create();
-axios.interceptors.response.use((response: AxiosResponse) =>
-  response.data);
+axios.interceptors.response.use((response: AxiosResponse) => response.data);
 axios.defaults.baseURL = `${baseUrlv2}images`;
 
 export async function getAllImagesByUserId({
@@ -23,7 +22,7 @@ export async function getAllImagesByUserId({
 }
 
 export async function createImage(
-  imageCreateBundle: ImageCreateDto,
+  imageCreateBundle: ImageCreateDto
 ): Promise<AxiosResponse<ImageDto>> {
   return axios.post('', imageCreateBundle);
 }

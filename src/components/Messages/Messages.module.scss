@@ -155,21 +155,21 @@
   text-align: right;
 }
 
-.menu {  
-    width: fit-content;
-    align-self: flex-end;
-    outline: none;
-    border: 0;
-    background-color: inherit;
-    img {
-      display: flex;
-      width: 40px;
-      cursor: pointer;
+.menu {
+  width: fit-content;
+  align-self: flex-end;
+  outline: none;
+  border: 0;
+  background-color: inherit;
+  img {
+    display: flex;
+    width: 40px;
+    cursor: pointer;
 
-      &:hover {
-        opacity: 0.7;
-      }
+    &:hover {
+      opacity: 0.7;
     }
+  }
 }
 
 .messagesWrapper {

@@ -1,3 +1,3 @@
-import all from './ComponentInput.tsx';
+import all from './ComponentInput';
 
 export default all;

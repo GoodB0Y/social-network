@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -25,10 +24,9 @@ const mapDispatchToProps = {
   loadCurrentUser,
 };
 
-const mapStateToProps = (state: RootState) =>
-  ({
-    currentUserModel: state.currentUser,
-  });
+const mapStateToProps = (state: RootState) => ({
+  currentUserModel: state.currentUser,
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;

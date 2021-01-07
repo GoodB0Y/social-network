@@ -72,8 +72,7 @@ const BtnFilterAudio = styled.button<IBtnFilterAudio>`
   padding: 0;
   line-height: 30px;
   outline: none;
-  border-bottom: ${(props: any): any =>
-    props.selected && '3px solid #FFB11B'};
+  border-bottom: ${(props: any): any => props.selected && '3px solid #FFB11B'};
   &:not(:last-child) {
     margin-right: 51px;
   }
@@ -86,18 +85,16 @@ interface IBtnFilterAudio {
 }
 
 interface ISlickOnClick {
+  // eslint-disable-next-line react/require-default-props
   onClick?: () => void;
 }
 
-const SampleNextArrow = ({ onClick }: ISlickOnClick) =>
-  <Next onClick={onClick} />;
-const SamplePrevArrow = ({ onClick }: ISlickOnClick) =>
-  <Prev onClick={onClick} />;
+const SampleNextArrow = ({ onClick }: ISlickOnClick) => <Next onClick={onClick} />;
+const SamplePrevArrow = ({ onClick }: ISlickOnClick) => <Prev onClick={onClick} />;
 
 const Audio: React.FC = () => {
   const dispatch: TypeDispatch = useDispatch();
-  const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) =>
-    allAudiosReducer);
+  const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) => allAudiosReducer);
   const loaded = objAudiosState.loading.endsWith(pending);
   const playlistsData: Array<Record<string, any>> = objAudiosState.myPlaylists;
   const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
@@ -116,10 +113,8 @@ const Audio: React.FC = () => {
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    beforeChange: (): void =>
-      setDragging(true),
-    afterChange: (): void =>
-      setDragging(false),
+    beforeChange: (): void => setDragging(true),
+    afterChange: (): void => setDragging(false),
     // variableWidth: true, // отрабатывает криво с параметром slidesToShow
   };
 
@@ -140,130 +135,137 @@ const Audio: React.FC = () => {
     dispatch(myPlaylistsAction());
   }, [dispatch]);
 
-  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
-    async (): Promise<PayloadAction<any, any>|undefined> => {
-      setChosenCategoryAudios({
-        [argCategoryAudio]: true,
-      });
+  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) => async (): Promise<
+    PayloadAction<any, any> | undefined
+  > => {
+    setChosenCategoryAudios({
+      [argCategoryAudio]: true,
+    });
 
-      if (argCategoryAudio === 'myAudios') {
-        return dispatch(myAudiosAction());
-      }
-      if (argCategoryAudio === 'allAudios') {
-        return dispatch(allAudiosAction());
-      }
-      if (argCategoryAudio === 'friendsAudios') {
-        return dispatch(friendsAudioAction());
-      }
-      return undefined;
-    };
+    if (argCategoryAudio === 'myAudios') {
+      return dispatch(myAudiosAction());
+    }
+    if (argCategoryAudio === 'allAudios') {
+      return dispatch(allAudiosAction());
+    }
+    if (argCategoryAudio === 'friendsAudios') {
+      return dispatch(friendsAudioAction());
+    }
+    return undefined;
+  };
 
-  const timeAudio = (sec: number): string|number => {
+  const timeAudio = (sec: number): string | number => {
     if (sec === null) {
       return sec;
     }
-    let minutes: number|string = Math.floor(sec / 60);
-    let seconds: number|string = sec % 60;
+    let minutes: number | string = Math.floor(sec / 60);
+    let seconds: number | string = sec % 60;
     if (minutes < 10) minutes = `0${minutes}`;
     if (seconds < 10) seconds = `0${seconds}`;
     return `${minutes}:${seconds}`;
   };
 
-  const AllAudios = objAudiosState && objAudiosState.allAudios.length > 0
-    && objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAudios) =>
-      (
-        <li key={id}>
-          <LeftSide>
-            <div>
-              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-            </div>
-            <div>
-              <h3>{author}</h3>
-              <p>{name}</p>
-            </div>
-          </LeftSide>
-          <RightSide>
-            <h4>{timeAudio(length)}</h4>
-          </RightSide>
-        </li>
-      ));
+  const AllAudios =
+    objAudiosState &&
+    objAudiosState.allAudios.length > 0 &&
+    objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAudios) => (
+      <li key={id}>
+        <LeftSide>
+          <div>
+            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+          </div>
+          <div>
+            <h3>{author}</h3>
+            <p>{name}</p>
+          </div>
+        </LeftSide>
+        <RightSide>
+          <h4>{timeAudio(length)}</h4>
+        </RightSide>
+      </li>
+    ));
 
-  const Friends = objAudiosState
-    && objAudiosState.friends.length > 0
-    && objAudiosState.friends
-      .map(({ firstName, lastName, id, avatar }: IfriendData) =>
-        (
-          <button
-            key={id}
-            type="button"
-            onClick={() => {
-              if (!dragging) dispatch(friendAudiosAction(id));
-            }}
-          >
-            <img src={pic || avatar} alt="" />
-            <p>{firstName}</p>
-            <p>{lastName}</p>
-          </button>
-        ));
-
-  const MyAudios = objAudiosState && objAudiosState.myAudios.length > 0
-    && objAudiosState.myAudios.map(({ icon, author, name, id, length }: IAudios) =>
-      (
-        <li key={id}>
-          <LeftSide>
-            <div>
-              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-            </div>
-            <div>
-              <h3>{author}</h3>
-              <p>{name}</p>
-            </div>
-          </LeftSide>
-          <RightSide>
-            <h4>{timeAudio(length)}</h4>
-          </RightSide>
-        </li>
-      ));
-
-  const PlayList = objAudiosState && objAudiosState.currentSearch.length > 0
-    && objAudiosState.currentSearch.map(({ icon, author, name, id, length }: IAudios) =>
-      (
-        <li key={id}>
-          <LeftSide>
-            <div>
-              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-            </div>
-            <div>
-              <h3>{author}</h3>
-              <p>{name}</p>
-            </div>
-          </LeftSide>
-          <RightSide>
-            <h4>{timeAudio(length)}</h4>
-          </RightSide>
-        </li>
-      ));
-
-  const playlists = playlistsData.map((list) =>
-    (
+  const Friends =
+    objAudiosState &&
+    objAudiosState.friends.length > 0 &&
+    objAudiosState.friends.map(({ firstName, lastName, id, avatar }: IfriendData) => (
       <button
-        key={list.id}
+        key={id}
         type="button"
-        onClick={(): void => {
-          if (!dragging) dispatch(openPlayListAction(list.id));
+        onClick={() => {
+          if (!dragging) dispatch(friendAudiosAction(id));
         }}
       >
-        <img src={album || list.image} alt="" />
-        <p>{list.name}</p>
+        <img src={pic || avatar} alt="" />
+        <p>{firstName}</p>
+        <p>{lastName}</p>
       </button>
     ));
+
+  const MyAudios =
+    objAudiosState &&
+    objAudiosState.myAudios.length > 0 &&
+    objAudiosState.myAudios.map(({ icon, author, name, id, length }: IAudios) => (
+      <li key={id}>
+        <LeftSide>
+          <div>
+            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+          </div>
+          <div>
+            <h3>{author}</h3>
+            <p>{name}</p>
+          </div>
+        </LeftSide>
+        <RightSide>
+          <h4>{timeAudio(length)}</h4>
+        </RightSide>
+      </li>
+    ));
+
+  const PlayList =
+    objAudiosState &&
+    objAudiosState.currentSearch.length > 0 &&
+    objAudiosState.currentSearch.map(({ icon, author, name, id, length }: IAudios) => (
+      <li key={id}>
+        <LeftSide>
+          <div>
+            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+          </div>
+          <div>
+            <h3>{author}</h3>
+            <p>{name}</p>
+          </div>
+        </LeftSide>
+        <RightSide>
+          <h4>{timeAudio(length)}</h4>
+        </RightSide>
+      </li>
+    ));
+
+  const playlists = playlistsData.map((list) => (
+    <button
+      key={list.id}
+      type="button"
+      onClick={(): void => {
+        if (!dragging) dispatch(openPlayListAction(list.id));
+      }}
+    >
+      <img src={album || list.image} alt="" />
+      <p>{list.name}</p>
+    </button>
+  ));
   playlists.push(
     <AddPlayList>
       <p>Добавить плейлист</p>
-    </AddPlayList>,
+    </AddPlayList>
   );
 
-  const audiosList = (objAudiosState.currentSearch.length > 0 && PlayList) || (objCategoryAudios.friendsAudios && PlayList) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
+  const audiosList =
+    (objAudiosState.currentSearch.length > 0 && PlayList) ||
+    (objCategoryAudios.friendsAudios && PlayList) ||
+    (objCategoryAudios.allAudios && AllAudios) ||
+    (objCategoryAudios.myAudios && MyAudios) ||
+    (loaded && 'Аудиозаписи не найдены');
 
   const startSearch = debounce((name) => {
     if (name) dispatch(searchSongsAction(name));
@@ -307,12 +309,15 @@ const Audio: React.FC = () => {
         <img src={search} alt="" />
       </SearchArea>
       {(objCategoryAudios.myAudios || objCategoryAudios.friendsAudios) && (
-      <PlayListArea>
-        <TitleWrapper><h3>{(objCategoryAudios.myAudios && 'Плейлисты') || (objCategoryAudios.friendsAudios && 'Выберите друга')}</h3></TitleWrapper>
-        <Slider {...settings}>
-          {(objCategoryAudios.myAudios && playlists) || Friends}
-        </Slider>
-      </PlayListArea>
+        <PlayListArea>
+          <TitleWrapper>
+            <h3>
+              {(objCategoryAudios.myAudios && 'Плейлисты') ||
+                (objCategoryAudios.friendsAudios && 'Выберите друга')}
+            </h3>
+          </TitleWrapper>
+          <Slider {...settings}>{(objCategoryAudios.myAudios && playlists) || Friends}</Slider>
+        </PlayListArea>
       )}
       <SongsArea>
         <ul>{audiosList}</ul>

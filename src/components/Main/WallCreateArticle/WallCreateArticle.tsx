@@ -38,29 +38,22 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
     (type: 'IMAGE' | 'AUDIO' | 'VIDEO', link: string) => {
       setMedia((state) => {
         if (Array.isArray(link)) {
-          const additionalState: IMedia[] = link.map((url) =>
-            ({ userId, url, mediaType: type }));
+          const additionalState: IMedia[] = link.map((url) => ({ userId, url, mediaType: type }));
           return [...state, ...additionalState];
         }
         return [...state, { userId, url: link, mediaType: type }];
       });
     },
-    [userId],
+    [userId]
   );
   const onDeleteMedia = useCallback(
     (mediaIndex: number) =>
-      setMedia((state) =>
-        state.filter((item, index) =>
-          index !== mediaIndex)),
-    [],
+      setMedia((state) => state.filter((item, index) => index !== mediaIndex)),
+    []
   );
-  const resetMedia = useCallback(() =>
-    setMedia([]), []);
-  const changeArticleOpen = useCallback(() =>
-    setArticleOpen(false), [setArticleOpen]);
-  const revertArticleOpen = useCallback(() =>
-    setArticleOpen((_isOpen) =>
-      !_isOpen), [
+  const resetMedia = useCallback(() => setMedia([]), []);
+  const changeArticleOpen = useCallback(() => setArticleOpen(false), [setArticleOpen]);
+  const revertArticleOpen = useCallback(() => setArticleOpen((_isOpen) => !_isOpen), [
     setArticleOpen,
   ]);
 
@@ -80,44 +73,26 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
         <WallCreateArticleHeaderBlockRight>
           <WallCreateArticleIconContainer>
             <WallCreateArticleAdditionIcons $isOpen={isArticleOpen}>
-              <IconArticle
-                img={photo}
-                onClick={() =>
-                  setPhotoModalOpen(true)}
-              />
+              <IconArticle img={photo} onClick={() => setPhotoModalOpen(true)} />
               <ModalLinkInput
                 title="Вставьте ссылку на фотографию"
                 visible={isPhotoModalOpen}
-                setUnvisible={() =>
-                  setPhotoModalOpen(false)}
-                onLinkSend={(link) =>
-                  onLinkSend('IMAGE', link)}
+                setUnvisible={() => setPhotoModalOpen(false)}
+                onLinkSend={(link) => onLinkSend('IMAGE', link)}
               />
-              <IconArticle
-                img={music}
-                onClick={() =>
-                  setMusicModalOpen(true)}
-              />
+              <IconArticle img={music} onClick={() => setMusicModalOpen(true)} />
               <ModalLinkInput
                 title="Вставьте ссылку на музыкальную композицию"
                 visible={isMusicModalOpen}
-                setUnvisible={() =>
-                  setMusicModalOpen(false)}
-                onLinkSend={(link) =>
-                  onLinkSend('AUDIO', link)}
+                setUnvisible={() => setMusicModalOpen(false)}
+                onLinkSend={(link) => onLinkSend('AUDIO', link)}
               />
-              <IconArticle
-                img={video}
-                onClick={() =>
-                  setVideoModalOpen(true)}
-              />
+              <IconArticle img={video} onClick={() => setVideoModalOpen(true)} />
               <ModalLinkInput
                 title="Вставьте ссылку на видеозапись"
                 visible={isVideoModalOpen}
-                setUnvisible={() =>
-                  setVideoModalOpen(false)}
-                onLinkSend={(link) =>
-                  onLinkSend('VIDEO', link)}
+                setUnvisible={() => setVideoModalOpen(false)}
+                onLinkSend={(link) => onLinkSend('VIDEO', link)}
               />
             </WallCreateArticleAdditionIcons>
             <IconCross img={add} onClick={revertArticleOpen} $isOpen={isArticleOpen} />

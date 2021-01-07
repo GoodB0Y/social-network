@@ -3,21 +3,6 @@ import styled from 'styled-components';
 import { CommentsListProps } from '../../types/group';
 import avatar from '../../img/icons/mock-avatar.svg';
 
-const CommentsList: React.FC<CommentsListProps> = ({ data:
-  { author, date, text } }) =>
-  (
-    <Container>
-      <AvatarContainer>
-        <AvatarImg src={avatar} alt="Aватар" />
-      </AvatarContainer>
-      <Content>
-        <Author>{author}</Author>
-        <Date>{date.toLocaleString()}</Date>
-        <Text>{text}</Text>
-      </Content>
-    </Container>
-  );
-
 const Container = styled.div`
   display: flex;
 `;
@@ -74,5 +59,18 @@ const Text = styled.div`
   line-height: 165%;
   color: #000000;
 `;
+
+const CommentsList: React.FC<CommentsListProps> = ({ data: { author, date, text } }) => (
+  <Container>
+    <AvatarContainer>
+      <AvatarImg src={avatar} alt="Aватар" />
+    </AvatarContainer>
+    <Content>
+      <Author>{author}</Author>
+      <Date>{date.toLocaleString()}</Date>
+      <Text>{text}</Text>
+    </Content>
+  </Container>
+);
 
 export default CommentsList;

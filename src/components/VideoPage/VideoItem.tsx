@@ -98,9 +98,7 @@ export const VideoItem = (props: {
         <ImgModifed src={preview} alt="wait for load" />
       </VideoImgOverlay>
       <VideoUnderline>
-        {author}
-        -
-        {name}
+        {author}-{name}
         {isPopular ? <AddButton onClick={action} /> : null}
       </VideoUnderline>
     </>

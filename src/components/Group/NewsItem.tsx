@@ -13,171 +13,6 @@ import 'swiper/swiper-bundle.css';
 import { NewsProps, GroupCommentsData } from '../../types/group';
 import Comments from './Comments';
 
-const NewsItem: React.FC<NewsProps> = ({
-  item: {
-    title,
-    addressImageGroup,
-    groupName,
-    text,
-    tags,
-    persistDate,
-    countBookmarks,
-    countLikes,
-    countComments,
-    countReposts,
-  },
-}) => {
-  const allowedProps = { isSelected: false };
-  const [isOpen, setIsOpen] = useState(false);
-  const [imgUrl, setImgUrl] = useState('');
-
-  interface KonvaTextEventTarget extends EventTarget {
-    src: string;
-  }
-
-  interface KonvaMouseEvent extends React.MouseEvent<HTMLElement> {
-    src: string;
-  }
-
-  const handleModal = (target?: string | null): void => {
-    if (target) {
-      if (target === imgUrl) {
-        setIsOpen(false);
-        setImgUrl('');
-      } else {
-        setImgUrl(target);
-        setIsOpen(true);
-      }
-    } else {
-      setIsOpen(false);
-    }
-  };
-  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
-  const [isFullContent, setFullContent] = useState(true);
-  const height: string = isFullContent ? '230px' : '100%';
-
-  const listTags = tags.map((tag) =>
-    (
-      <LiItem key={tag.id}>
-        <TagLink href="http://localhost:3000/social-network">
-          #
-          {tag.text}
-        </TagLink>
-      </LiItem>
-    ));
-
-  const { comments }: GroupCommentsData = mockData;
-
-  let keyCount = 0;
-  const testMedia = mockMediaImages;
-  const listMedia = testMedia.map((el) => {
-    keyCount += 1;
-    if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
-      return <NewsImage key={keyCount} src={el.url} alt="" />;
-    }
-    switch (el.mediaType) {
-      case 'IMAGE':
-        return (
-          <NewsImageMin
-          // поправить ключи
-            key={keyCount}
-            src={el.url}
-            alt=""
-            onClick={(evt: React.MouseEvent<HTMLElement>): void =>
-              handleModal(evt.currentTarget.getAttribute('src'))}
-            {...allowedProps}
-          />
-        );
-      case 'VIDEO':
-        return (
-          <NewsVideo
-            title={el.url}
-            key={keyCount}
-            src={el.url}
-            width="560"
-            height="315"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        );
-      case 'AUDIO':
-        return (
-          <ReactPlayer
-            url={el.url}
-            controls
-            light
-            style={{
-              'margin-bottom': '25px',
-              'margin-right': '10px',
-              'margin-left': '10px',
-            }}
-            height="75px"
-          />
-        );
-      default:
-        return null;
-    }
-  });
-
-  return (
-    <Container>
-      <NewsHeader>
-        <AvatarContainer>
-          <AvatarImg src={addressImageGroup} alt="Aватар" />
-        </AvatarContainer>
-        <AuthorContainer>
-          <Author>{groupName}</Author>
-          <Time>{originDate}</Time>
-        </AuthorContainer>
-        <ActionsContainer>
-          <ButtonAction>
-            <ActionIcon src={favorite} alt="В избранном" />
-            {countBookmarks}
-          </ButtonAction>
-          <ButtonAction>
-            <ActionIcon src={like} alt="Лайки" />
-            {countLikes}
-          </ButtonAction>
-          <ButtonAction>
-            <ActionIcon src={comment} alt="Комментарии" />
-            {countComments}
-          </ButtonAction>
-          <ButtonAction>
-            <ActionIcon src={repost} alt="Репосты" />
-            {countReposts}
-          </ButtonAction>
-        </ActionsContainer>
-      </NewsHeader>
-      <NewsTitle>{title}</NewsTitle>
-      <WrapperContent style={{ height }}>
-        <NewsContentContainer>
-          <MediaContainer>
-            {isOpen && (
-            <MaxImg
-              src={imgUrl}
-              alt="no"
-              onClick={(): void =>
-                handleModal()}
-            />
-            )}
-            {listMedia}
-          </MediaContainer>
-          <NewsContent>{text}</NewsContent>
-        </NewsContentContainer>
-        <ButtonMore>
-          <MoreIcon
-            src={isFullContent ? more : moreUp}
-            onClick={(): void =>
-              setFullContent(!isFullContent)}
-          />
-        </ButtonMore>
-      </WrapperContent>
-      <NewsTags>{listTags}</NewsTags>
-      <Comments data={comments} />
-    </Container>
-  );
-};
 const MaxImg = styled.img`
   position: absolute;
   left: 50%;
@@ -322,8 +157,7 @@ const NewsVideo = styled.iframe`
 const WrapperContent = styled.div`
   display: flex;
   justify-content: space-between;
-  height: ${(props: any) =>
-    props.height};
+  height: ${(props: any) => props.height};
   overflow: hidden;
 `;
 
@@ -396,5 +230,160 @@ const LiItem = styled.li`
   list-style-type: none;
   margin-left: 5px;
 `;
+
+const NewsItem: React.FC<NewsProps> = ({
+  item: {
+    title,
+    addressImageGroup,
+    groupName,
+    text,
+    tags,
+    persistDate,
+    countBookmarks,
+    countLikes,
+    countComments,
+    countReposts,
+  },
+}) => {
+  const allowedProps = { isSelected: false };
+  const [isOpen, setIsOpen] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+
+  // interface KonvaTextEventTarget extends EventTarget {
+  //   src: string;
+  // }
+  //
+  // interface KonvaMouseEvent extends React.MouseEvent<HTMLElement> {
+  //   src: string;
+  // }
+
+  const handleModal = (target?: string | null): void => {
+    if (target) {
+      if (target === imgUrl) {
+        setIsOpen(false);
+        setImgUrl('');
+      } else {
+        setImgUrl(target);
+        setIsOpen(true);
+      }
+    } else {
+      setIsOpen(false);
+    }
+  };
+  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
+  const [isFullContent, setFullContent] = useState(true);
+  const height: string = isFullContent ? '230px' : '100%';
+
+  const listTags = tags.map((tag) => (
+    <LiItem key={tag.id}>
+      <TagLink href="http://localhost:3000/social-network">#{tag.text}</TagLink>
+    </LiItem>
+  ));
+
+  const { comments }: GroupCommentsData = mockData;
+
+  let keyCount = 0;
+  const testMedia = mockMediaImages;
+  const listMedia = testMedia.map((el) => {
+    keyCount += 1;
+    if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
+      return <NewsImage key={keyCount} src={el.url} alt="" />;
+    }
+    switch (el.mediaType) {
+      case 'IMAGE':
+        return (
+          <NewsImageMin
+            // поправить ключи
+            key={keyCount}
+            src={el.url}
+            alt=""
+            onClick={(evt: React.MouseEvent<HTMLElement>): void =>
+              handleModal(evt.currentTarget.getAttribute('src'))
+            }
+            {...allowedProps}
+          />
+        );
+      case 'VIDEO':
+        return (
+          <NewsVideo
+            title={el.url}
+            key={keyCount}
+            src={el.url}
+            width="560"
+            height="315"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        );
+      case 'AUDIO':
+        return (
+          <ReactPlayer
+            url={el.url}
+            controls
+            light
+            style={{
+              'margin-bottom': '25px',
+              'margin-right': '10px',
+              'margin-left': '10px',
+            }}
+            height="75px"
+          />
+        );
+      default:
+        return null;
+    }
+  });
+
+  return (
+    <Container>
+      <NewsHeader>
+        <AvatarContainer>
+          <AvatarImg src={addressImageGroup} alt="Aватар" />
+        </AvatarContainer>
+        <AuthorContainer>
+          <Author>{groupName}</Author>
+          <Time>{originDate}</Time>
+        </AuthorContainer>
+        <ActionsContainer>
+          <ButtonAction>
+            <ActionIcon src={favorite} alt="В избранном" />
+            {countBookmarks}
+          </ButtonAction>
+          <ButtonAction>
+            <ActionIcon src={like} alt="Лайки" />
+            {countLikes}
+          </ButtonAction>
+          <ButtonAction>
+            <ActionIcon src={comment} alt="Комментарии" />
+            {countComments}
+          </ButtonAction>
+          <ButtonAction>
+            <ActionIcon src={repost} alt="Репосты" />
+            {countReposts}
+          </ButtonAction>
+        </ActionsContainer>
+      </NewsHeader>
+      <NewsTitle>{title}</NewsTitle>
+      <WrapperContent style={{ height }}>
+        <NewsContentContainer>
+          <MediaContainer>
+            {isOpen && <MaxImg src={imgUrl} alt="no" onClick={(): void => handleModal()} />}
+            {listMedia}
+          </MediaContainer>
+          <NewsContent>{text}</NewsContent>
+        </NewsContentContainer>
+        <ButtonMore>
+          <MoreIcon
+            src={isFullContent ? more : moreUp}
+            onClick={(): void => setFullContent(!isFullContent)}
+          />
+        </ButtonMore>
+      </WrapperContent>
+      <NewsTags>{listTags}</NewsTags>
+      <Comments data={comments} />
+    </Container>
+  );
+};
 
 export default NewsItem;

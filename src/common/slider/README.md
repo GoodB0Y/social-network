@@ -6,7 +6,8 @@
 
 >
 
-## Пример: 
+## Пример:
+
 ```html
 <Slider slidesPerView="4" spaceBetween="20">{children}</Slider>
 ```

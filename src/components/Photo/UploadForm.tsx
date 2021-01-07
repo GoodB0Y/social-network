@@ -1,26 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Props {
-  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  error: null | string;
-  file: null | File;
-}
-
-const UploadForm: React.FC<Props> = ({ onChange, error, file }): JSX.Element =>
-  (
-    <>
-      <form>
-        <FileInput id="file" type="file" onChange={onChange} />
-        <Label htmlFor="file">Загрузить фото</Label>
-        <FileInfo>
-          { error && <span style={{ color: 'red' }}>{error}</span>}
-          { file && <span>{file.name}</span>}
-        </FileInfo>
-      </form>
-    </>
-  );
-
 const FileInput = styled.input`
   position: absolute;
   width: 1px;
@@ -49,5 +29,24 @@ const Label = styled.label`
 const FileInfo = styled.div`
   margin-top: 10px;
 `;
+
+interface Props {
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  error: null | string;
+  file: null | File;
+}
+
+const UploadForm: React.FC<Props> = ({ onChange, error, file }): JSX.Element => (
+  <>
+    <form>
+      <FileInput id="file" type="file" onChange={onChange} />
+      <Label htmlFor="file">Загрузить фото</Label>
+      <FileInfo>
+        {error && <span style={{ color: 'red' }}>{error}</span>}
+        {file && <span>{file.name}</span>}
+      </FileInfo>
+    </form>
+  </>
+);
 
 export default UploadForm;

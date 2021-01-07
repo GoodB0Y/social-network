@@ -5,8 +5,7 @@ const OpenedVideoWrapper = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  top: ${() =>
-    window.pageYOffset}px;
+  top: ${() => window.pageYOffset}px;
   left: 0;
   z-index: 16;
   background: rgba(0, 0, 0, 0.7);
@@ -34,24 +33,30 @@ const CloseButton = styled.button`
   right: -32px;
   background: none;
   border: none;
-  padding: 0px;
+  padding: 0;
   color: white;
   outline: none;
   transform: rotate(45deg);
   align-self: flex-start;
 `;
 
-export const OpenedVideo: React.FC = ({ id, action }: any) =>
-  (
-    <OpenedVideoWrapper onClick={action}>
-      <VideoFrameWrapper>
-        <VideoFrame
-          src={`https://www.youtube.com/embed/${id}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-        <CloseButton onClick={action}>+</CloseButton>
-      </VideoFrameWrapper>
-    </OpenedVideoWrapper>
-  );
+interface Props {
+  id: string;
+  action: () => void;
+}
+
+const OpenedVideo: React.FC<Props> = ({ id, action }) => (
+  <OpenedVideoWrapper onClick={action}>
+    <VideoFrameWrapper>
+      <VideoFrame
+        src={`https://www.youtube.com/embed/${id}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+      <CloseButton onClick={action}>+</CloseButton>
+    </VideoFrameWrapper>
+  </OpenedVideoWrapper>
+);
+
+export default OpenedVideo;

@@ -5,9 +5,9 @@ import { uniqueId } from 'lodash';
 // eslint-disable-next-line import/no-cycle
 import { Controller, useForm } from 'react-hook-form';
 import Alert from 'antd/lib/alert';
-import { Pagination } from 'antd';
 // eslint-disable-next-line import/no-cycle
 import { VideoItem, OpenedVideo } from './index';
+import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
 import arrowNotFilled from '../../common/img/icons/arr_left.svg';
@@ -85,8 +85,7 @@ const PopularVideoList = styled.div<OtherDataWrapperType>`
   flex-direction: row;
   overflow: hidden;
   transition: all 0.5s;
-  max-height: ${({ show }) =>
-    (show ? 'auto' : '412px')};
+  max-height: ${({ show }) => (show ? 'auto' : '412px')};
 `;
 
 const ShowHideButton = styled.button<OtherDataWrapperType>`
@@ -97,8 +96,7 @@ const ShowHideButton = styled.button<OtherDataWrapperType>`
   border: none;
   height: 25px;
   width: 15px;
-  transform: ${({ show }) =>
-    (show ? 'rotate(90deg)' : 'rotate(-90deg)')};
+  transform: ${({ show }) => (show ? 'rotate(90deg)' : 'rotate(-90deg)')};
   background: #515151;
   mask-image: url(${arrowNotFilled});
   mask-position: center;
@@ -168,19 +166,14 @@ const Button = styled.button`
 `;
 
 const VideoPage: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
   const { allVideos, allAlbums, error, videosInAlbum, message } = useSelector(
-    (state) =>
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      state.videos,
+    (state: RootState) => state.videos
   );
   const { handleSubmit, control } = useForm({});
   const [showPopular, setShowPopular] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [openAlbum, setOpenAlbum] = useState(false);
-  const [page, setPage] = useState(3);
+  const [page] = useState(3);
   const [showModalAlbum, setShowModalAlbum] = useState(false);
   const [videoToShow, setVideoToShow] = useState({
     showVideo: false,
@@ -221,112 +214,102 @@ const VideoPage: React.FC = () => {
     await dispatch(addAlbumAction(data));
     setShowModalAlbum(false);
   };
-  const createModal = (data: any) =>
-    (
-      <VideoModalContainer
-        onClick={() => {
-          setShowModal(false);
-          setShowModalAlbum(() =>
-            false);
-        }}
-      >
-        <Form
-          method="POST"
-          onClick={(e) =>
-            e.stopPropagation()}
-        >
-          <h2>
-            Добавление нового
-            {showModalAlbum ? 'альбома' : 'видео'}
-          </h2>
-          {!showModalAlbum ? (
-            <h3>
-              Для добавления видео необходимо вставить в поля icon и url код, для примера
-              https://www.youtube.com/watch?v=
-              <b>fnzO0U1mSb8</b>
-            </h3>
-          ) : null}
-          {data.map((elem: any) =>
-            (
-              <Controller
-                name={elem.name}
-                control={control}
-                type={elem.type}
-                key={elem.name}
-                defaultValue=""
-                rules={{
-                  required: elem.rules,
-                }}
-                as={<Input name="name" type={elem.type} placeholder={elem.placeholder} />}
-              />
-            ))}
+  const createModal = (data: any) => (
+    <VideoModalContainer
+      onClick={() => {
+        setShowModal(false);
+        setShowModalAlbum(() => false);
+      }}
+    >
+      <Form method="POST" onClick={(e) => e.stopPropagation()}>
+        <h2>
+          Добавление нового
+          {showModalAlbum ? 'альбома' : 'видео'}
+        </h2>
+        {!showModalAlbum ? (
+          <h3>
+            Для добавления видео необходимо вставить в поля icon и url код, для примера
+            https://www.youtube.com/watch?v=
+            <b>fnzO0U1mSb8</b>
+          </h3>
+        ) : null}
+        {data.map((elem: any) => (
+          <Controller
+            name={elem.name}
+            control={control}
+            type={elem.type}
+            key={elem.name}
+            defaultValue=""
+            rules={{
+              required: elem.rules,
+            }}
+            as={<Input name="name" type={elem.type} placeholder={elem.placeholder} />}
+          />
+        ))}
 
-          <ButtonGroup>
-            <Button type="button" onClick={handleSubmit(showModalAlbum ? addAlbum : addVideo)}>
-              Ok
-            </Button>
-            <Button
-              type="button"
-              onClick={() => {
-                setShowModal(() =>
-                  false);
-                setShowModalAlbum(() =>
-                  false);
-              }}
-            >
-              Cancel
-            </Button>
-          </ButtonGroup>
-        </Form>
-      </VideoModalContainer>
-    );
+        <ButtonGroup>
+          <Button type="button" onClick={handleSubmit(showModalAlbum ? addAlbum : addVideo)}>
+            Ok
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              setShowModal(() => false);
+              setShowModalAlbum(() => false);
+            }}
+          >
+            Cancel
+          </Button>
+        </ButtonGroup>
+      </Form>
+    </VideoModalContainer>
+  );
   return (
     <>
       {showModal
         ? createModal([
-          {
-            name: 'name',
-            placeholder: 'Название видео',
-            type: 'text',
-            rules: 'Введите название видео',
-          },
-          {
-            name: 'author',
-            placeholder: 'Автор видео',
-            type: 'text',
-            rules: 'Введите автора видео',
-          },
-          {
-            name: 'url',
-            placeholder: 'Ссылка на видео',
-            type: 'url',
-            rules: 'Введите ссылку на видео',
-          },
-          {
-            name: 'icon',
-            placeholder: 'Превью для видео',
-            type: 'url',
-            rules: 'Введите ссылку на превью',
-          },
-        ])
+            {
+              name: 'name',
+              placeholder: 'Название видео',
+              type: 'text',
+              rules: 'Введите название видео',
+            },
+            {
+              name: 'author',
+              placeholder: 'Автор видео',
+              type: 'text',
+              rules: 'Введите автора видео',
+            },
+            {
+              name: 'url',
+              placeholder: 'Ссылка на видео',
+              type: 'url',
+              rules: 'Введите ссылку на видео',
+            },
+            {
+              name: 'icon',
+              placeholder: 'Превью для видео',
+              type: 'url',
+              rules: 'Введите ссылку на превью',
+            },
+          ])
         : null}
       {showModalAlbum
         ? createModal([
-          {
-            name: 'name',
-            placeholder: 'Название альбома',
-            type: 'text',
-            rules: 'Введите название альбома',
-          },
-          {
-            name: 'icon',
-            placeholder: 'Превью для альбома',
-            type: 'url',
-            rules: 'Введите ссылку на превью',
-          },
-        ])
-        : null}
-      {' '}
+            {
+              name: 'name',
+              placeholder: 'Название альбома',
+              type: 'text',
+              rules: 'Введите название альбома',
+            },
+            {
+              name: 'icon',
+              placeholder: 'Превью для альбома',
+              type: 'url',
+              rules: 'Введите ссылку на превью',
+            },
+          ])
+        : null}{' '}
       {videoToShow.showVideo ? <OpenedVideo id={videoToShow.videoId} action={hideVideo} /> : null}
       <PageWrapper>
         <ComponentWrapper>
@@ -335,104 +318,98 @@ const VideoPage: React.FC = () => {
           {openAlbum ? (
             <MyVideos>
               <SectionHeader headline="Видео в альбоме">
-                <StyledButton onClick={() =>
-                  setOpenAlbum(false)}
-                >
-                  Закрыть
-                </StyledButton>
+                <StyledButton onClick={() => setOpenAlbum(false)}>Закрыть</StyledButton>
               </SectionHeader>
               <Slider slidesToShow={2} slidesToScroll={2} loop>
                 {videosInAlbum.length ? (
-                  [...videosInAlbum].map((obj) =>
-                    (
+                  [...videosInAlbum].map((obj) => {
+                    const { id, url, name, author } = obj;
+                    return (
                       <VideoItem
-                        key={uniqueId() + obj.id}
-                        id={obj.id}
-                        url={obj.url}
-                        name={obj.name}
-                        author={obj.author}
-                        action={() =>
-                          showVideo(obj.url)}
+                        key={uniqueId() + id}
+                        url={url}
+                        name={name}
+                        author={author}
+                        action={() => showVideo(url)}
                         isPopular={false}
                       />
-                    ))
+                    );
+                  })
                 ) : (
                   <h2>В данном альбоме видео пока нет!</h2>
                 )}
               </Slider>
 
               <h1> Добавьте видео в альбом </h1>
-              {[...allVideos].map((obj) =>
-                (
+              {[...allVideos].map((obj) => {
+                const { name, url, id } = obj;
+                return (
                   <>
-                    <h2>{obj.name}</h2>
+                    <h2>{name}</h2>
                     <img
                       style={{ width: 200 }}
-                      src={`https://img.youtube.com/vi/${obj.url}/2.jpg`}
+                      src={`https://img.youtube.com/vi/${url}/2.jpg`}
                       alt="alt"
                     />
                     <StyledButton
                       onClick={() => {
-                        dispatch(addVideoInAlbumAction(obj.id));
+                        dispatch(addVideoInAlbumAction(id));
                         alert(message || 'ERROR');
                       }}
                     >
                       Добавить
                     </StyledButton>
                   </>
-                ))}
+                );
+              })}
             </MyVideos>
           ) : (
             <div>
               <MyVideos>
                 <SectionHeader headline="Все видео">
-                  <StyledButton onClick={() =>
-                    setShowModal((prev) =>
-                      !prev)}
-                  >
+                  <StyledButton onClick={() => setShowModal((prev) => !prev)}>
                     Добавить
                   </StyledButton>
                 </SectionHeader>
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
-                  {[...allVideos].map((obj) =>
-                    (
+                  {[...allVideos].map((obj) => {
+                    const { url, name, author } = obj;
+                    return (
                       <VideoItem
                         key={uniqueId()}
-                        id={obj.id}
-                        url={obj.url}
-                        name={obj.name}
-                        author={obj.author}
-                        action={() =>
-                          showVideo(obj.url)}
+                        url={url}
+                        name={name}
+                        author={author}
+                        action={() => showVideo(url)}
                         isPopular={false}
                       />
-                    ))}
+                    );
+                  })}
                 </Slider>
               </MyVideos>
               <Divider />
               <MyVideos>
                 <SectionHeader headline="Мои альбомы">
-                  <StyledButton onClick={() =>
-                    setShowModalAlbum((prev) =>
-                      !prev)}
-                  >
+                  <StyledButton onClick={() => setShowModalAlbum((prev) => !prev)}>
                     Создать
                   </StyledButton>
                 </SectionHeader>
                 {error ? <Alert type="error" closable message={error} /> : null}
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
-                  {[...allAlbums].map((obj) =>
-                    (
+                  {[...allAlbums].map((obj) => {
+                    const { id, icon, name } = obj;
+                    return (
                       <AlbumItem
                         key={uniqueId()}
-                        icon={obj.icon}
-                        name={obj.name}
+                        icon={icon}
+                        name={name}
                         action={() => {
                           setOpenAlbum(true);
-                          dispatch(AllVideosInAlbumAction(obj.id));
+                          dispatch(AllVideosInAlbumAction(id));
                         }}
                       />
-                    ))}
+                    );
+                  })}
                 </Slider>
               </MyVideos>
               <Divider />
@@ -441,26 +418,22 @@ const VideoPage: React.FC = () => {
               <PopularVideos>
                 <SectionHeader headline="Популярные" />
                 <PopularVideoList show={showPopular}>
-                  <ShowHideButton
-                    show={showPopular}
-                    onClick={() =>
-                      setShowPopular(!showPopular)}
-                  />
-                  {[...allVideos].map((obj) =>
-                    (
+                  <ShowHideButton show={showPopular} onClick={() => setShowPopular(!showPopular)} />
+                  {[...allVideos].map((obj) => {
+                    const { url, name, author } = obj;
+                    return (
                       <PopularVideosItemWrapper key={uniqueId()}>
                         <VideoItem
                           key={uniqueId()}
-                          id={obj.id}
-                          url={obj.url}
-                          author={obj.author}
-                          name={obj.name}
-                          action={() =>
-                            showVideo(obj.url)}
+                          url={url}
+                          author={author}
+                          name={name}
+                          action={() => showVideo(url)}
                           isPopular={false}
                         />
                       </PopularVideosItemWrapper>
-                    ))}
+                    );
+                  })}
                 </PopularVideoList>
               </PopularVideos>
             </div>

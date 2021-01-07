@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
@@ -16,106 +15,6 @@ import back from '../../../common/img/icons/back.svg';
 import typeFuncFind from '../../../helperFunctions/typeFuncFind';
 
 SwiperCore.use([EffectCoverflow]);
-
-const Deck = () => {
-  const [currentTrackId, setCurrentTrackId] = useState<number>(tracks[0].id);
-  const [mySwiper, setMySwiper] = useState<any>();
-  const [playing, setPlaying] = useState(false);
-  const [timePlayed, setTimePlayed] = useState(0);
-
-  const handleNext = () => {
-    mySwiper.slidePrev();
-    setCurrentTrackId(tracks[mySwiper.realIndex].id);
-  };
-
-  const handlePrev = () => {
-    mySwiper.slideNext();
-    setCurrentTrackId(tracks[mySwiper.realIndex].id);
-  };
-
-  const handlePlayToggle = () => {
-    setPlaying((prevState) =>
-      !prevState);
-  };
-
-  const Slides = tracks.map((track: { image: string; id: number }) =>
-    (
-      <SwiperSlide key={track.id}>
-        <Card image={track.image} />
-      </SwiperSlide>
-    ));
-
-  const chosenTrack = tracks.find((song) =>
-    song.id === currentTrackId);
-  const titleSong = typeFuncFind(chosenTrack).title;
-  const performerSong = typeFuncFind(chosenTrack).performer;
-  const albomSongs = typeFuncFind(chosenTrack).album;
-  const urlSong = typeFuncFind(chosenTrack).url;
-
-  return (
-    <Main>
-      <ButtonsArea>
-        <ControlsContainer>
-          <ControlsBlock>
-            <button onClick={handlePrev} type="button">
-              <img src={back} alt="" />
-            </button>
-            <Play onClick={handlePlayToggle}>
-              <img src={playing ? stop : play} alt="" />
-            </Play>
-            <Next onClick={handleNext}>
-              <img src={forward} alt="" />
-            </Next>
-          </ControlsBlock>
-          <UpdSlider defaultValue={0} value={timePlayed * 100} />
-        </ControlsContainer>
-        <TrackInfoArea>
-          <TrackAlbum>{titleSong}</TrackAlbum>
-          <TrackInfo>
-            <TrackPerformer>
-              {performerSong}
-            </TrackPerformer>
-            <TrackTitle>{albomSongs}</TrackTitle>
-          </TrackInfo>
-        </TrackInfoArea>
-      </ButtonsArea>
-      <Swiper
-        spaceBetween={10}
-        slidesPerView="auto"
-        effect="coverflow"
-        centeredSlides
-        loopedSlides={1}
-        loopAdditionalSlides={1}
-        loop
-        allowTouchMove={false}
-        onSwiper={(swiper) => {
-          setMySwiper(swiper);
-        }}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 1100,
-          depth: 200,
-          modifier: 1,
-          slideShadows: false,
-        }}
-      >
-        {Slides}
-      </Swiper>
-      <Player
-        onEnded={() => {
-          handleNext();
-        }}
-        onProgress={({ played }: { played: () => number }) => {
-          setTimePlayed(played);
-        }}
-        playing={playing}
-        url={urlSong}
-      />
-    </Main>
-  );
-};
-
-export default Deck;
 
 const Main = styled.div`
   //border: 1px solid #000000;
@@ -221,5 +120,100 @@ const TrackInfo = styled.div`
 `;
 
 const UpdSlider = styled(Slider)`
-margin: 0;
+  margin: 0;
 `;
+
+const Deck = () => {
+  const [currentTrackId, setCurrentTrackId] = useState<number>(tracks[0].id);
+  const [mySwiper, setMySwiper] = useState<any>();
+  const [playing, setPlaying] = useState(false);
+  const [timePlayed, setTimePlayed] = useState(0);
+
+  const handleNext = () => {
+    mySwiper.slidePrev();
+    setCurrentTrackId(tracks[mySwiper.realIndex].id);
+  };
+
+  const handlePrev = () => {
+    mySwiper.slideNext();
+    setCurrentTrackId(tracks[mySwiper.realIndex].id);
+  };
+
+  const handlePlayToggle = () => {
+    setPlaying((prevState) => !prevState);
+  };
+
+  const Slides = tracks.map((track: { image: string; id: number }) => (
+    <SwiperSlide key={track.id}>
+      <Card image={track.image} />
+    </SwiperSlide>
+  ));
+
+  const chosenTrack = tracks.find((song) => song.id === currentTrackId);
+  const titleSong = typeFuncFind(chosenTrack).title;
+  const performerSong = typeFuncFind(chosenTrack).performer;
+  const albomSongs = typeFuncFind(chosenTrack).album;
+  const urlSong = typeFuncFind(chosenTrack).url;
+
+  return (
+    <Main>
+      <ButtonsArea>
+        <ControlsContainer>
+          <ControlsBlock>
+            <button onClick={handlePrev} type="button">
+              <img src={back} alt="" />
+            </button>
+            <Play onClick={handlePlayToggle}>
+              <img src={playing ? stop : play} alt="" />
+            </Play>
+            <Next onClick={handleNext}>
+              <img src={forward} alt="" />
+            </Next>
+          </ControlsBlock>
+          <UpdSlider defaultValue={0} value={timePlayed * 100} />
+        </ControlsContainer>
+        <TrackInfoArea>
+          <TrackAlbum>{titleSong}</TrackAlbum>
+          <TrackInfo>
+            <TrackPerformer>{performerSong}</TrackPerformer>
+            <TrackTitle>{albomSongs}</TrackTitle>
+          </TrackInfo>
+        </TrackInfoArea>
+      </ButtonsArea>
+      <Swiper
+        spaceBetween={10}
+        slidesPerView="auto"
+        effect="coverflow"
+        centeredSlides
+        loopedSlides={1}
+        loopAdditionalSlides={1}
+        loop
+        allowTouchMove={false}
+        onSwiper={(swiper) => {
+          setMySwiper(swiper);
+        }}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 1100,
+          depth: 200,
+          modifier: 1,
+          slideShadows: false,
+        }}
+      >
+        {Slides}
+      </Swiper>
+      <Player
+        onEnded={() => {
+          handleNext();
+        }}
+        onProgress={({ played }: { played: () => number }) => {
+          setTimePlayed(played);
+        }}
+        playing={playing}
+        url={urlSong}
+      />
+    </Main>
+  );
+};
+
+export default Deck;

@@ -22,7 +22,7 @@ export const Item = styled.div`
     max-width: 150%;
     position: absolute;
     top: 0;
-    left: 0; 
+    left: 0;
   }
 `;
 
@@ -74,12 +74,11 @@ export const SliderItemContainer = styled.div<{ $isSelected?: boolean }>`
 
   & img {
     box-shadow: ${({ $isSelected }) =>
-    ($isSelected ? `0 0 0 3px #ffffff, 0 0 0 5px ${secondaryColor}` : 'none')};
+      $isSelected ? `0 0 0 3px #ffffff, 0 0 0 5px ${secondaryColor}` : 'none'};
   }
 
   & h2 {
-    color: ${({ $isSelected }) =>
-    ($isSelected ? secondaryColor : 'initial')};
+    color: ${({ $isSelected }) => ($isSelected ? secondaryColor : 'initial')};
   }
 `;
 

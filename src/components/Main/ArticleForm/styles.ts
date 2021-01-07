@@ -8,8 +8,7 @@ export const InputName = styled.input<{ $isError: boolean }>`
   width: 100%;
   border: none;
   border-radius: 5px;
-  border-bottom: ${({ $isError }) =>
-    ($isError ? '1px solid red' : '1px solid #b3b3b3')};
+  border-bottom: ${({ $isError }) => ($isError ? '1px solid red' : '1px solid #b3b3b3')};
   outline: none !important;
   font-size: 24px;
 `;
@@ -19,8 +18,7 @@ export const InputText = styled.textarea<{ $isError: boolean }>`
   margin-top: 42px;
   width: 100%;
   border-radius: 5px;
-  border: ${({ $isError }) =>
-    ($isError ? '1px solid red;' : '1px solid #b2b2b2;')};
+  border: ${({ $isError }) => ($isError ? '1px solid red;' : '1px solid #b2b2b2;')};
   outline: none !important;
   font-size: 16px;
   resize: none;

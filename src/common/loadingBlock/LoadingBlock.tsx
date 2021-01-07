@@ -3,10 +3,9 @@ import * as React from 'react';
 import { StyledLoading } from './styles';
 
 interface ILoadingBlock {
-    size?: number;
+  size?: number;
 }
 
-const LoadingBLock: React.FC<ILoadingBlock> = ({ size = 150 }) =>
-  <StyledLoading $size={size} />;
+const LoadingBLock: React.FC<ILoadingBlock> = ({ size = 150 }) => <StyledLoading $size={size} />;
 
 export default LoadingBLock;

@@ -5,39 +5,6 @@ import ErrorBlock from '../../common/errorBlock';
 import { secondaryColor } from '../../colors.module';
 import { ImageDto } from '../../types/image';
 
-interface IImageGridProps {
-  images: ImageDto[] | null;
-  loading: boolean;
-  error: { status: number; data?: string } | null;
-  setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
-}
-const ImageGrid: React.FC<IImageGridProps> = ({ images, loading, error, setSelectedImage }):
-ReactElement | null => {
-  if (images) {
-    return (
-      <ImageList>
-        {images.map((image) =>
-          (
-            <ImageItem
-              key={`${image.persistDateTime} ${image.id} of ${image.userId}`}
-              onClick={() =>
-                setSelectedImage(image.url)}
-            >
-              <img src={image.url} alt={`${image.description}`} />
-            </ImageItem>
-          ))}
-      </ImageList>
-    );
-  }
-  if (loading) {
-    return <LoadingBlock size={45} />;
-  }
-  if (error) {
-    return <ErrorBlock errorMessage={error?.data || `Ошибка ${error?.status}, `} />;
-  }
-  return null;
-};
-
 const ImageList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -66,8 +33,43 @@ const ImageItem = styled.li`
     max-width: 150%;
     position: absolute;
     top: 0;
-    left: 0; 
+    left: 0;
   }
 `;
+
+interface IImageGridProps {
+  images: ImageDto[] | null;
+  loading: boolean;
+  error: { status: number; data?: string } | null;
+  setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
+}
+const ImageGrid: React.FC<IImageGridProps> = ({
+  images,
+  loading,
+  error,
+  setSelectedImage,
+}): ReactElement | null => {
+  if (images) {
+    return (
+      <ImageList>
+        {images.map((image) => (
+          <ImageItem
+            key={`${image.persistDateTime} ${image.id} of ${image.userId}`}
+            onClick={() => setSelectedImage(image.url)}
+          >
+            <img src={image.url} alt={`${image.description}`} />
+          </ImageItem>
+        ))}
+      </ImageList>
+    );
+  }
+  if (loading) {
+    return <LoadingBlock size={45} />;
+  }
+  if (error) {
+    return <ErrorBlock errorMessage={error?.data || `Ошибка ${error?.status}, `} />;
+  }
+  return null;
+};
 
 export default ImageGrid;

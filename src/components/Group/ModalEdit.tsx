@@ -37,7 +37,7 @@ const FromContainer = styled.input`
   padding: 10px;
   box-sizing: border-box;
   margin: 0 auto;
-  background-color: #FFB11B;
+  background-color: #ffb11b;
   border: 2px solid black;
   border-radius: 5px 20px;
   outline: none;
@@ -52,7 +52,7 @@ const ModalButton = styled.button`
   margin-top: 20px;
   padding: 10px 20px;
   border-radius: 5px 20px;
-  background-color: #FFB11B;
+  background-color: #ffb11b;
 `;
 
 const CloseButton = styled.button`
@@ -60,12 +60,16 @@ const CloseButton = styled.button`
   padding: 3px;
   color: #ffffff;
   border-radius: 5px;
-  border: 1px solid #FFB11B;
+  border: 1px solid #ffb11b;
   background-color: black;
 `;
 
-const ModalEdit: React.FC<ModalData> = ({ closeModal, updateGroup, groupData:
-  { description, linkSite, addressImageGroup, groupCategory, name, id } }) => {
+const ModalEdit: React.FC<ModalData> = ({
+  closeModal,
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  updateGroup,
+  groupData: { description, linkSite, addressImageGroup, groupCategory, name, id },
+}) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (formData: SubmitData): void => {
@@ -74,10 +78,10 @@ const ModalEdit: React.FC<ModalData> = ({ closeModal, updateGroup, groupData:
 
   return (
     <Wrapper onClick={closeModal}>
-      <ModalContainer onClick={(event): void =>
-        event.stopPropagation()}
-      >
-        <CloseButton type="button" onClick={closeModal}>close</CloseButton>
+      <ModalContainer onClick={(event): void => event.stopPropagation()}>
+        <CloseButton type="button" onClick={closeModal}>
+          close
+        </CloseButton>
         <form action="" method="" onSubmit={handleSubmit(onSubmit)}>
           <h3>Editing Group</h3>
           <LabelContainer>
@@ -86,11 +90,21 @@ const ModalEdit: React.FC<ModalData> = ({ closeModal, updateGroup, groupData:
           </LabelContainer>
           <LabelContainer>
             Description
-            <FromContainer type="text" name="description" ref={register} defaultValue={description} />
+            <FromContainer
+              type="text"
+              name="description"
+              ref={register}
+              defaultValue={description}
+            />
           </LabelContainer>
           <LabelContainer>
             Group Category
-            <FromContainer type="text" name="groupCategory" ref={register} defaultValue={groupCategory} />
+            <FromContainer
+              type="text"
+              name="groupCategory"
+              ref={register}
+              defaultValue={groupCategory}
+            />
           </LabelContainer>
           <LabelContainer>
             Link Site
@@ -98,11 +112,14 @@ const ModalEdit: React.FC<ModalData> = ({ closeModal, updateGroup, groupData:
           </LabelContainer>
           <LabelContainer>
             Group Image
-            <FromContainer type="text" name="addressImageGroup" ref={register} defaultValue={addressImageGroup} />
+            <FromContainer
+              type="text"
+              name="addressImageGroup"
+              ref={register}
+              defaultValue={addressImageGroup}
+            />
           </LabelContainer>
-          <ModalButton type="submit">
-            Save
-          </ModalButton>
+          <ModalButton type="submit">Save</ModalButton>
         </form>
       </ModalContainer>
     </Wrapper>

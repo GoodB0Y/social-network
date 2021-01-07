@@ -46,11 +46,7 @@ const Page404: FC = () => {
     <Wrapper>
       <h1>Страница не найдена</h1>
       <ButtonArea>
-        <button
-          type="button"
-          onClick={(): void =>
-            history.push('/')}
-        >
+        <button type="button" onClick={(): void => history.push('/')}>
           <span>Вернуться домой</span>
         </button>
       </ButtonArea>

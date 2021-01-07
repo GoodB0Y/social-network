@@ -41,17 +41,16 @@ const SearchInput = styled.input`
   }
 `;
 
-const PageSearchInput = ({ action, placeholder, defaultValue }) =>
-  (
-    <SearchBlock>
-      <SearchInput
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        onChange={action}
-        nostyle="true"
-      />
-    </SearchBlock>
-  );
+const PageSearchInput = ({ action, placeholder, defaultValue }) => (
+  <SearchBlock>
+    <SearchInput
+      defaultValue={defaultValue}
+      placeholder={placeholder}
+      onChange={action}
+      nostyle="true"
+    />
+  </SearchBlock>
+);
 
 PageSearchInput.defaultProps = {
   defaultValue: '',

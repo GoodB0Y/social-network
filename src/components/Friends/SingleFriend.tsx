@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-unresolved,@typescript-eslint/ban-ts-ignore
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
 import swal from 'sweetalert';
 import funcsRoutes from '../../routes/funcsRoutes';
 import userFoto from '../../img/userFoto.png';
@@ -49,18 +46,18 @@ const DeleteButton = styled.button`
   ${BaseButtonStyle};
   mask-image: url(${DeleteIcon});
   margin-left: 69px;
-  &:hover{
-    background-color: #CF0202;
-  };
+  &:hover {
+    background-color: #cf0202;
+  }
 `;
 
 const MessageButton = styled.button`
   ${BaseButtonStyle};
   margin-top: 5px;
   mask-image: url(${MessageIcon});
-  &:hover{
+  &:hover {
     background-color: #ffb11b;
-  };
+  }
 `;
 
 const FriendInfo = styled.div`
@@ -98,41 +95,36 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
   id,
   deleteButtonHandler,
   messageButtonHandler,
-}: ISingleFriendProps) =>
-  (
-    <SingleFriendWrapper>
-      <Placer>
-        <FriendAvatarWrapper href="#">
-          {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
-          <FriendAvatar src={userFoto || avatarka} alt="there should be avatarka" />
-        </FriendAvatarWrapper>
-        <FriendInfo>
-          <FriendFullName to={funcsRoutes.mainWithId(id)}>
-            {firstname}
-            {' '}
-            {lastname}
-          </FriendFullName>
-          <FriendProfession>{profesion}</FriendProfession>
-        </FriendInfo>
-      </Placer>
-      <Placer>
-        <MessageButton onClick={(): void =>
-          messageButtonHandler(id)}
-        />
-        <DeleteButton onClick={(): void => {
+}: ISingleFriendProps) => (
+  <SingleFriendWrapper>
+    <Placer>
+      <FriendAvatarWrapper href="#">
+        {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
+        <FriendAvatar src={userFoto || avatarka} alt="there should be avatarka" />
+      </FriendAvatarWrapper>
+      <FriendInfo>
+        <FriendFullName to={funcsRoutes.mainWithId(id)}>
+          {firstname} {lastname}
+        </FriendFullName>
+        <FriendProfession>{profesion}</FriendProfession>
+      </FriendInfo>
+    </Placer>
+    <Placer>
+      <MessageButton onClick={(): void => messageButtonHandler(id)} />
+      <DeleteButton
+        onClick={(): void => {
           swal({
             title: 'Вы уверены?',
             text: `Удалить ${firstname} ${lastname} из списка друзей?`,
             buttons: ['Нет', 'Да'],
             className: 'confirm__bg',
-          })
-            .then((value) => {
-              if (value) deleteButtonHandler(id);
-            });
+          }).then((value) => {
+            if (value) deleteButtonHandler(id);
+          });
         }}
-        />
-      </Placer>
-    </SingleFriendWrapper>
-  );
+      />
+    </Placer>
+  </SingleFriendWrapper>
+);
 
 export default SingleFriend;

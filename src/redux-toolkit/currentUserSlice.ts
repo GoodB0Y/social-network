@@ -11,8 +11,7 @@ import { getAuthUser, updateUser, updateUserStatus } from '../services/user-cont
 //   return response;
 // });
 
-const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () =>
-  getAuthUser());
+const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () => getAuthUser());
 
 interface UserState {
   data: null | IUser; // Пользователь, от имени которого произведен логин
@@ -79,7 +78,7 @@ const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, { state: Clo
       thunkApi.dispatch(setData(response));
     }
     return response;
-  },
+  }
 );
 
 const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, { state: CloneRootState }>(
@@ -96,7 +95,7 @@ const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, { state: Clo
       thunkApi.dispatch(setData(response));
     }
     return response;
-  },
+  }
 );
 
 const currentUserSlice = createSlice({
@@ -114,14 +113,12 @@ const currentUserSlice = createSlice({
     UPDATE STATUS
       Изменяет статус юзера, из под которого пользователь залогинин, то есть currentUser.
     */
-    [updateStatus.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [updateStatus.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        data: action.payload,
-        loading: false,
-      }),
+    [updateStatus.pending.type]: (state) => ({ ...state, loading: true }),
+    [updateStatus.fulfilled.type]: (state, action) => ({
+      ...state,
+      data: action.payload,
+      loading: false,
+    }),
     /*
       !!
       Старый код, если updateStatus заставить работать на updateUserStatus
@@ -142,42 +139,35 @@ const currentUserSlice = createSlice({
       return { ...state, data: newUser };
       */
 
-    [updateStatus.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
+    [updateStatus.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
     /* GET CURRENT USER */
-    [loadCurrentUser.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [loadCurrentUser.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        data: action.payload,
-        loading: false,
-      }),
-    [loadCurrentUser.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
+    [loadCurrentUser.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadCurrentUser.fulfilled.type]: (state, action) => ({
+      ...state,
+      data: action.payload,
+      loading: false,
+    }),
+    [loadCurrentUser.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
     /* UPDATE AVATAR */
-    [updateAvatar.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [updateAvatar.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        data: action.payload,
-        loading: false,
-      }),
-    [updateAvatar.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
+    [updateAvatar.pending.type]: (state) => ({ ...state, loading: true }),
+    [updateAvatar.fulfilled.type]: (state, action) => ({
+      ...state,
+      data: action.payload,
+      loading: false,
+    }),
+    [updateAvatar.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
   },
 });
 

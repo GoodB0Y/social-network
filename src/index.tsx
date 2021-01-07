@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import App from './App';
 import store from './redux-toolkit/store';
 
-const App = require('./App').default;
+// const App = require('./App').default;
 
 const render = () => {
   ReactDOM.render(
@@ -18,7 +18,7 @@ const render = () => {
         </React.StrictMode>
       </Provider>
     </BrowserRouter>,
-    document.getElementById('root'),
+    document.getElementById('root')
   );
 };
 

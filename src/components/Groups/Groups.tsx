@@ -7,6 +7,29 @@ import { RootState } from '../../redux-toolkit/store';
 import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groups/groupsSlice';
 import { Group, GroupRequestProps } from '../../types/group';
 
+export const GroupsContainer = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+  font-family: 'Montserrat', sans-serif;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 114px 114px 114px 91px;
+  margin-top: 275px;
+  position: relative;
+  min-height: 1200px;
+`;
+
+const GroupsTitle = styled.h2`
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 39px;
+  background-color: #ffb11b;
+  border-radius: 15px;
+  position: absolute;
+  padding: 58px 61px;
+  top: -90px;
+`;
+
 interface StateProps {
   groups: Group[];
   loading: boolean;
@@ -18,12 +41,11 @@ interface DispatchProps {
 }
 type Props = StateProps & DispatchProps;
 
-const mapStateToProps = (state: RootState): StateProps =>
-  ({
-    groups: state.groups.groups,
-    loading: state.groups.loading,
-    error: state.groups.error,
-  });
+const mapStateToProps = (state: RootState): StateProps => ({
+  groups: state.groups.groups,
+  loading: state.groups.loading,
+  error: state.groups.error,
+});
 const mapDispatchToProps = {
   loadGroups,
   joinGroup,
@@ -47,10 +69,8 @@ const Groups: React.FC<Props> = ({
 
   useEffect(() => {
     groups.forEach((element: Group) =>
-      _loadAllUsers({ userId: currentUserId,
-        groupId: element.id,
-        page: 1,
-        size: 15 }));
+      _loadAllUsers({ userId: currentUserId, groupId: element.id, page: 1, size: 15 })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
 
@@ -62,19 +82,10 @@ const Groups: React.FC<Props> = ({
   };
 
   const filterGroups = (data: Group[]): Group[] =>
-    data.filter(
-      (el) =>
-        el.name.toLowerCase().includes(groupName),
-    );
+    data.filter((el) => el.name.toLowerCase().includes(groupName));
 
   const renderGroups = (data: Group[]): JSX.Element[] =>
-    data.map((el: Group) =>
-      (
-        <SingleGroup
-          key={el.id}
-          groupInfo={el}
-        />
-      ));
+    data.map((el: Group) => <SingleGroup key={el.id} groupInfo={el} />);
   return (
     <GroupsContainer>
       <PageSearchInput placeholder="Начните поиск группы..." action={handleInput} />
@@ -84,26 +95,4 @@ const Groups: React.FC<Props> = ({
   );
 };
 
-export const GroupsContainer = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
-  font-family: 'Montserrat', sans-serif;
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 114px 114px 114px 91px;
-  margin-top: 275px;
-  position: relative;
-  min-height: 1200px;
-`;
-
-const GroupsTitle = styled.h2`
-  margin: 0;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 39px;
-  background-color: #ffb11b;
-  border-radius: 15px;
-  position: absolute;
-  padding: 58px 61px;
-  top: -90px;
-`;
 export default connect(mapStateToProps, mapDispatchToProps)(Groups);

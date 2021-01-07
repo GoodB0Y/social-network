@@ -35,20 +35,26 @@ export default class {
     return this.fetching(`api/v2/groups/${groupId}/users?page=${page}&size=${size}`);
   }
 
-  static async apiJoinGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`, {
-      method: 'PUT',
-    });
+  static async apiJoinGroup({ groupId }: GroupRequestProps): Promise<string> {
+    const res: Response = await fetch(
+      `${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`,
+      {
+        method: 'PUT',
+      }
+    );
     if (!res.ok) {
       throw new Error(`Fetching user-controller is status error ${res.status}`);
     }
     return res.text();
   }
 
-  static async apiLeaveGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`, {
-      method: 'DELETE',
-    });
+  static async apiLeaveGroup({ groupId }: GroupRequestProps): Promise<string> {
+    const res: Response = await fetch(
+      `${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`,
+      {
+        method: 'DELETE',
+      }
+    );
     if (!res.ok) {
       throw new Error(`Fetching user-controller is status error ${res.status}`);
     }
@@ -56,9 +62,21 @@ export default class {
   }
 
   /// //// update group
-  static async apiUpadteGroup({ description, groupCategory,
-    linkSite, addressImageGroup, name, id }: {description: string; groupCategory: string;
-      linkSite: string; addressImageGroup: string; name: string; id: number;}): Promise<string> {
+  static async apiUpadteGroup({
+    description,
+    groupCategory,
+    linkSite,
+    addressImageGroup,
+    name,
+    id,
+  }: {
+    description: string;
+    groupCategory: string;
+    linkSite: string;
+    addressImageGroup: string;
+    name: string;
+    id: number;
+  }): Promise<string> {
     const res: Response = await fetch(`${this.urlBase}api/v2/groups/update`, {
       method: 'PUT',
       headers: {

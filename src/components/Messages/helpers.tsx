@@ -21,26 +21,24 @@ type CurrentChat = {
 const renderchatList = (
   chats: Chats,
   filterChats: Ichat[],
-  loadCurrentChat: (id: number) => void,
+  loadCurrentChat: (id: number) => void
 ): JSX.Element | JSX.Element[] => {
   if (chats.loading) return <LoadingBLock />;
   if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
-  return filterChats.map((chat) =>
-    (
-      <button
-        key={chat.id}
-        className={messagesClass.selectChatElement}
-        type="button"
-        onClick={() =>
-          loadCurrentChat(chat.id)}
-      >
-        <img alt="avatar" src={chat.image} />
-        <div className={messagesClass.selectChatUserInfo}>
-          <span>{chat.title}</span>
-          <p>{chat.lastMessage}</p>
-        </div>
-      </button>
-    ));
+  return filterChats.map((chat) => (
+    <button
+      key={chat.id}
+      className={messagesClass.selectChatElement}
+      type="button"
+      onClick={() => loadCurrentChat(chat.id)}
+    >
+      <img alt="avatar" src={chat.image} />
+      <div className={messagesClass.selectChatUserInfo}>
+        <span>{chat.title}</span>
+        <p>{chat.lastMessage}</p>
+      </div>
+    </button>
+  ));
 };
 
 const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] => {
@@ -49,14 +47,20 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
   return currentChat.data.map((el) => {
     if (el.username === 'bogdan13') {
       return (
-        <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`} key={nanoid()}>
+        <div
+          className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--ours']}`}
+          key={nanoid()}
+        >
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
           <img alt="avatar" src={el.userSenderImage} />
         </div>
       );
     }
     return (
-      <div className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--theirs']}`} key={nanoid()}>
+      <div
+        className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--theirs']}`}
+        key={nanoid()}
+      >
         <img alt="avatar" src={el.userSenderImage} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>

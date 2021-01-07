@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import { ModalLinkInput, IModalLinkInput } from './ModalLinkInput';
-import { Form, Button } from './styles';
+import { Form } from './styles';
 import MultipleLinkInput from './MultipleLinkInput';
 import SingleLinkInput from './SingleLinkInput';
 

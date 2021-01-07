@@ -21,9 +21,7 @@ export const MediaContainerComponent: React.FC = () => {
       <MediaContainer
         media={media}
         onDeleteMedia={(mediaIndex: number) => {
-          setMedia((state) =>
-            state.filter((item, index) =>
-              index !== mediaIndex));
+          setMedia((state) => state.filter((item, index) => index !== mediaIndex));
         }}
       />
     </div>
@@ -31,7 +29,7 @@ export const MediaContainerComponent: React.FC = () => {
 };
 
 export const MediaContainerComponentWithoutDelete: React.FC = () => {
-  const [media, setMedia] = useState<IMedia[]>([
+  const [media] = useState<IMedia[]>([
     { url: 'https://i.playground.ru/p/Cc8M3vqcNf5QzxRYqncLdw.jpeg', userId: 1, mediaType: 'IMAGE' },
     {
       url: `http://venom.cloud.hotlan.by/movies/b7f267cc582acfc047a469232c485e620be1c

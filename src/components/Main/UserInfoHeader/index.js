@@ -1,3 +1,3 @@
-import UserInfoHeader from './UserInfoHeader.tsx';
+import UserInfoHeader from './UserInfoHeader';
 
 export default UserInfoHeader;

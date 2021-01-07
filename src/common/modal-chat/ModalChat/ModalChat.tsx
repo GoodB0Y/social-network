@@ -20,16 +20,24 @@ const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 35 };
 
 const ModalChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [broadcastMessage, setBroadcastMessage] = useState<{
-    message: string;
-    lastReductionDate: string;
-    usersenderImage: string; }[]>([]);
+  const [broadcastMessage, setBroadcastMessage] = useState<
+    {
+      message: string;
+      lastReductionDate: string;
+      usersenderImage: string;
+    }[]
+  >([]);
 
   const onMessageReceivedWithoutSocket = (payload: any) => {
     if (payload.message) {
-      setBroadcastMessage([...broadcastMessage, { message: payload.message,
-        lastReductionDate: payload.lastReductionDate,
-        usersenderImage: payload.usersenderImage }]);
+      setBroadcastMessage([
+        ...broadcastMessage,
+        {
+          message: payload.message,
+          lastReductionDate: payload.lastReductionDate,
+          usersenderImage: payload.usersenderImage,
+        },
+      ]);
     }
   };
 
@@ -54,13 +62,12 @@ const ModalChat: React.FC = () => {
       );
     });
 
-  const renderBroadcastMessage = broadcastMessage.map((el) =>
-    (
-      <ModalChatMessageWrapper type="our" key={nanoid()}>
-        <Messages messages={el.message} messagesType="our" date={el.lastReductionDate} />
-        <Author img="" name="bogdan13" />
-      </ModalChatMessageWrapper>
-    ));
+  const renderBroadcastMessage = broadcastMessage.map((el) => (
+    <ModalChatMessageWrapper type="our" key={nanoid()}>
+      <Messages messages={el.message} messagesType="our" date={el.lastReductionDate} />
+      <Author img="" name="bogdan13" />
+    </ModalChatMessageWrapper>
+  ));
 
   return (
     <ModalChatWrapper isOpen={isOpen}>
@@ -73,9 +80,14 @@ const ModalChat: React.FC = () => {
           </ScrollBar>
         </Content>
         <SubmitMessageWrap>
-          <SubmitMessage onSubmitMessage={(message) => {
-            onMessageReceivedWithoutSocket({ message, userSenderImage: '', lastReductionDate: `${new Date()}` });
-          }}
+          <SubmitMessage
+            onSubmitMessage={(message) => {
+              onMessageReceivedWithoutSocket({
+                message,
+                userSenderImage: '',
+                lastReductionDate: `${new Date()}`,
+              });
+            }}
           />
         </SubmitMessageWrap>
       </ContentWrapper>

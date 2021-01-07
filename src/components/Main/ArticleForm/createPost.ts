@@ -16,8 +16,7 @@ export default async function createPost({ title, text, user, tags, media }: IFu
   if (!user?.userId) {
     throw new Error('unlogged');
   }
-  const mappedTags: ICreateTag[] = (tags || []).map((tag) =>
-    ({ text: tag }));
+  const mappedTags: ICreateTag[] = (tags || []).map((tag) => ({ text: tag }));
   const post: ICreatePost = {
     userId: user.userId,
     avatar: user.avatar,

@@ -14,46 +14,41 @@ import {
   getAllCommentsByPost,
   sharePost,
   getAllTags,
-  addNewCommentToPost,
 } from '../services/post-controller';
 import { IDataPost, IPost, ICreatePost } from '../types/post';
-import { ICreateComment } from '../types/comment';
 import ITag from '../types/tag';
 
 const formatToIPostData = (posts: any) => {
-  const newData = posts.map((post: IPost): IDataPost =>
-    ({
+  const newData = posts.map(
+    (post: IPost): IDataPost => ({
       post,
       comments: undefined,
       loading: false,
       error: null,
-    }));
+    })
+  );
   return newData;
 };
 
-const addNewPost = createAsyncThunk('posts/addNewPost',
-  async (post: ICreatePost) => {
-    const response = await createNewPost(post);
-    return response;
-  });
+const addNewPost = createAsyncThunk('posts/addNewPost', async (post: ICreatePost) => {
+  const response = await createNewPost(post);
+  return response;
+});
 
-const removePost = createAsyncThunk('posts/removePost',
-  async (postId: number) => {
-    const response = await deletePost(postId);
-    return response;
-  });
+const removePost = createAsyncThunk('posts/removePost', async (postId: number) => {
+  const response = await deletePost(postId);
+  return response;
+});
 
-const loadAllPosts = createAsyncThunk('posts/loadAllPosts',
-  async () => {
-    const response = await getAllPosts();
-    return response;
-  });
+const loadAllPosts = createAsyncThunk('posts/loadAllPosts', async () => {
+  const response = await getAllPosts();
+  return response;
+});
 
-const loadPostsByTag = createAsyncThunk('posts/loadPostsByTag',
-  async (tagName: string) => {
-    const response = await getPostsByTag(tagName);
-    return response;
-  });
+const loadPostsByTag = createAsyncThunk('posts/loadPostsByTag', async (tagName: string) => {
+  const response = await getPostsByTag(tagName);
+  return response;
+});
 
 const loadPostsByUser = createAsyncThunk('posts/loadPostsByUser', async (id: number) => {
   const response = await getPostsByUser(id);
@@ -113,50 +108,57 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    setData: (state, action) =>
-      ({ ...state, data: action.payload, loading: false }),
-    setError: (state, action) =>
-      ({ ...state, error: action.payload, loading: false }),
-    setLoading: (state) =>
-      ({ ...state, loading: true }),
+    setData: (state, action) => ({ ...state, data: action.payload, loading: false }),
+    setError: (state, action) => ({ ...state, error: action.payload, loading: false }),
+    setLoading: (state) => ({ ...state, loading: true }),
   },
   extraReducers: {
     /* POSTS */
-    [addNewPost.pending.type]: (state): PostsState =>
-      ({ ...state, loading: true }),
+    [addNewPost.pending.type]: (state): PostsState => ({ ...state, loading: true }),
     [addNewPost.fulfilled.type]: (state, { payload }): PostsState => {
-      if (!state.data) return ({ ...state, data: formatToIPostData(payload), loading: false });
-      return ({ ...state, data: [formatToIPostData(payload), ...state.data], loading: false });
+      if (!state.data) return { ...state, data: formatToIPostData(payload), loading: false };
+      return { ...state, data: [formatToIPostData(payload), ...state.data], loading: false };
     },
-    [addNewPost.rejected.type]: (state, { error }): PostsState => ({ ...state, error, loading: false }),
+    [addNewPost.rejected.type]: (state, { error }): PostsState => ({
+      ...state,
+      error,
+      loading: false,
+    }),
 
-    [removePost.pending.type]: (state): PostsState =>
-      ({ ...state, loading: true }),
+    [removePost.pending.type]: (state): PostsState => ({ ...state, loading: true }),
     [removePost.fulfilled.type]: (state, { meta }): PostsState => {
-      const newData = state.data!.filter((dataPost) =>
-        dataPost.post.id !== meta.arg);
-      return ({ ...state, data: newData, loading: false });
+      const newData = state.data!.filter((dataPost) => dataPost.post.id !== meta.arg);
+      return { ...state, data: newData, loading: false };
     },
-    [removePost.rejected.type]: (state, { error }): PostsState => ({ ...state, error, loading: false }),
+    [removePost.rejected.type]: (state, { error }): PostsState => ({
+      ...state,
+      error,
+      loading: false,
+    }),
 
-    [loadAllPosts.pending.type]: (state): PostsState =>
-      ({ ...state, loading: true }),
+    [loadAllPosts.pending.type]: (state): PostsState => ({ ...state, loading: true }),
     [loadAllPosts.fulfilled.type]: (state, { payload }): PostsState => {
       if (!Array.isArray(payload)) return state;
       return { ...state, data: formatToIPostData(payload), loading: false };
     },
-    [loadAllPosts.rejected.type]: (state, { error }): PostsState => ({ ...state, error, loading: false }),
+    [loadAllPosts.rejected.type]: (state, { error }): PostsState => ({
+      ...state,
+      error,
+      loading: false,
+    }),
 
-    [loadPostsByTag.pending.type]: (state): PostsState =>
-      ({ ...state, loading: true }),
+    [loadPostsByTag.pending.type]: (state): PostsState => ({ ...state, loading: true }),
     [loadPostsByTag.fulfilled.type]: (state, { payload }): PostsState => {
       if (!Array.isArray(payload)) return state;
       return { ...state, data: formatToIPostData(payload), loading: false };
     },
-    [loadPostsByTag.rejected.type]: (state, { error }): PostsState => ({ ...state, error, loading: false }),
+    [loadPostsByTag.rejected.type]: (state, { error }): PostsState => ({
+      ...state,
+      error,
+      loading: false,
+    }),
 
-    [loadPostsByUser.pending.type]: (state) =>
-      ({ ...state, loading: true }),
+    [loadPostsByUser.pending.type]: (state) => ({ ...state, loading: true }),
     [loadPostsByUser.fulfilled.type]: (state, { payload }) => {
       if (!Array.isArray(payload)) return state;
       return { ...state, data: formatToIPostData(payload), loading: false };
@@ -166,21 +168,25 @@ const postsSlice = createSlice({
     /* BOOKMARKS */
     [addBookmark.pending.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, loading: true });
+        if (dataPost.post.id === action.meta.arg) return { ...dataPost, loading: true };
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addBookmark.fulfilled.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, post: action.payload[0], loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, post: action.payload[0], loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addBookmark.rejected.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, error: action.error, loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, error: action.error, loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
@@ -188,21 +194,25 @@ const postsSlice = createSlice({
 
     [removeBookmark.pending.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, loading: true });
+        if (dataPost.post.id === action.meta.arg) return { ...dataPost, loading: true };
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [removeBookmark.fulfilled.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, post: action.payload[0], loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, post: action.payload[0], loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [removeBookmark.rejected.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, error: action.error, loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, error: action.error, loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
@@ -211,21 +221,25 @@ const postsSlice = createSlice({
     /* LIKES */
     [addLike.pending.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, loading: true });
+        if (dataPost.post.id === action.meta.arg) return { ...dataPost, loading: true };
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addLike.fulfilled.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, post: action.payload[0], loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, post: action.payload[0], loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addLike.rejected.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, error: action.error, loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, error: action.error, loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
@@ -233,21 +247,25 @@ const postsSlice = createSlice({
 
     [removeLike.pending.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, loading: true });
+        if (dataPost.post.id === action.meta.arg) return { ...dataPost, loading: true };
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [removeLike.fulfilled.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, post: action.payload[0], loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, post: action.payload[0], loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [removeLike.rejected.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, error: action.error, loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, error: action.error, loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
@@ -256,21 +274,25 @@ const postsSlice = createSlice({
     /* SHARES */
     [addShare.pending.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, loading: true });
+        if (dataPost.post.id === action.meta.arg) return { ...dataPost, loading: true };
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addShare.fulfilled.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, post: action.payload[0], loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, post: action.payload[0], loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
     },
     [addShare.rejected.type]: (state, action): PostsState => {
       const newData = state.data!.map((dataPost: IDataPost) => {
-        if (dataPost.post.id === action.meta.arg) return ({ ...dataPost, error: action.error, loading: false });
+        if (dataPost.post.id === action.meta.arg) {
+          return { ...dataPost, error: action.error, loading: false };
+        }
         return dataPost;
       });
       return { ...state, data: newData };
@@ -278,8 +300,16 @@ const postsSlice = createSlice({
 
     /* TAGS */
     [loadAllTags.pending.type]: (state): PostsState => ({ ...state, loading: true }),
-    [loadAllTags.fulfilled.type]: (state, { payload }): PostsState => ({ ...state, allTags: payload, loading: false }),
-    [loadAllTags.rejected.type]: (state, { error }): PostsState => ({ ...state, error, loading: false }),
+    [loadAllTags.fulfilled.type]: (state, { payload }): PostsState => ({
+      ...state,
+      allTags: payload,
+      loading: false,
+    }),
+    [loadAllTags.rejected.type]: (state, { error }): PostsState => ({
+      ...state,
+      error,
+      loading: false,
+    }),
 
     /* COMMENTS */
     /* [addNewComment.pending.type]: (state, action): PostsState => {
@@ -305,7 +335,7 @@ const postsSlice = createSlice({
     }, */
 
     [loadCommentsByPost.pending.type]: (state, action) => {
-      const newPosts = (state.data as (IDataPost[] | null))?.map((dataPost: IDataPost) => {
+      const newPosts = (state.data as IDataPost[] | null)?.map((dataPost: IDataPost) => {
         if (dataPost.post.id === action.meta.arg) {
           return { ...dataPost, loading: true };
         }
@@ -314,7 +344,7 @@ const postsSlice = createSlice({
       return { ...state, data: newPosts };
     },
     [loadCommentsByPost.fulfilled.type]: (state, action) => {
-      const newPosts = (state.data as (IDataPost[] | null))?.map((dataPost: IDataPost) => {
+      const newPosts = (state.data as IDataPost[] | null)?.map((dataPost: IDataPost) => {
         if (dataPost.post.id === action.meta.arg) {
           return { ...dataPost, comments: action.payload, loading: false };
         }
@@ -323,7 +353,7 @@ const postsSlice = createSlice({
       return { ...state, data: newPosts };
     },
     [loadCommentsByPost.rejected.type]: (state, action) => {
-      const newPosts = (state.data as (IDataPost[] | null))?.map((dataPost: IDataPost) => {
+      const newPosts = (state.data as IDataPost[] | null)?.map((dataPost: IDataPost) => {
         if (dataPost.post.id === action.meta.arg) {
           return { ...dataPost, loading: false, error: action.error };
         }

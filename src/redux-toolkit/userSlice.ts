@@ -4,20 +4,20 @@ import { IUser } from '../types/user';
 import { ImageDto } from '../types/image';
 import { getAllImagesByUserId } from '../services/images-controller';
 
-const loadUser = createAsyncThunk('user/loadUser', async (id: number) =>
-  getUserById(id));
+const loadUser = createAsyncThunk('user/loadUser', async (id: number) => getUserById(id));
 
 /* Данный метод используется ТОЛЬКО для загрузки фотографий юзера поверх
 остальных данных, чтобы их отобразить на странице Main. Если нужна подгрузка
 данных для страницы Фотографии пишите новый slice. */
 const loadUserPhotos = createAsyncThunk('user/loadUserImages', async (userId: number) =>
-  getAllImagesByUserId({ limit: 4, offset: 0, userId }));
+  getAllImagesByUserId({ limit: 4, offset: 0, userId })
+);
 
 interface UserState {
   data: null | IUser;
   loading: boolean;
   error: null | Error;
-  photos: null | ImageDto;
+  photos: null | ImageDto[];
   errorPhotos: null | Error;
 }
 
@@ -33,10 +33,8 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    resetUser: () =>
-      initialState,
-    setData: (state, action) =>
-      ({ ...state, data: action.payload }),
+    resetUser: () => initialState,
+    setData: (state, action) => ({ ...state, data: action.payload }),
   },
   extraReducers: {
     /*
@@ -44,30 +42,25 @@ const userSlice = createSlice({
       Загружает текущего отображаемого юзера.
       Использовать для отображения личной страницы другого пользователя и т.д.
     */
-    [loadUser.pending.type]: (state) =>
-      ({ ...state, loading: true }),
-    [loadUser.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        data: action.payload,
-        loading: false,
-      }),
-    [loadUser.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        error: action.error,
-        loading: false,
-      }),
-    [loadUserPhotos.fulfilled.type]: (state, action) =>
-      ({
-        ...state,
-        photos: action.payload,
-      }),
-    [loadUserPhotos.rejected.type]: (state, action) =>
-      ({
-        ...state,
-        errorPhotos: action.error,
-      }),
+    [loadUser.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadUser.fulfilled.type]: (state, action) => ({
+      ...state,
+      data: action.payload,
+      loading: false,
+    }),
+    [loadUser.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
+    [loadUserPhotos.fulfilled.type]: (state, action) => ({
+      ...state,
+      photos: action.payload,
+    }),
+    [loadUserPhotos.rejected.type]: (state, action) => ({
+      ...state,
+      errorPhotos: action.error,
+    }),
   },
 });
 

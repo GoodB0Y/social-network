@@ -5,7 +5,7 @@ import { IUser } from '../../../../../types/user';
 interface IFuncCreateComment {
   postId: number;
   text: string;
-  user: IUser;
+  user: IUser | null;
 }
 
 export default async function createPost({ postId, text, user }: IFuncCreateComment) {

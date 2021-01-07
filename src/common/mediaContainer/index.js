@@ -1,3 +1,3 @@
-import MediaContainer from './MediaContainer.tsx';
+import MediaContainer from './MediaContainer';
 
 export default MediaContainer;

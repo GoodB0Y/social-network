@@ -3,19 +3,6 @@ import styled from 'styled-components';
 import avatar from '../../img/icons/mock-avatar.svg';
 import submit from '../../img/icons/submit.svg';
 
-const InputComment: React.FC = () =>
-  (
-    <Container>
-      <AvatarContainer>
-        <AvatarImg src={avatar} alt="Aватар" />
-      </AvatarContainer>
-      <InputField placeholder="Напишите что-нибудь..." />
-      <ButtonSubmit>
-        <SubmitIcon src={submit} />
-      </ButtonSubmit>
-    </Container>
-  );
-
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -74,5 +61,17 @@ const SubmitIcon = styled.img`
     transform: scale(1.05);
   }
 `;
+
+const InputComment: React.FC = () => (
+  <Container>
+    <AvatarContainer>
+      <AvatarImg src={avatar} alt="Aватар" />
+    </AvatarContainer>
+    <InputField placeholder="Напишите что-нибудь..." />
+    <ButtonSubmit>
+      <SubmitIcon src={submit} />
+    </ButtonSubmit>
+  </Container>
+);
 
 export default InputComment;

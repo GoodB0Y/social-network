@@ -11,8 +11,7 @@ export const Button = styled.button`
 
 export const Input = styled.input<{ $error?: boolean }>`
   margin-bottom: 15px;
-  border-color: ${({ $error }) =>
-    ($error ? 'red' : 'initial')};
+  border-color: ${({ $error }) => ($error ? 'red' : 'initial')};
 `;
 
 export const Form = styled.form`

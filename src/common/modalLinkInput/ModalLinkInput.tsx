@@ -12,20 +12,16 @@ export interface IModalLinkInput<T> {
   setUnvisible?: () => void;
   onLinkSend: (link: T) => void;
   children?: JSX.Element | null;
-
 }
 
 const ModalLinkInput = <T extends string | string[]>({
   title,
   onLinkSend,
   setUnvisible,
-  children,
 }: IModalLinkInput<T>): JSX.Element => {
   const titleIsArray = Array.isArray(title);
-  const initialValue = titleIsArray ? (title as string[]).map(() =>
-    '') : '';
-  const initialError = titleIsArray ? (title as string[]).map(() =>
-    false) : false;
+  const initialValue = titleIsArray ? (title as string[]).map(() => '') : '';
+  const initialError = titleIsArray ? (title as string[]).map(() => false) : false;
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(initialError);
   const renderFields = titleIsArray ? (
@@ -33,8 +29,9 @@ const ModalLinkInput = <T extends string | string[]>({
       titles={title as string[]}
       setValue={(newValue: string, index: number) =>
         setValue((fields) =>
-          (fields as string[]).map((fieldText, idx) =>
-            (idx === index ? newValue : fieldText)))}
+          (fields as string[]).map((fieldText, idx) => (idx === index ? newValue : fieldText))
+        )
+      }
       isError={error as boolean[]}
     />
   ) : (
@@ -43,11 +40,9 @@ const ModalLinkInput = <T extends string | string[]>({
   const onSubmit = useCallback(
     (event: React.FormEvent) => {
       event.preventDefault();
-      if (titleIsArray ? (value as string[]).some((el) =>
-        el === '') : value === '') {
+      if (titleIsArray ? (value as string[]).some((el) => el === '') : value === '') {
         // Ниже производится запись логического значения или массива
-        setError(titleIsArray ? (value as string[]).map((el) =>
-          el === '') : value === '');
+        setError(titleIsArray ? (value as string[]).map((el) => el === '') : value === '');
         return;
       }
       if (setUnvisible) {
@@ -55,7 +50,7 @@ const ModalLinkInput = <T extends string | string[]>({
       }
       onLinkSend(value as T);
     },
-    [value, titleIsArray, setUnvisible, onLinkSend],
+    [value, titleIsArray, setUnvisible, onLinkSend]
   );
   return (
     <Form onSubmit={onSubmit}>
@@ -67,8 +62,7 @@ const ModalLinkInput = <T extends string | string[]>({
 
 // Написан, чтобы можно было вообще тестить, рендерится ли что-либо
 const ModalLinkInputWrapper = <T extends string | string[]>(props: IModalLinkInput<T>) => {
-  const { visible, title, children } = props;
-  const setUnvisible = props?.setUnvisible;
+  const { visible, title, children, setUnvisible } = props;
   return (
     <Modal
       visible={visible}

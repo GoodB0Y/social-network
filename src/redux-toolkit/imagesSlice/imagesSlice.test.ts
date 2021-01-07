@@ -1,10 +1,8 @@
-/* eslind-disable */
 import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
-import { loadImages, loadAlbums, initialState } from './imagesSlice';
-/* eslint-enable */
+import { loadImages, initialState } from './imagesSlice';
 
 const mockStore = configureMockStore([thunk]);
 const mock = new MockAdapter(axios);
