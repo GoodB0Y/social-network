@@ -16,7 +16,6 @@ import Group from './components/Group';
 import Groups from './components/Groups';
 import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
-import './App.css';
 import { RootState } from './redux-toolkit/store';
 import Page404 from './components/Page404/Page404';
 
