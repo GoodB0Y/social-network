@@ -20,7 +20,6 @@
     "@firebase/app": "^0.6.13",
     "@firebase/storage": "^0.4.2",
     "@reduxjs/toolkit": "^1.4.0",
-    "@storybook/react": "^5.3.21",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -82,10 +81,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/addon-actions": "^6.1.11",
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/node-logger": "^6.1.11",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.11",
     "@types/lodash": "^4.14.161",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
@@ -115,7 +116,8 @@
     "lint": "eslint **/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint --fix **/*.{js,jsx,ts,tsx}",
     "format": "prettier --write --ignore-unknown .",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "husky": {
     "hooks": {
