@@ -65,7 +65,7 @@ export const ButtonSingInUpTxt = styled.button<{ selected: boolean }>`
   border-bottom: ${(props) => (props.selected ? '2px solid #FFB11B' : '2px solid #111111')};
 
   box-shadow: none;
-  p {
+  span {
     color: #fff;
     font-style: normal;
     font-weight: normal;

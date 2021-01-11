@@ -200,13 +200,13 @@ const Login: React.FC = (): JSX.Element => {
             selected={currentForm === 'login'}
             onClick={() => setCurrentForm('login')}
           >
-            <p>Вход</p>
+            <span>Вход</span>
           </ButtonSingInUpTxt>
           <ButtonSingInUpTxt
             selected={currentForm === 'register'}
             onClick={() => setCurrentForm('register')}
           >
-            <p>Регистрация</p>
+            <span>Регистрация</span>
           </ButtonSingInUpTxt>
         </ButtonsArea>
         {currentForm === 'login' ? loginForm : registerForm}
