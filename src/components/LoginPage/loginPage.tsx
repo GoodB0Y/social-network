@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Checkbox from '../../common/checkbox';
-import logo from './img/logo.svg';
+import Logo from '../../common/Logo';
 import { createNewUser } from '../../services/user-controller/user-controller';
 import { ICreateUser, IUserWithTerms } from '../../types/user';
 import {
@@ -70,7 +70,12 @@ const Login: React.FC = (): JSX.Element => {
       <form>
         <InputsArea>
           <SearchInpit id="email" name="email" placeholder="Введите ваш e-mail" />
-          <SearchInpit id="password" name="password" placeholder="Введите ваш пароль" />
+          <SearchInpit
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Введите ваш пароль"
+          />
         </InputsArea>
         <SubmitArea>
           <button type="button">
@@ -193,7 +198,7 @@ const Login: React.FC = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <img src={logo} alt="logo" />
+      <Logo />
       <Main>
         <ButtonsArea>
           <ButtonSingInUpTxt

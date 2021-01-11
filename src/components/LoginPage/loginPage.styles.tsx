@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { Input } from 'antd';
 
@@ -33,20 +32,60 @@ export const InputsArea = styled.div`
 `;
 
 export const SearchInpit = styled(Input)<{ isReg?: boolean }>`
-  background-color: rgba(0, 125, 215, 0);
+  background-color: rgba(17, 17, 17, 1);
   width: 360px;
   padding: 0 0 10px 0;
   border: none;
   border-bottom: 1px solid #ffb11b;
   outline: none;
-  color: aliceblue;
-  font-size: 14px;
+  color: #ffb11b;
+  font-size: 18px;
+  font-weight: bold;
   line-height: 17px;
+  font-family: Montserrat;
+  letter-spacing: 0.1em;
+  ::-webkit-input-placeholder {
+    font-size: 14px;
+  }
+  ::-moz-placeholder {
+    font-size: 14px;
+  } /* Firefox 19+ */
+  :-moz-placeholder {
+    font-size: 14px;
+  } /* Firefox 18- */
+  :-ms-input-placeholder {
+    font-size: 14px;
+  }
+
+  ::-webkit-input-placeholder {
+    font-weight: normal;
+  }
+  ::-moz-placeholder {
+    font-weight: normal;
+  } /* Firefox 19+ */
+  :-moz-placeholder {
+    font-weight: normal;
+  } /* Firefox 18- */
+  :-ms-input-placeholder {
+    font-weight: normal;
+  }
+
+  ::-webkit-input-placeholder {
+    letter-spacing: 0.05em;
+  }
+  ::-moz-placeholder {
+    letter-spacing: 0.05em;
+  } /* Firefox 19+ */
+  :-moz-placeholder {
+    letter-spacing: 0.05em;
+  } /* Firefox 18- */
+  :-ms-input-placeholder {
+    letter-spacing: 0.05em;
+  }
 
   &:hover {
     cursor: text;
   }
-
   &:not(first-child) {
     margin-top: ${(props) => (props.isReg ? '40px' : '33px')};
   }
