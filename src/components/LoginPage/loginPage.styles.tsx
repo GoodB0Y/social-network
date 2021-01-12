@@ -31,7 +31,7 @@ export const InputsArea = styled.div`
   margin-top: 142px;
 `;
 
-export const SearchInpit = styled(Input)<{ isReg?: boolean }>`
+export const SearchInpit = styled(Input)<{ $isReg?: boolean }>`
   background-color: rgba(17, 17, 17, 1);
   width: 360px;
   padding: 0 0 10px 0;
@@ -44,6 +44,7 @@ export const SearchInpit = styled(Input)<{ isReg?: boolean }>`
   line-height: 17px;
   font-family: Montserrat;
   letter-spacing: 0.1em;
+
   ::-webkit-input-placeholder {
     font-size: 14px;
   }
@@ -87,7 +88,7 @@ export const SearchInpit = styled(Input)<{ isReg?: boolean }>`
     cursor: text;
   }
   &:not(first-child) {
-    margin-top: ${(props) => (props.isReg ? '40px' : '33px')};
+    margin-top: ${(props) => (props.$isReg ? '40px' : '33px')};
   }
 `;
 
@@ -118,8 +119,8 @@ export const ButtonSingInUpTxt = styled.button<{ selected: boolean }>`
   }
 `;
 
-export const SubmitArea = styled.div<{ isReg?: boolean }>`
-  margin-top: ${(props) => (props.isReg ? '37px' : '66px')};
+export const SubmitArea = styled.div<{ $isReg?: boolean }>`
+  margin-top: ${(props) => (props.$isReg ? '37px' : '66px')};
   display: flex;
   justify-content: center;
 
@@ -137,7 +138,7 @@ export const SubmitArea = styled.div<{ isReg?: boolean }>`
     max-width: 351px;
     width: 100%;
     height: 60px;
-    border-radius: ${(props) => (props.isReg ? '15px' : '4px')};
+    border-radius: ${(props) => (props.$isReg ? '15px' : '4px')};
     span {
       font-style: normal;
       font-weight: 600;

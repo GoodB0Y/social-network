@@ -22,7 +22,7 @@ import {
 } from './loginPage.styles';
 
 const Login: React.FC = (): JSX.Element => {
-  const [currentForm, setCurrentForm] = useState('login');
+  const [currentForm, setCurrentForm] = useState<'login' | 'register'>('login');
 
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
@@ -78,7 +78,7 @@ const Login: React.FC = (): JSX.Element => {
           />
         </InputsArea>
         <SubmitArea>
-          <button type="button">
+          <button type="submit">
             <span>ВОЙТИ</span>
           </button>
         </SubmitArea>
@@ -94,7 +94,7 @@ const Login: React.FC = (): JSX.Element => {
       <form onSubmit={regForm.handleSubmit}>
         <InputsArea>
           <SearchInpit
-            isReg
+            $isReg
             id="firstName"
             name="firstName"
             placeholder="Введите ваше имя"
@@ -109,7 +109,7 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.firstName}
           </InputError>
           <SearchInpit
-            isReg
+            $isReg
             id="lastName"
             name="lastName"
             placeholder="Введите вашу фамилию"
@@ -124,7 +124,7 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.lastName}
           </InputError>
           <SearchInpit
-            isReg
+            $isReg
             id="email"
             name="email"
             placeholder="Введите ваш e-mail"
@@ -139,7 +139,7 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.email}
           </InputError>
           <SearchInpit
-            isReg
+            $isReg
             type="password"
             id="password"
             name="password"
@@ -155,7 +155,7 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.password}
           </InputError>
           <SearchInpit
-            isReg
+            $isReg
             type="password"
             id="confirmPassword"
             name="confirmPassword"
@@ -187,7 +187,7 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.terms}
           </InputError>
         </InputsArea>
-        <SubmitArea isReg>
+        <SubmitArea $isReg>
           <button type="submit">
             <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
           </button>
