@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Headline } from './ContentBox.styles';
 
-interface Props {
-  headline?: string | null;
+type Props = {
+  headline?: string;
   children: React.ReactNode;
-}
+};
 
 const ContentBox = ({ headline, children }: Props): JSX.Element => (
   <Box>
@@ -14,7 +14,3 @@ const ContentBox = ({ headline, children }: Props): JSX.Element => (
 );
 
 export default ContentBox;
-
-ContentBox.defaultProps = {
-  headline: null,
-};
