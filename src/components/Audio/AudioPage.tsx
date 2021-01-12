@@ -27,7 +27,7 @@ import {
   openPlayListAction,
   friendAudiosAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
-import { rejected, pending } from '../../constants/fetchState';
+import fetchStates from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
 import IfriendData from '../../typesInterfaces/IfriendData';
 
@@ -72,7 +72,7 @@ const BtnFilterAudio = styled.button<IBtnFilterAudio>`
   padding: 0;
   line-height: 30px;
   outline: none;
-  border-bottom: ${(props: any): any => props.selected && '3px solid #FFB11B'};
+  border-bottom: ${(props: IBtnFilterAudio) => props.selected && '3px solid #FFB11B'};
   &:not(:last-child) {
     margin-right: 51px;
   }
@@ -91,6 +91,8 @@ interface ISlickOnClick {
 
 const SampleNextArrow = ({ onClick }: ISlickOnClick) => <Next onClick={onClick} />;
 const SamplePrevArrow = ({ onClick }: ISlickOnClick) => <Prev onClick={onClick} />;
+
+const { pending, rejected } = fetchStates;
 
 const Audio: React.FC = () => {
   const dispatch: TypeDispatch = useDispatch();
