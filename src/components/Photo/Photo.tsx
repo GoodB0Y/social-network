@@ -8,7 +8,7 @@ import sliderItems from './funcs/sliderItems';
 import PageWrapper from '../../common/pageWrapper';
 import SectionHeader from '../../common/sectionHeader';
 import Button from '../../common/button';
-import ContentBox from '../../common/contentBox/ContentBox';
+import ContentBox from '../../common/ContentBox/ContentBox';
 import { RootState } from '../../redux-toolkit/store';
 import ModalLinkInput from '../../common/modalLinkInput';
 import AllUserPhotos from './AllUserPhotos';
