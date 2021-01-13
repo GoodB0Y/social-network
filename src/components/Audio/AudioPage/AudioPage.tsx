@@ -1,88 +1,36 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import { PayloadAction } from '@reduxjs/toolkit';
-import Deck from './AudioSlider/Deck';
-import PlayListArea from './PlayListArea';
-import SearchArea from './SearchArea';
-import SongsArea from './SongsArea';
-import AddPlayList from './AddPlayList';
-import { Next, Prev } from './NavButtons';
-import album from '../../common/img/png/album5.png';
-import pic from '../../common/img/png/pic.png';
-import search from '../../common/img/icons/musicSearch.svg';
+import Deck from '../AudioSlider/Deck';
+import PlayListArea from '../PlayListArea';
+import SearchArea from '../SearchArea';
+import SongsArea from '../SongsArea';
+import AddPlayList from '../AddPlayList';
+import { Next, Prev } from '../NavButtons';
+import album from '../../../common/img/png/album5.png';
+import pic from '../../../common/img/png/pic.png';
+import search from '../../../common/img/icons/musicSearch.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { TypeDispatch } from '../../redux-toolkit/store';
-import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
+import { TypeDispatch } from '../../../redux-toolkit/store';
+import { TypeRootReducer } from '../../../redux-toolkit/rootReducer';
 import {
   allAudiosAction,
+  friendAudiosAction,
   friendsAudioAction,
   myAudiosAction,
   myPlaylistsAction,
-  searchSongsAction,
   openPlayListAction,
-  friendAudiosAction,
-} from '../../redux-toolkit/audios/allAudiosSlice';
-import fetchStates from '../../constants/fetchState';
-import IAudios from '../../typesInterfaces/IAudios';
-import IfriendData from '../../typesInterfaces/IfriendData';
-
-const Main = styled.div`
-  //width: 1300px;
-  //height: 1000vh;
-`;
-
-const SliderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  z-index: 2;
-`;
-
-const TitleWrapper = styled.div`
-  margin: 0 60px;
-`;
-
-const ButtonsArea = styled.div`
-  display: flex;
-  margin: 250px 60px 0 60px;
-`;
-
-const LeftSide = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  div {
-    margin-right: 27px;
-  }
-`;
-
-const RightSide = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const BtnFilterAudio = styled.button<IBtnFilterAudio>`
-  border: none;
-  background: none;
-  padding: 0;
-  line-height: 30px;
-  outline: none;
-  border-bottom: ${(props: IBtnFilterAudio) => props.selected && '3px solid #FFB11B'};
-  &:not(:last-child) {
-    margin-right: 51px;
-  }
-`;
-
-interface IBtnFilterAudio {
-  type?: string;
-  onClick?: (arg?: string) => void;
-  selected?: boolean;
-}
+  searchSongsAction,
+} from '../../../redux-toolkit/audios/allAudiosSlice';
+import fetchStates from '../../../constants/fetchState';
+import IAudios from '../../../typesInterfaces/IAudios';
+import IfriendData from '../../../typesInterfaces/IfriendData';
+import { LeftSide, Main, RightSide, SliderContainer, TitleWrapper } from './AudioPage.styles';
+import FilterTabs from '../FilterTabs';
+import { Tabs } from '../FilterTabs/FilterTabs';
 
 interface ISlickOnClick {
   // eslint-disable-next-line react/require-default-props
@@ -120,41 +68,12 @@ const Audio: React.FC = () => {
     // variableWidth: true, // отрабатывает криво с параметром slidesToShow
   };
 
-  // Вариант типизации для initialStateActiveBtn
-  // type TypeInitialStateActiveBtn<T extends string> = { [key in T]: boolean };
-  // Виды типизации для initialStateActiveBtn END
-
-  const initialStateActiveBtn: { [key: string]: boolean } = {
-    myAudios: true,
-    allAudios: false,
-    friendsAudios: false,
-  };
-
-  const [objCategoryAudios, setChosenCategoryAudios] = useState(initialStateActiveBtn);
+  const [activeTab, setActiveTab] = useState<Tabs>(Tabs.My);
 
   useEffect(() => {
     dispatch(myAudiosAction());
     dispatch(myPlaylistsAction());
   }, [dispatch]);
-
-  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) => async (): Promise<
-    PayloadAction<any, any> | undefined
-  > => {
-    setChosenCategoryAudios({
-      [argCategoryAudio]: true,
-    });
-
-    if (argCategoryAudio === 'myAudios') {
-      return dispatch(myAudiosAction());
-    }
-    if (argCategoryAudio === 'allAudios') {
-      return dispatch(allAudiosAction());
-    }
-    if (argCategoryAudio === 'friendsAudios') {
-      return dispatch(friendsAudioAction());
-    }
-    return undefined;
-  };
 
   const timeAudio = (sec: number): string | number => {
     if (sec === null) {
@@ -165,6 +84,21 @@ const Audio: React.FC = () => {
     if (minutes < 10) minutes = `0${minutes}`;
     if (seconds < 10) seconds = `0${seconds}`;
     return `${minutes}:${seconds}`;
+  };
+
+  const openTab = (tab: Tabs) => {
+    setActiveTab(tab);
+
+    switch (tab) {
+      case Tabs.My:
+        return dispatch(myAudiosAction());
+      case Tabs.All:
+        return dispatch(allAudiosAction());
+      case Tabs.Friends:
+        return dispatch(friendsAudioAction());
+      default:
+        return null;
+    }
   };
 
   const AllAudios =
@@ -264,9 +198,9 @@ const Audio: React.FC = () => {
 
   const audiosList =
     (objAudiosState.currentSearch.length > 0 && PlayList) ||
-    (objCategoryAudios.friendsAudios && PlayList) ||
-    (objCategoryAudios.allAudios && AllAudios) ||
-    (objCategoryAudios.myAudios && MyAudios) ||
+    (activeTab === Tabs.Friends && PlayList) ||
+    (activeTab === Tabs.All && AllAudios) ||
+    (activeTab === Tabs.My && MyAudios) ||
     (loaded && 'Аудиозаписи не найдены');
 
   const startSearch = debounce((name) => {
@@ -283,42 +217,20 @@ const Audio: React.FC = () => {
       <SliderContainer>
         <Deck />
       </SliderContainer>
-      <ButtonsArea>
-        <BtnFilterAudio
-          type="button"
-          onClick={chooseCategoryAudiosOnClick('myAudios')}
-          selected={objCategoryAudios.myAudios}
-        >
-          Моя музыка
-        </BtnFilterAudio>
-        <BtnFilterAudio
-          type="button"
-          onClick={chooseCategoryAudiosOnClick('allAudios')}
-          selected={objCategoryAudios.allAudios}
-        >
-          Вся музыка
-        </BtnFilterAudio>
-        <BtnFilterAudio
-          type="button"
-          onClick={chooseCategoryAudiosOnClick('friendsAudios')}
-          selected={objCategoryAudios.friendsAudios}
-        >
-          Музыка друзей
-        </BtnFilterAudio>
-      </ButtonsArea>
+      <FilterTabs openTab={openTab} activeTab={activeTab} />
       <SearchArea>
         <input type="text" placeholder="Начните поиск музыки..." onChange={searchSongs} />
         <img src={search} alt="" />
       </SearchArea>
-      {(objCategoryAudios.myAudios || objCategoryAudios.friendsAudios) && (
+      {(activeTab === Tabs.My || activeTab === Tabs.Friends) && (
         <PlayListArea>
           <TitleWrapper>
             <h3>
-              {(objCategoryAudios.myAudios && 'Плейлисты') ||
-                (objCategoryAudios.friendsAudios && 'Выберите друга')}
+              {(activeTab === Tabs.My && 'Плейлисты') ||
+                (activeTab === Tabs.Friends && 'Выберите друга')}
             </h3>
           </TitleWrapper>
-          <Slider {...settings}>{(objCategoryAudios.myAudios && playlists) || Friends}</Slider>
+          <Slider {...settings}>{(activeTab === Tabs.My && playlists) || Friends}</Slider>
         </PlayListArea>
       )}
       <SongsArea>
