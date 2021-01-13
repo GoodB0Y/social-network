@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-const StyledLoadingWrapped = styled.div`
+export const StyledLoadingWrapped = styled.div`
   margin-top: 250px;
 `;
 
-export default StyledLoadingWrapped;
+export const MainContainer = styled.div`
+  display: flex;
+  width: 100%;
+  background: #111;
+`;

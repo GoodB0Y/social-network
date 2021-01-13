@@ -1,3 +1,3 @@
-import Main from './index.tsx';
+import Main from './Main';
 
 export default Main;
