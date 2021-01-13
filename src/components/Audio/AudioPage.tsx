@@ -28,8 +28,8 @@ import {
   friendAudiosAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import fetchStates from '../../constants/fetchState';
-import IAudios from '../../typesInterfaces/IAudios';
-import IfriendData from '../../typesInterfaces/IfriendData';
+import IAudios from '../../types/audios';
+import IfriendData from '../../types/friendData';
 
 const Main = styled.div`
   //width: 1300px;
