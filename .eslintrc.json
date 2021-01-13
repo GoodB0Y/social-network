@@ -54,6 +54,7 @@
     "@typescript-eslint/semi": ["error"],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "react/require-default-props": ["error", { "ignoreFunctionalComponents": true }],
 
     "react/prop-types": ["warn"] // delete after fix
   },
