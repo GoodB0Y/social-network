@@ -7,7 +7,7 @@ import { RootState } from '../../redux-toolkit/store';
 import SingleFriend from './SingleFriend';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { loadFriendsList, setFriendFilter, setData } from '../../redux-toolkit/friendsListSlice';
-import LoadingBlock from '../../common/loadingBlock';
+import Loader from '../../common/Loader';
 import { IUser } from '../../types/user';
 
 export const FriendsWrapper = styled.div`
@@ -103,7 +103,7 @@ const Friends: React.FC = (): React.ReactElement => {
           {!userFiltered().length && <NoFriends>Друзей с таким именем нет.</NoFriends>}
         </div>
       )}
-      {loading && <LoadingBlock />}
+      {loading && <Loader />}
       {friendsList.length === 0 && !loading && <NoFriends>У Вас нет друзей.</NoFriends>}
     </FriendsWrapper>
   );

@@ -17,7 +17,7 @@ import ITag from '../../../types/tag';
 import filterNews from './helpers';
 
 import ErrorBlock from '../../../common/errorBlock';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import TagCloud from './TagCloud';
 import NewsItem from './NewsItem';
 
@@ -244,7 +244,7 @@ const News: React.FC<Props> = ({
   };
 
   const renderContent = (): JSX.Element | JSX.Element[] => {
-    if (loading) return <LoadingBlock />;
+    if (loading) return <Loader />;
     if (error) return <ErrorBlock>Error occured with loading posts.</ErrorBlock>;
 
     if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;

@@ -29,13 +29,6 @@ export const CommentsEmpty = styled.div`
   font-size: 18px;
 `;
 
-export const StyledLoadingBlock = styled.div`
-  top: 0;
-  right: 0;
-  transform: translate(-172%, -160%);
-  position: absolute;
-`;
-
 export const ErrorBlock = styled.div`
   position: absolute;
   transform: translate(3.5em, -3em);

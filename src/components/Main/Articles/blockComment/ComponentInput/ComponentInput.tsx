@@ -7,7 +7,7 @@ import { IUser } from '../../../../../types/user';
 import { loadCommentsByPost } from '../../../../../redux-toolkit/postsSlice';
 
 import { WrapperForm, Input, BtnSend, BtnOpenNote, StyledLoading } from './styles';
-import LoadingBlock from '../../../../../common/loadingBlock';
+import Loader from '../../../../../common/Loader';
 
 interface Props {
   user: IUser | null;
@@ -45,7 +45,7 @@ const ComponentInput: React.FC<Props> = ({
         <Avatar src={user?.avatar} />
         {isLoading && (
           <StyledLoading>
-            <LoadingBlock size={30} />
+            <Loader size={30} />
           </StyledLoading>
         )}
         <Field

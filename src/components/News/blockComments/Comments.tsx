@@ -9,7 +9,7 @@ import IComment from '../../../types/comment';
 import { IUser } from '../../../types/user';
 
 import ErrorBlock from '../../../common/errorBlock';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import UserInfo from '../common/UserInfo';
 import CommentForm from './CommentForm';
 import ShowMoreBtn from '../common/ShowMoreBtn';
@@ -90,7 +90,7 @@ const Comments: React.FC<Props> = ({
   }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
-    if (loading || !comments) return <LoadingBlock />;
+    if (loading || !comments) return <Loader />;
     if (error) return <ErrorBlock>Error occured with loading comments.</ErrorBlock>;
     return comments?.map((item) => {
       const {
