@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import * as React from 'react';
-import { StyledLoading } from './styles';
+import StyledLoading from './styles';
 
 interface ILoadingBlock {
   size?: number;
