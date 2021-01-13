@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import addFileSrc from '../../../img/icons/add-file.svg';
+import addFileSrc from '../../../assets/img/icons/add-file.svg';
 import classSubmitMessage from './SubmitMessage.module.scss';
 
 type Props = {

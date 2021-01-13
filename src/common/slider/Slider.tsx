@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import arrowLeft from '../../img/icons/arr_left.svg';
-import arrowRigth from '../../img/icons/arr_right.svg';
+import arrowLeft from '../../assets/img/icons/arr_left.svg';
+import arrowRigth from '../../assets/img/icons/arr_right.svg';
 import 'slick-carousel/slick/slick.css';
 
 import 'swiper/swiper.scss';

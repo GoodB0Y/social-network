@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 import { AvatarMin } from '../../../common/styledComponents';
-import send from '../../../img/icons/send-message.svg';
+import send from '../../../assets/img/icons/send-message.svg';
 
 const FormWrapper = styled.form`
   width: 100%;

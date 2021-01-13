@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import swal from 'sweetalert';
 import funcsRoutes from '../../routes/funcsRoutes';
-import userFoto from '../../img/userFoto.png';
-import DeleteIcon from '../../common/img/icons/delete.svg';
-import MessageIcon from '../../common/img/icons/message.svg';
+import userFoto from '../../assets/img/userFoto.png';
+import DeleteIcon from '../../assets/img/icons/delete.svg';
+import MessageIcon from '../../assets/img/icons/message.svg';
 import { ISingleFriendProps } from './FriendsInterface';
 
 const SingleFriendWrapper = styled.div`

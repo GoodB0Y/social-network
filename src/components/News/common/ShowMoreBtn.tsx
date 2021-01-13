@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import iconDown from '../../../img/icons/more.svg';
-import iconUp from '../../../img/icons/moreUp.svg';
+import iconDown from '../../../assets/img/icons/more.svg';
+import iconUp from '../../../assets/img/icons/moreUp.svg';
 
-const Button = styled.button`
+type ButtonProps = {
+  changeIcon: boolean;
+};
+
+const Button = styled.button<ButtonProps>`
   position: absolute;
   bottom: 0;
   right: 0;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: url(${({ changeIcon }: { changeIcon: boolean }) =>
-    changeIcon ? iconUp : iconDown});) center no-repeat;
+  background: url(${({ changeIcon }) => (changeIcon ? iconUp : iconDown)}) center no-repeat;
   border: none;
   cursor: pointer;
-  padding: 0; 
+  padding: 0;
   outline: none;
 `;
 

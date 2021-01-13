@@ -8,10 +8,10 @@ import { Slider } from 'antd';
 import tracks from '../tracks';
 import 'antd/dist/antd.css';
 import Card from './Card';
-import forward from '../../../common/img/icons/forward.svg';
-import play from '../../../common/img/icons/play.svg';
-import stop from '../../../common/img/icons/stop.svg';
-import back from '../../../common/img/icons/back.svg';
+import forward from '../../../assets/img/icons/forward.svg';
+import play from '../../../assets/img/icons/play.svg';
+import stop from '../../../assets/img/icons/stop.svg';
+import back from '../../../assets/img/icons/back.svg';
 import typeFuncFind from '../../../helperFunctions/typeFuncFind';
 
 SwiperCore.use([EffectCoverflow]);

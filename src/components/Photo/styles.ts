@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-scroll';
-import arrowIcon from '../../common/img/icons/arr_left.svg';
+import arrowIcon from '../../assets/img/icons/arr_left.svg';
 import { secondaryColor } from '../../colors.module';
 
 export const Item = styled.div`
