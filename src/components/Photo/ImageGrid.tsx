@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import LoadingBlock from '../../common/loadingBlock';
+import Loader from '../../common/Loader';
 import ErrorBlock from '../../common/errorBlock';
 import { secondaryColor } from '../../colors.module';
 import { ImageDto } from '../../types/image';
@@ -64,7 +64,7 @@ const ImageGrid: React.FC<IImageGridProps> = ({
     );
   }
   if (loading) {
-    return <LoadingBlock size={45} />;
+    return <Loader size={45} />;
   }
   if (error) {
     return <ErrorBlock errorMessage={error?.data || `Ошибка ${error?.status}, `} />;

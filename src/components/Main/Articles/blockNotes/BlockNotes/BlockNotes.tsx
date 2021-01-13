@@ -12,7 +12,7 @@ import {
   EmptyBlockNotes,
 } from './styles';
 import { RootState } from '../../../../../redux-toolkit/store';
-import LoadingBlock from '../../../../../common/loadingBlock';
+import Loader from '../../../../../common/Loader';
 import ErrorBlock from '../../../../../common/errorBlock';
 
 const mapStateToProps = (state: RootState) => ({
@@ -38,7 +38,7 @@ const BlockNotes: React.FC<Props> = ({ posts, loading, error }) => {
 
   const renderNotes = () => {
     if (loading) {
-      return <LoadingBlock />;
+      return <Loader />;
     }
     if (error) {
       return <ErrorBlock errorMessage="Error occured with loading posts." />;

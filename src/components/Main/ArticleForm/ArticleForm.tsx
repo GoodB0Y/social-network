@@ -8,7 +8,7 @@ import imgButtonMore from './img/BTN more.svg';
 import { ArticleName, ButtonMore } from '../../../common/styledComponents';
 import createPost from './createPost';
 import Tags from '../../../common/tags';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import MediaContainer from '../../../common/mediaContainer';
 
 import { loadPostsByUser } from '../../../redux-toolkit/postsSlice';
@@ -119,7 +119,7 @@ const ArticleForm: React.FC<Props> = ({
                 setTags((_tags) => _tags.filter((item, _index) => _index !== index));
               }}
             />
-            {loading && <LoadingBlock />}
+            {loading && <Loader />}
             <ArticleButton className="articleButton" type="submit">
               Опубликовать
             </ArticleButton>

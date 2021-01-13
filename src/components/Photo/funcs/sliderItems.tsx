@@ -5,7 +5,7 @@ import funcsRoutes from '../../../routes/funcsRoutes';
 import Slider from '../../../common/slider/Slider';
 import SliderItem from '../SliderItem';
 import { AlbumDto } from '../../../types/image';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import ErrorBlock from '../../../common/errorBlock';
 
 const sliderItems = (
@@ -27,7 +27,7 @@ const sliderItems = (
     );
   }
   if (loading) {
-    return <LoadingBlock size={45} />;
+    return <Loader size={45} />;
   }
   if (error) {
     return <ErrorBlock errorMessage={error?.data || `Ошибка ${error?.status}, `} />;

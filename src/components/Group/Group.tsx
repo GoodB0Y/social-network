@@ -3,7 +3,7 @@ import { withRouter, useParams, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { GroupPosts, GroupInt } from '../../types/group';
-import LoadingBlock from '../../common/loadingBlock';
+import Loader from '../../common/Loader';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import { RootState } from '../../redux-toolkit/store';
@@ -146,7 +146,7 @@ const Group: React.FC<Props> = ({
     return (
       <Wrapper>
         {loading ? (
-          <LoadingBlock />
+          <Loader />
         ) : (
           <Container>
             <Label>

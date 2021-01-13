@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useStorage from './hooks/useStorage';
-import LoadingBlock from '../../common/loadingBlock/LoadingBlock';
+import Loader from '../../common/Loader';
 
 const ModalContentWrapper = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const ModalPhoto: React.FC<Props> = ({ file, setImageUrl }): JSX.Element => {
 
   return (
     <ModalContentWrapper>
-      {url ? <ImagePreview alt="img" src={url} /> : <LoadingBlock />}
+      {url ? <ImagePreview alt="img" src={url} /> : <Loader />}
     </ModalContentWrapper>
   );
 };

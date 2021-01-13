@@ -9,7 +9,7 @@ import { MainContainer } from '../../common/styledComponents';
 import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
 import ErrorBlock from '../../common/errorBlock';
-import LoadingBlock from '../../common/loadingBlock';
+import Loader from '../../common/Loader';
 import StyledLoadingWrapped from './styled';
 
 const mapStateToProps = (state: RootState) => ({
@@ -64,7 +64,7 @@ const Main: React.FC<Props> = ({
     if (userModel?.loading) {
       return (
         <StyledLoadingWrapped>
-          <LoadingBlock />
+          <Loader />
         </StyledLoadingWrapped>
       );
     }

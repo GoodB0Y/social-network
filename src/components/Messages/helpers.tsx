@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import ErrorBlock from '../../common/errorBlock/ErrorBlock';
 import MessagesChat from '../../common/chat/messages';
 import messagesClass from './Messages.module.scss';
-import LoadingBLock from '../../common/loadingBlock/LoadingBlock';
+import Loader from '../../common/Loader';
 import { Ichat, IsingleChat } from '../../types/chat';
 
 type Chats = {
@@ -23,7 +23,7 @@ const renderchatList = (
   filterChats: Ichat[],
   loadCurrentChat: (id: number) => void
 ): JSX.Element | JSX.Element[] => {
-  if (chats.loading) return <LoadingBLock />;
+  if (chats.loading) return <Loader />;
   if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
   return filterChats.map((chat) => (
     <button
@@ -42,7 +42,7 @@ const renderchatList = (
 };
 
 const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] => {
-  if (currentChat.loading) return <LoadingBLock />;
+  if (currentChat.loading) return <Loader />;
   if (currentChat.error) return <ErrorBlock />;
   return currentChat.data.map((el) => {
     if (el.username === 'bogdan13') {
