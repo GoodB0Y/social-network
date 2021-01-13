@@ -7,7 +7,7 @@ import Loader from '../../common/Loader';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import { RootState } from '../../redux-toolkit/store';
-import photogroup from '../../img/icons/photogroup.svg';
+import photogroup from '../../assets/img/icons/photogroup.svg';
 
 import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/groups/singleGroupSlice';
 

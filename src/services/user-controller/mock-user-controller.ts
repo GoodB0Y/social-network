@@ -1,4 +1,4 @@
-import avatar from '../../img/main photo.png';
+import avatar from '../../assets/img/main photo.png';
 import { IUser } from '../../types/user';
 import { getUserById as originalGetUserById } from './user-controller';
 

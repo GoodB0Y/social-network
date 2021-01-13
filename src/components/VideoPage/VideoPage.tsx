@@ -10,7 +10,7 @@ import { VideoItem, OpenedVideo } from './index';
 import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
-import arrowNotFilled from '../../common/img/icons/arr_left.svg';
+import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
 import PageWrapper from '../../common/pageWrapper';
 import SectionHeader from '../../common/sectionHeader';
 import {

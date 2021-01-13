@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import backArrow from '../../common/img/icons/playlistarrowback.svg';
-import nextArrow from '../../common/img/icons/playlistarrownext.svg';
+import backArrow from '../../assets/img/icons/playlistarrowback.svg';
+import nextArrow from '../../assets/img/icons/playlistarrownext.svg';
 
 export const Next = styled.button`
   background: none;

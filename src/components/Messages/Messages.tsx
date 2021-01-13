@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Ichat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
-import moreOptionSrc from '../../img/icons/chat-more-options.svg';
+import moreOptionSrc from '../../assets/img/icons/chat-more-options.svg';
 import messagesClass from './Messages.module.scss';
 import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
