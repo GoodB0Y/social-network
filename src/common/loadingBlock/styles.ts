@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import loading from '../../img/LoadingBlock.svg';
+import loader from './loader.svg';
 
 /* eslint-disable import/prefer-default-export */
 export const StyledLoading = styled.div<{ $size: number }>`
-  background-image: url(${loading});
+  background-image: url(${loader});
   background-size: contain;
   width: ${({ $size }) => $size}px;
   height: ${({ $size }) => $size}px;
