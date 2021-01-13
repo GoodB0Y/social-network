@@ -1,68 +1,87 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Введение
 
-## Available Scripts
+Воспринимайте написанное как рекомендацию вместо требования. Если очень сильно тормозите, делайте
+так, как можете и умеете. В процессе разберетесь.
 
-In the project directory, you can run:
+Также файл открыт для новых идей. Только не забудьте обсудить изменения со всеми участниками
+проекта.
 
-### `npm start`
+## Git
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Прочтите
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [Внесение вклада в проекты](https://git-scm.com/book/ru/v2/GitHub-%D0%92%D0%BD%D0%B5%D1%81%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BE%D0%B1%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D0%B2-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B)
+  (уделите внимание исправлению замечаний и конфликтов в пулл-реквесте)
+- [Работа с удаленными репо](https://git-scm.com/book/ru/v2/%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B-Git-%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D1%83%D0%B4%D0%B0%D0%BB%D1%91%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%D0%BC%D0%B8#r_inspecting_remote)
 
-### `npm test`
+### Основной процесс ветвления на проекте
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Здесь не будет описания всего процесса `git flow`, только основного цикла разработки, который
+идентичен процессу в первой ссылке с той лишь разницей, что мы работаем с веткой `development`
+вместо `master`.
 
-### `npm run build`
+Перед началом работы необходимо сделать форк общего репо и клонировать его. Таким образом будет три
+хранища кода: общий репо, форк и локальная копия.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Из ветки `development` создаем новую ветку и работаем над изменениями.
+2. Пушим новую ветку в свой форк и создаем пулл-реквест из нее в ветку `development` общего репо.
+3. Есть замечания коллег - правим. Есть конфликты - правим. Смотрим первую ссылку.
+4. В локальной копии переходим в ветку `development` и подтягиваем изменения из общего репо.
+5. Повторям с первого пукта.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Мерджить изменения самостоятельно между своими ветками не нужно.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Именование веток и написание коммитов
 
-### `npm run eject`
+По [этой ссылке](https://docs.rs.school/#/git-convention?id=%d0%a2%d1%80%d0%b5%d0%b1%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-%d0%ba-%d0%b8%d0%bc%d0%b5%d0%bd%d0%b0%d0%bc-%d0%ba%d0%be%d0%bc%d0%bc%d0%b8%d1%82%d0%be%d0%b2)
+есть описание требований к коммитам. Рекомендация в том, чтобы использовать описанные префиксы для
+веток:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- `feat/name` - новая функциональность.
+- `fix/name` - фикс бага.
+- `refactor/name` - рефакторинг.
+- `docs/name` - работа с документацией.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Название ветки отражает основую цель ее создания. Так в процессе добавления новой функциональности
+может понадобиться сделать рефакторинг - ок, так как цель именно в новой фиче, то ветку стоит
+назвать именно `feat/name`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Не стоит относиться к выбору названия ветки слишком серьезно. После мерджа ее можно удалить, затем
+создать новую ветку с таким же названием, но уже с другими коммитами.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Серьезно стоит относится к названиям коммитов, так как они отражают суть изменений в файле.
+Рекомендация писать их на русском языке в стиле:
 
-## Learn More
+> Стилизует компонент согласно макету
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> Добавит логику отправки формы на сервер
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Не копите изменения для превращения коммита в гороховый суп. Если коммиты простые и изолированные
+можно поменять их порядок местами для логической последовательности (погуглите).
 
-### Code Splitting
+Как и не копите коммиты для превращения ветки в кашу.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Тем более не копите изменения для одного большого пулл-реквеста. Мало того, что за это время в
+проекте может изменится много кода и вам нужно будет решать конфликты. Кому-то потом придется это
+читать. Так и какие-то изменения окажутся вообще не нужными. Потому что время прошло.
 
-### Analyzing the Bundle Size
+Вместо этого, разбивайте задачу на подзадачи и делайте на каждую пулл-реквест, обсуждая ее с другими
+участниками.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Соглашение о перекрестном ревью
 
-### Making a Progressive Web App
+Мы договорились смотреть пулл-реквесты друг друга. Цель в том, чтобы поделиться знаниями и опытом.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Для мерджа пулл-реквеста необходимо чтобы хотя бы один участник его посмотрел. Так же рекомендуется
+просмотривать уже слитые запросы, возможно, узнаете что-то новое. Тем более что к ним тоже можно
+оставлять комментарии.
 
-### Advanced Configuration
+### Дополнительно
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Подпишитесь на уведомления в общем репозитории (кнопка Watch в правом углу), так вы начнете получать
+нотификации о комментариях и мерджах к пулл-реквестам, будь они ваши или чужие. И всем участникам
+команды не придется дублировать информацию в личку или чат.
 
-### Deployment
+## Trello (уточняется)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Файловая структура проекта (уточняется)
