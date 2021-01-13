@@ -4,17 +4,17 @@ import loader from './loader.svg';
 
 export type LoaderProps = { size?: number };
 
-const Container = styled.div<{ $size: number }>`
+const Container = styled.div<LoaderProps>`
   margin: 0 auto;
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
   background-image: url(${loader});
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 `;
 
-const Loader = ({ size = 150 }: LoaderProps): JSX.Element => <Container $size={size} />;
+const Loader = ({ size = 150 }: LoaderProps): JSX.Element => <Container size={size} />;
 
 // delete after add
 // "react/require-default-props": ["error", { "ignoreFunctionalComponents": true }],
