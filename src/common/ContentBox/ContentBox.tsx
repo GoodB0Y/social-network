@@ -2,11 +2,11 @@ import React from 'react';
 import { Box, Headline } from './ContentBox.styles';
 
 type Props = {
-  headline?: string;
+  headline?: string | null;
   children: React.ReactNode;
 };
 
-const ContentBox = ({ headline, children }: Props): JSX.Element => (
+const ContentBox = ({ headline = null, children }: Props): JSX.Element => (
   <Box>
     {headline && <Headline>{headline}</Headline>}
     {children}
