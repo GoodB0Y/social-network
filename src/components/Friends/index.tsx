@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Friends from './Friends';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 
 const WrappedFriends = () => (
-  <PageWrapper>
+  <Page>
     <Friends />
-  </PageWrapper>
+  </Page>
 );
 
 export default WrappedFriends;

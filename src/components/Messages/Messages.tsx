@@ -8,7 +8,7 @@ import moreOptionSrc from '../../assets/img/icons/chat-more-options.svg';
 import messagesClass from './Messages.module.scss';
 import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
 import MessagesChat from '../../common/chat/messages';
@@ -120,7 +120,7 @@ const Messages: React.FC<Props> = ({
   }, [chats.data, currentChat.data.length, loadCurrentChat]);
 
   return (
-    <PageWrapper messages>
+    <Page messages>
       <div className={messagesClass.wrapper}>
         <div className={messagesClass.selectChat}>
           <div className={messagesClass.pageSearchInputWrapper}>
@@ -181,7 +181,7 @@ const Messages: React.FC<Props> = ({
           </div>
         </div>
       </div>
-    </PageWrapper>
+    </Page>
   );
 };
 

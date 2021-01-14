@@ -4,7 +4,7 @@ import { loadUser, loadUserPhotos, resetUser } from '../../redux-toolkit/userSli
 import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
 import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import { MainContainer } from '../../common/styledComponents';
 import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
@@ -75,7 +75,7 @@ const Main: React.FC<Props> = ({
     <>
       <Header />
       <MainContainer>
-        <PageWrapper messages={false}>{renderContent()}</PageWrapper>
+        <Page messages={false}>{renderContent()}</Page>
       </MainContainer>
     </>
   );

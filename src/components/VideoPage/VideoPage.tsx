@@ -11,7 +11,7 @@ import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
 import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
 import {
   addAlbumAction,
@@ -311,7 +311,7 @@ const VideoPage: React.FC = () => {
           ])
         : null}{' '}
       {videoToShow.showVideo ? <OpenedVideo id={videoToShow.videoId} action={hideVideo} /> : null}
-      <PageWrapper>
+      <Page>
         <ComponentWrapper>
           {' '}
           <PageMarker>Видеозаписи</PageMarker>
@@ -439,7 +439,7 @@ const VideoPage: React.FC = () => {
             </div>
           )}
         </ComponentWrapper>
-      </PageWrapper>
+      </Page>
     </>
   );
 };

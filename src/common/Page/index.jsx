@@ -5,7 +5,7 @@ import LeftBlock from '../leftBlock';
 import RightBlock from '../rightBlock';
 import { MainContainer } from '../styledComponents';
 
-const PageWrapper = ({ messages, children }) => (
+const Page = ({ messages, children }) => (
   <>
     <Header />
     <MainContainer>
@@ -15,13 +15,13 @@ const PageWrapper = ({ messages, children }) => (
   </>
 );
 
-PageWrapper.defaultProps = {
+Page.defaultProps = {
   messages: false,
 };
 
-PageWrapper.propTypes = {
+Page.propTypes = {
   children: PropTypes.node.isRequired,
   messages: PropTypes.bool,
 };
 
-export default PageWrapper;
+export default Page;

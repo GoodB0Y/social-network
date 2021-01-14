@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import Groups from './Groups';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 
 const WrappedGroups: React.FC = (): ReactElement => (
-  <PageWrapper>
+  <Page>
     <Groups />
-  </PageWrapper>
+  </Page>
 );
 
 export default WrappedGroups;

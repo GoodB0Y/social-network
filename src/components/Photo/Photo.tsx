@@ -5,7 +5,7 @@ import { loadUser } from '../../redux-toolkit/userSlice';
 import createAlbumPhoto from './funcs/createAlbum';
 import sliderItems from './funcs/sliderItems';
 
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
 import Button from '../../common/button';
 import ContentBox from '../../common/ContentBox/ContentBox';
@@ -74,7 +74,7 @@ const Photo: React.FC<Props> = ({
   );
 
   return (
-    <PageWrapper>
+    <Page>
       <ContentBox>
         <Headline>
           {isCurrentUser && 'Ваши'} Фотографии
@@ -104,7 +104,7 @@ const Photo: React.FC<Props> = ({
           <AllUserPhotos isCurrentUser={isCurrentUser} userId={userId} />
         )}
       </ContentBox>
-    </PageWrapper>
+    </Page>
   );
 };
 
