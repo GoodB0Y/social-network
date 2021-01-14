@@ -1,7 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { Container, TitleWrapper } from './PlaylistSlider.styles';
-import { Next, Prev } from '../NavButtons';
+import { Container, Next, Prev, TitleWrapper } from './PlaylistSlider.styles';
 
 export type PlaylistSliderProps = {
   items: JSX.Element[];

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import nextArrow from '../../../common/img/icons/playlistarrownext.svg';
+import backArrow from '../../../common/img/icons/playlistarrowback.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -42,4 +44,32 @@ export const Container = styled.div`
 
 export const TitleWrapper = styled.div`
   margin: 0 60px;
+`;
+
+export const Next = styled.button`
+  background-color: transparent;
+  border: none;
+  background-image: url(${nextArrow});
+  position: absolute;
+  left: 95%;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-left: 70px;
+  margin-top: 40px;
+  cursor: pointer;
+  outline: none;
+`;
+export const Prev = styled.button`
+  background-color: transparent;
+  border: none;
+  background-image: url(${backArrow});
+  position: absolute;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-left: -64px;
+  margin-top: 40px;
+  cursor: pointer;
+  outline: none;
 `;
