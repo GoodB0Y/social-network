@@ -8,14 +8,14 @@ export enum Tabs {
   Friends = 'Музыка друзей',
 }
 
-type Props = {
+export type FilterTabsProps = {
   openTab: (tab: Tabs) => void;
   activeTab: Tabs;
 };
 
 const getTab = (type: string): Tabs => Tabs[type as keyof typeof Tabs];
 
-const FilterTabs = ({ openTab, activeTab }: Props): JSX.Element => (
+const FilterTabs = ({ openTab, activeTab }: FilterTabsProps): JSX.Element => (
   <Container>
     {Object.entries(Tabs).map((tab: Array<string>) => (
       <TabItem
