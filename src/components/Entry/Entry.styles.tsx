@@ -45,45 +45,6 @@ export const SearchInpit = styled(Input)<{ $isReg?: boolean }>`
   font-family: Montserrat;
   letter-spacing: 0.1em;
 
-  ::-webkit-input-placeholder {
-    font-size: 14px;
-  }
-  ::-moz-placeholder {
-    font-size: 14px;
-  } /* Firefox 19+ */
-  :-moz-placeholder {
-    font-size: 14px;
-  } /* Firefox 18- */
-  :-ms-input-placeholder {
-    font-size: 14px;
-  }
-
-  ::-webkit-input-placeholder {
-    font-weight: normal;
-  }
-  ::-moz-placeholder {
-    font-weight: normal;
-  } /* Firefox 19+ */
-  :-moz-placeholder {
-    font-weight: normal;
-  } /* Firefox 18- */
-  :-ms-input-placeholder {
-    font-weight: normal;
-  }
-
-  ::-webkit-input-placeholder {
-    letter-spacing: 0.05em;
-  }
-  ::-moz-placeholder {
-    letter-spacing: 0.05em;
-  } /* Firefox 19+ */
-  :-moz-placeholder {
-    letter-spacing: 0.05em;
-  } /* Firefox 18- */
-  :-ms-input-placeholder {
-    letter-spacing: 0.05em;
-  }
-
   &:hover {
     cursor: text;
   }
