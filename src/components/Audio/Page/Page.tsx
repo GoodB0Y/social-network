@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import SongsArea from '../SongsArea';
 import AddPlayList from '../AddPlayList';
 import album from '../../../common/img/png/album5.png';
 import pic from '../../../common/img/png/pic.png';
@@ -28,6 +27,7 @@ import { Tabs } from '../FilterTabs/FilterTabs';
 import HeadSlider from '../HeadSlider';
 import Search from '../Search';
 import PlaylistSlider from '../PlaylistSlider';
+import Songs from '../Songs/Songs';
 
 const { pending, rejected } = fetchStates;
 
@@ -209,9 +209,7 @@ const Page: React.FC = () => {
       {playlistSliderItems && (
         <PlaylistSlider items={playlistSliderItems} title={playlistSliderTitle} />
       )}
-      <SongsArea>
-        <ul>{audiosList}</ul>
-      </SongsArea>
+      <Songs items={audiosList} />
     </Main>
   );
 };
