@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SearchArea = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
   height: 70px;
@@ -23,4 +23,4 @@ const SearchArea = styled.div`
   }
 `;
 
-export default SearchArea;
+export default Container;
