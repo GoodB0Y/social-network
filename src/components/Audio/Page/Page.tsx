@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
 import PlayListArea from '../PlayListArea';
-import SearchArea from '../SearchArea';
 import SongsArea from '../SongsArea';
 import AddPlayList from '../AddPlayList';
 import { Next, Prev } from '../NavButtons';
 import album from '../../../common/img/png/album5.png';
 import pic from '../../../common/img/png/pic.png';
-import search from '../../../common/img/icons/musicSearch.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { TypeDispatch } from '../../../redux-toolkit/store';
@@ -30,7 +28,8 @@ import IfriendData from '../../../typesInterfaces/IfriendData';
 import { LeftSide, Main, RightSide, TitleWrapper } from './Page.styles';
 import FilterTabs from '../FilterTabs';
 import { Tabs } from '../FilterTabs/FilterTabs';
-import HeadSlider from '../HeadSlider/HeadSlider';
+import HeadSlider from '../HeadSlider';
+import Search from '../Search';
 
 interface ISlickOnClick {
   onClick?: () => void;
@@ -206,7 +205,7 @@ const Page: React.FC = () => {
     if (name) dispatch(searchSongsAction(name));
   }, 1000);
 
-  const searchSongs = (event: ChangeEvent<HTMLInputElement>): void => {
+  const searchSongs = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     startSearch(value);
   };
@@ -215,10 +214,7 @@ const Page: React.FC = () => {
     <Main>
       <HeadSlider />
       <FilterTabs openTab={openTab} activeTab={activeTab} />
-      <SearchArea>
-        <input type="text" placeholder="Начните поиск музыки..." onChange={searchSongs} />
-        <img src={search} alt="" />
-      </SearchArea>
+      <Search searchSongs={searchSongs} />
       {(activeTab === Tabs.My || activeTab === Tabs.Friends) && (
         <PlayListArea>
           <TitleWrapper>
