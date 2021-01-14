@@ -19,9 +19,9 @@ import {
   InputError,
   getInputErrorVisibilityStyle,
   FormWrap,
-} from './loginPage.styles';
+} from './Entry.styles';
 
-const Login: React.FC = (): JSX.Element => {
+const Entry: React.FC = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<'login' | 'register'>('login');
 
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
@@ -220,4 +220,4 @@ const Login: React.FC = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default Entry;

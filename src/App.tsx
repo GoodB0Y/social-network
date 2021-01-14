@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Login from './components/LoginPage/loginPage';
+import Entry from './components/Entry';
 import Messages from './components/Messages/Messages';
 import Main from './components/Main';
 import Audio from './components/Audio';
@@ -54,7 +54,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
           if (currentUserModel.data) {
             return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
           }
-          return <Login />;
+          return <Entry />;
         }}
         exact
       />
