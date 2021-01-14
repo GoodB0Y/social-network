@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import Deck from '../Slider/Deck';
 import PlayListArea from '../PlayListArea';
 import SearchArea from '../SearchArea';
 import SongsArea from '../SongsArea';
@@ -28,9 +27,10 @@ import {
 import fetchStates from '../../../constants/fetchState';
 import IAudios from '../../../typesInterfaces/IAudios';
 import IfriendData from '../../../typesInterfaces/IfriendData';
-import { LeftSide, Main, RightSide, SliderContainer, TitleWrapper } from './Page.styles';
+import { LeftSide, Main, RightSide, TitleWrapper } from './Page.styles';
 import FilterTabs from '../FilterTabs';
 import { Tabs } from '../FilterTabs/FilterTabs';
+import HeadSlider from '../HeadSlider/HeadSlider';
 
 interface ISlickOnClick {
   onClick?: () => void;
@@ -213,9 +213,7 @@ const Page: React.FC = () => {
 
   return (
     <Main>
-      <SliderContainer>
-        <Deck />
-      </SliderContainer>
+      <HeadSlider />
       <FilterTabs openTab={openTab} activeTab={activeTab} />
       <SearchArea>
         <input type="text" placeholder="Начните поиск музыки..." onChange={searchSongs} />
