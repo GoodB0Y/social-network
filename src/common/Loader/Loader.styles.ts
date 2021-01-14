@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LoaderProps } from './index';
+import LoaderProps from './Loader.types';
 import loader from './assets/loader.svg';
 
 const Container = styled.div<LoaderProps>`
