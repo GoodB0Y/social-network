@@ -16,12 +16,4 @@ const Container = styled.div<LoaderProps>`
 
 const Loader = ({ size = 150 }: LoaderProps): JSX.Element => <Container size={size} />;
 
-// delete after add
-// "react/require-default-props": ["error", { "ignoreFunctionalComponents": true }],
-// in .eslintrc.json
-// https://github.com/okjel/social-network/pull/14#discussion_r556243552
-Loader.defaultProps = {
-  size: 150,
-};
-
 export default Loader;
