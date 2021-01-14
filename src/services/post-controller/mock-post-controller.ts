@@ -1,5 +1,5 @@
-import avatarComment from '../../img/userFotoComment1.png';
-import avatarPost from '../../img/main photo.png';
+import avatarComment from '../../assets/img/userFotoComment1.png';
+import avatarPost from '../../assets/img/main photo.png';
 import { IPost } from '../../types/post';
 
 export const getPostsByUser = (): IPost[] => [
