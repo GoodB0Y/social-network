@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import loader from './loader.svg';
+import loader from './assets/loader.svg';
 
 export type LoaderProps = { size?: number };
 
