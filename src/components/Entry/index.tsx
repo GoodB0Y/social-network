@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Checkbox from '../../common/checkbox';
+import Checkbox from './checkbox';
 import Logo from '../../common/Logo';
 import { createNewUser } from '../../services/user-controller';
 import { ICreateUser, IUserWithTerms } from '../../types/user';
