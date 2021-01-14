@@ -1,12 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import PlayListArea from '../PlayListArea';
 import SongsArea from '../SongsArea';
 import AddPlayList from '../AddPlayList';
-import { Next, Prev } from '../NavButtons';
 import album from '../../../common/img/png/album5.png';
 import pic from '../../../common/img/png/pic.png';
 import 'slick-carousel/slick/slick.css';
@@ -25,18 +22,12 @@ import {
 import fetchStates from '../../../constants/fetchState';
 import IAudios from '../../../typesInterfaces/IAudios';
 import IfriendData from '../../../typesInterfaces/IfriendData';
-import { LeftSide, Main, RightSide, TitleWrapper } from './Page.styles';
+import { LeftSide, Main, RightSide } from './Page.styles';
 import FilterTabs from '../FilterTabs';
 import { Tabs } from '../FilterTabs/FilterTabs';
 import HeadSlider from '../HeadSlider';
 import Search from '../Search';
-
-interface ISlickOnClick {
-  onClick?: () => void;
-}
-
-const SampleNextArrow = ({ onClick }: ISlickOnClick) => <Next onClick={onClick} />;
-const SamplePrevArrow = ({ onClick }: ISlickOnClick) => <Prev onClick={onClick} />;
+import PlaylistSlider from '../PlaylistSlider';
 
 const { pending, rejected } = fetchStates;
 
@@ -48,23 +39,11 @@ const Page: React.FC = () => {
   const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
 
   useEffect(() => {
-    console.log(objAudiosState);
     setDragging(false);
     if (objAudiosState.loading.endsWith(rejected)) {
       message.error(objAudiosState.msgFetchState);
     }
   }, [objAudiosState, objAudiosState.loading, objAudiosState.msgFetchState]);
-
-  const settings = {
-    infinite: false,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    beforeChange: (): void => setDragging(true),
-    afterChange: (): void => setDragging(false),
-    // variableWidth: true, // отрабатывает криво с параметром slidesToShow
-  };
 
   const [activeTab, setActiveTab] = useState<Tabs>(Tabs.My);
 
@@ -210,21 +189,25 @@ const Page: React.FC = () => {
     startSearch(value);
   };
 
+  let playlistSliderItems;
+  let playlistSliderTitle;
+
+  if (activeTab === Tabs.My) {
+    playlistSliderItems = playlists;
+    playlistSliderTitle = 'Плейлисты';
+  }
+  if (activeTab === Tabs.Friends) {
+    playlistSliderItems = Friends;
+    playlistSliderTitle = 'Выберите друга';
+  }
+
   return (
     <Main>
       <HeadSlider />
       <FilterTabs openTab={openTab} activeTab={activeTab} />
       <Search searchSongs={searchSongs} />
-      {(activeTab === Tabs.My || activeTab === Tabs.Friends) && (
-        <PlayListArea>
-          <TitleWrapper>
-            <h3>
-              {(activeTab === Tabs.My && 'Плейлисты') ||
-                (activeTab === Tabs.Friends && 'Выберите друга')}
-            </h3>
-          </TitleWrapper>
-          <Slider {...settings}>{(activeTab === Tabs.My && playlists) || Friends}</Slider>
-        </PlayListArea>
+      {playlistSliderItems && (
+        <PlaylistSlider items={playlistSliderItems} title={playlistSliderTitle} />
       )}
       <SongsArea>
         <ul>{audiosList}</ul>

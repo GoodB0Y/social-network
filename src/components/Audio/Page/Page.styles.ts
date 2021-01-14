@@ -5,10 +5,6 @@ export const Main = styled.div`
   //height: 1000vh;
 `;
 
-export const TitleWrapper = styled.div`
-  margin: 0 60px;
-`;
-
 export const LeftSide = styled.div`
   display: flex;
   flex-direction: row;
