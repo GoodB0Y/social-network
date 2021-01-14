@@ -3,7 +3,7 @@ import React from 'react';
 import { RightBlockContainer } from '../styledComponents';
 
 interface Props {
-  children: React.ReactChild;
+  children?: React.ReactNode;
 }
 
 const RightBlock: React.FC<Props> = (props: Props) => {

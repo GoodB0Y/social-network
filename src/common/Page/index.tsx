@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../header';
 import LeftBlock from '../leftBlock';
 import RightBlock from '../rightBlock';
 import { MainContainer } from '../styledComponents';
 
-const Page = ({ messages, children }) => (
+type PageProps = { messages?: boolean; children?: React.ReactNode };
+
+const Page = ({ messages = false, children }: PageProps): JSX.Element => (
   <>
     <Header />
     <MainContainer>
@@ -14,14 +15,5 @@ const Page = ({ messages, children }) => (
     </MainContainer>
   </>
 );
-
-Page.defaultProps = {
-  messages: false,
-};
-
-Page.propTypes = {
-  children: PropTypes.node.isRequired,
-  messages: PropTypes.bool,
-};
 
 export default Page;
