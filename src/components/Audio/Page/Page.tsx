@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import Deck from '../AudioSlider/Deck';
+import Deck from '../Slider/Deck';
 import PlayListArea from '../PlayListArea';
 import SearchArea from '../SearchArea';
 import SongsArea from '../SongsArea';
@@ -28,12 +28,11 @@ import {
 import fetchStates from '../../../constants/fetchState';
 import IAudios from '../../../typesInterfaces/IAudios';
 import IfriendData from '../../../typesInterfaces/IfriendData';
-import { LeftSide, Main, RightSide, SliderContainer, TitleWrapper } from './AudioPage.styles';
+import { LeftSide, Main, RightSide, SliderContainer, TitleWrapper } from './Page.styles';
 import FilterTabs from '../FilterTabs';
 import { Tabs } from '../FilterTabs/FilterTabs';
 
 interface ISlickOnClick {
-  // eslint-disable-next-line react/require-default-props
   onClick?: () => void;
 }
 
@@ -42,7 +41,7 @@ const SamplePrevArrow = ({ onClick }: ISlickOnClick) => <Prev onClick={onClick} 
 
 const { pending, rejected } = fetchStates;
 
-const Audio: React.FC = () => {
+const Page: React.FC = () => {
   const dispatch: TypeDispatch = useDispatch();
   const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) => allAudiosReducer);
   const loaded = objAudiosState.loading.endsWith(pending);
@@ -240,4 +239,4 @@ const Audio: React.FC = () => {
   );
 };
 
-export default Audio;
+export default Page;

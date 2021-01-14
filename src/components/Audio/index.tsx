@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageWrapper from '../../common/pageWrapper';
-import AudioPage from './AudioPage';
+import AudioPage from './Page';
 import ContentBox from '../../common/ContentBox/ContentBox';
 
 const Audio = (): JSX.Element => (
