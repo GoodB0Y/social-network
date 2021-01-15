@@ -2,8 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import album from '../../common/img/png/album5.png';
-import pic from '../../common/img/png/pic.png';
+import album from '../../assets/img/album5.png';
+import pic from '../../assets/img/pic.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { TypeDispatch } from '../../redux-toolkit/store';
@@ -18,8 +18,8 @@ import {
   searchSongsAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import fetchStates from '../../constants/fetchState';
-import IAudios from '../../typesInterfaces/IAudios';
-import IfriendData from '../../typesInterfaces/IfriendData';
+import IAudios from '../../types/audios';
+import IfriendData from '../../types/friendData';
 import { AddPlayList, LeftSide, Main, RightSide } from './Audio.styles';
 import FilterTabs from './FilterTabs';
 import { Tabs } from './FilterTabs/FilterTabs';

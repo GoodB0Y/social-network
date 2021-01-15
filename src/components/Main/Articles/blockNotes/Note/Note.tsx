@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useCallback } from 'react';
 import SmoothCollapse from 'react-smooth-collapse';
 import BlockComments from '../../blockComment/BlockComments/BlockComments';
-import LoadingBlock from '../../../../../common/loadingBlock';
+import Loader from '../../../../../common/Loader';
 import { IDataPost } from '../../../../../types/post';
 import {
   WrapperNote,
@@ -45,7 +44,7 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
     if (loading) {
       return (
         <StyledLoadingBlock>
-          <LoadingBlock size={60} />
+          <Loader size={60} />
         </StyledLoadingBlock>
       );
     }

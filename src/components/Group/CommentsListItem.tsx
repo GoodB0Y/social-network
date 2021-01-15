@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CommentsListProps } from '../../types/group';
-import avatar from '../../img/icons/mock-avatar.svg';
+import avatar from '../../assets/img/icons/mock-avatar.svg';
 
 const Container = styled.div`
   display: flex;

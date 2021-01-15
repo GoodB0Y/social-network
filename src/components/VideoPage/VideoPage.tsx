@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { uniqueId } from 'lodash';
-// eslint-disable-next-line import/no-cycle
 import { Controller, useForm } from 'react-hook-form';
 import Alert from 'antd/lib/alert';
 // eslint-disable-next-line import/no-cycle
@@ -10,8 +9,8 @@ import { VideoItem, OpenedVideo } from './index';
 import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/button/Button';
-import arrowNotFilled from '../../common/img/icons/arr_left.svg';
-import PageWrapper from '../../common/pageWrapper';
+import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
+import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
 import {
   addAlbumAction,
@@ -311,7 +310,7 @@ const VideoPage: React.FC = () => {
           ])
         : null}{' '}
       {videoToShow.showVideo ? <OpenedVideo id={videoToShow.videoId} action={hideVideo} /> : null}
-      <PageWrapper>
+      <Page>
         <ComponentWrapper>
           {' '}
           <PageMarker>Видеозаписи</PageMarker>
@@ -439,7 +438,7 @@ const VideoPage: React.FC = () => {
             </div>
           )}
         </ComponentWrapper>
-      </PageWrapper>
+      </Page>
     </>
   );
 };

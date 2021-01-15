@@ -3,17 +3,23 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Field, Formik } from 'formik';
 import SmoothCollapse from 'react-smooth-collapse';
 import * as Yup from 'yup';
-import { ArticleButton, ArticleStyledForm, InputName, InputText, ErrorLine } from './styles';
 import imgButtonMore from './img/BTN more.svg';
-import { ArticleName, ButtonMore } from '../../../common/styledComponents';
 import createPost from './createPost';
 import Tags from '../../../common/tags';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import MediaContainer from '../../../common/mediaContainer';
-
 import { loadPostsByUser } from '../../../redux-toolkit/postsSlice';
 import { RootState } from '../../../redux-toolkit/store';
 import IMedia from '../../../types/media';
+import {
+  ArticleButton,
+  ArticleStyledForm,
+  InputName,
+  InputText,
+  ErrorLine,
+  ArticleName,
+  ButtonMore,
+} from './ArticleForm.styled';
 
 const ArticleSchema = Yup.object().shape({
   articleName: Yup.string()
@@ -119,7 +125,7 @@ const ArticleForm: React.FC<Props> = ({
                 setTags((_tags) => _tags.filter((item, _index) => _index !== index));
               }}
             />
-            {loading && <LoadingBlock />}
+            {loading && <Loader />}
             <ArticleButton className="articleButton" type="submit">
               Опубликовать
             </ArticleButton>

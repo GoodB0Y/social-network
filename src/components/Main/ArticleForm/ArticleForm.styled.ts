@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from 'formik';
+import Iimg from '../../../types/Iimg';
 
 export const InputName = styled.input<{ $isError: boolean }>`
   margin-left: 0;
@@ -53,4 +54,20 @@ export const ArticleButton = styled.button`
 
 export const ErrorLine = styled.div`
   color: red;
+`;
+
+export const ArticleName = styled.div`
+  margin-top: 20px;
+  font-size: 20px;
+  line-height: 160.9%;
+  color: #000000;
+`;
+
+export const ButtonMore = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;

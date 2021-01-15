@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchAudiosAll,
@@ -10,7 +9,7 @@ import {
   fetchFriendAudios,
   fetchFriends,
 } from '../../services/audios-controller/audio-controller';
-import IfriendData from '../../typesInterfaces/IfriendData';
+import IfriendData from '../../types/friendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
 import { TypeRootReducer } from '../rootReducer';
 

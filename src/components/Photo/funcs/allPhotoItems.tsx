@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageDto } from '../../../types/image';
-import LoadingBlock from '../../../common/loadingBlock';
+import Loader from '../../../common/Loader';
 import ErrorBlock from '../../../common/errorBlock';
 import { Item } from '../styles';
 
@@ -17,7 +17,7 @@ const allPhotoItems = (
     ));
   }
   if (loading) {
-    return <LoadingBlock size={45} />;
+    return <Loader size={45} />;
   }
   if (error) {
     return <ErrorBlock errorMessage={error?.data || `Ошибка ${error?.status}, `} />;

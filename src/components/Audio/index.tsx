@@ -1,15 +1,15 @@
 import React from 'react';
 
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import AudioPage from './Audio';
 import ContentBox from '../../common/ContentBox/ContentBox';
 
-const Audio = (): JSX.Element => (
-  <PageWrapper>
+const AudioPage = (): JSX.Element => (
+  <Page>
     <ContentBox>
       <AudioPage />
     </ContentBox>
-  </PageWrapper>
+  </Page>
 );
 
 export default Audio;

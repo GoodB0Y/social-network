@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import arrowFilled from '../../common/img/icons/arrow_filled.svg';
-import almostCircleIcon from '../../common/img/icons/almost_circle.svg';
-import defaultAlbum from '../../img/albumDefault.jpg';
+import arrowFilled from '../../assets/img/icons/arrow_filled.svg';
+import almostCircleIcon from '../../assets/img/icons/almost_circle.svg';
+import defaultAlbum from '../../assets/img/albumDefault.jpg';
 
 const VideoImgOverlay = styled.a`
   height: 326px;

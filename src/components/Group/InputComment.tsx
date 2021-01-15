@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import avatar from '../../img/icons/mock-avatar.svg';
-import submit from '../../img/icons/submit.svg';
+import avatar from '../../assets/img/icons/mock-avatar.svg';
+import submit from '../../assets/img/icons/submit.svg';
 
 const Container = styled.div`
   display: flex;

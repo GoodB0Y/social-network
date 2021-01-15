@@ -4,13 +4,12 @@ import { loadUser, loadUserPhotos, resetUser } from '../../redux-toolkit/userSli
 import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
 import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
-import PageWrapper from '../../common/pageWrapper';
-import { MainContainer } from '../../common/styledComponents';
+import Page from '../../common/Page';
 import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
 import ErrorBlock from '../../common/errorBlock';
-import LoadingBlock from '../../common/loadingBlock';
-import StyledLoadingWrapped from './styled';
+import Loader from '../../common/Loader';
+import { MainContainer, StyledLoadingWrapped } from './styled';
 
 const mapStateToProps = (state: RootState) => ({
   userModel: state.user,
@@ -64,7 +63,7 @@ const Main: React.FC<Props> = ({
     if (userModel?.loading) {
       return (
         <StyledLoadingWrapped>
-          <LoadingBlock />
+          <Loader />
         </StyledLoadingWrapped>
       );
     }
@@ -75,7 +74,7 @@ const Main: React.FC<Props> = ({
     <>
       <Header />
       <MainContainer>
-        <PageWrapper messages={false}>{renderContent()}</PageWrapper>
+        <Page messages={false}>{renderContent()}</Page>
       </MainContainer>
     </>
   );

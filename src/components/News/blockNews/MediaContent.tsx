@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Slider from '../../../common/slider';
-import arrowLeft from '../../../img/icons/arr_left.svg';
-import arrowRigth from '../../../img/icons/arr_right.svg';
-import arrowFilled from '../../../common/img/icons/arrow_filled.svg';
-import almostCircleIcon from '../../../common/img/icons/almost_circle.svg';
+import arrowLeft from '../../../assets/img/icons/arr_left.svg';
+import arrowRigth from '../../../assets/img/icons/arr_right.svg';
+import arrowFilled from '../../../assets/img/icons/arrow_filled.svg';
+import almostCircleIcon from '../../../assets/img/icons/almost_circle.svg';
 import IMedia from '../../../types/media';
 
 const Container = styled.div`

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import OpenModalSrc from '../../../img/icons/modal-message-open.svg';
+import OpenModalSrc from '../../../assets/img/icons/modal-message-open.svg';
 import IisOpen from '../../../types/IisOpen';
 
 export const ModalChatWrapper = styled.div<IisOpen>`

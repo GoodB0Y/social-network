@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { forwardRef, HTMLProps, Ref, Key } from 'react';
 import classes from './checkbox.module.scss';
 
