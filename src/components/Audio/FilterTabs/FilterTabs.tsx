@@ -13,19 +13,16 @@ export type FilterTabsProps = {
   activeTab: Tabs;
 };
 
-const getTab = (type: string): Tabs => Tabs[type as keyof typeof Tabs];
-
 const FilterTabs = ({ openTab, activeTab }: FilterTabsProps): JSX.Element => (
   <Container>
-    {Object.entries(Tabs).map((tab: Array<string>) => (
-      <TabItem
-        type="button"
-        onClick={() => openTab(getTab(tab[0]))}
-        selected={getTab(tab[0]) === activeTab}
-      >
-        {tab[1]}
-      </TabItem>
-    ))}
+    {Object.keys(Tabs).map((key: string) => {
+      const tab = Tabs[key as keyof typeof Tabs];
+      return (
+        <TabItem type="button" onClick={() => openTab(tab)} selected={tab === activeTab}>
+          {tab}
+        </TabItem>
+      );
+    })}
   </Container>
 );
 
