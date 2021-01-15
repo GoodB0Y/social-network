@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useCallback } from 'react';
 import { TagsContainer, Input } from './style';
 import Tag from './Tag';

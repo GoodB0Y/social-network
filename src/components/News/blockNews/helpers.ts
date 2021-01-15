@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import { IDataPost } from '../../../types/post';
 
 const filterNews = (posts: IDataPost[], filter: string, request?: string | null): IDataPost[] => {

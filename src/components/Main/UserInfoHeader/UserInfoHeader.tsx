@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import addPhotoIcon from './img/add photo.svg';

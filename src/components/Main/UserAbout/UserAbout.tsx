@@ -1,5 +1,4 @@
 import React from 'react';
-import desc from './models';
 
 import {
   WallInfoUserAbout,
@@ -18,7 +17,15 @@ interface IUserAbout {
   aboutMe?: string;
   languages?: string[];
 }
-
+const desc = {
+  birthday: 'День рождения',
+  educ: 'Образование',
+  prof: 'Профессия',
+  lang: 'Язык',
+  city: 'Город',
+  about: 'Личная информация',
+  site: 'Личный сайт',
+};
 const UserAbout: React.FC<IUserAbout> = function UserAbout({
   dateOfBirth,
   education,
