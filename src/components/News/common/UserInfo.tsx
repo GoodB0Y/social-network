@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
-import { AvatarMin } from '../../../common/styledComponents';
+
+const AvatarMin = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
