@@ -1,13 +1,13 @@
 import React from 'react';
 
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import BookMarksPage from './components';
 
 function Bookmarks() {
   return (
-    <PageWrapper>
+    <Page>
       <BookMarksPage />
-    </PageWrapper>
+    </Page>
   );
 }
 

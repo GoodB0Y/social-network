@@ -1,16 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Header from '../header';
 import LeftBlock from '../leftBlock';
 import RightBlock from '../rightBlock';
+
+type PageProps = { messages?: boolean; children?: React.ReactNode };
 
 const MainContainer = styled.div`
   display: flex;
   width: 100%;
   background: #111;
 `;
-const PageWrapper = ({ messages, children }) => (
+const Page = ({ messages = false, children }: PageProps): JSX.Element => (
   <>
     <Header />
     <MainContainer>
@@ -20,13 +21,4 @@ const PageWrapper = ({ messages, children }) => (
   </>
 );
 
-PageWrapper.defaultProps = {
-  messages: false,
-};
-
-PageWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-  messages: PropTypes.bool,
-};
-
-export default PageWrapper;
+export default Page;

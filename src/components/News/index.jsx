@@ -1,13 +1,13 @@
 import React from 'react';
 
 import News from './blockNews/News';
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 
 function WrapperNews() {
   return (
-    <PageWrapper>
+    <Page>
       <News />
-    </PageWrapper>
+    </Page>
   );
 }
 
