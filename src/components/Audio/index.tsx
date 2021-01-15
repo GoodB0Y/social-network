@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Page from '../../common/Page';
-import Audio from './AudioPage';
+import AudioPage from './Audio';
 import ContentBox from '../../common/ContentBox/ContentBox';
 
-const AudioPage = (): JSX.Element => (
+const Audio = (): JSX.Element => (
   <Page>
     <ContentBox>
-      <Audio />
+      <AudioPage />
     </ContentBox>
   </Page>
 );
 
-export default AudioPage;
+export default Audio;
