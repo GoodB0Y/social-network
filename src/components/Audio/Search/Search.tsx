@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import search from '../../../common/img/icons/musicSearch.svg';
+import search from './img/musicSearch.svg';
 import Container from './Search.styles';
 
 export type SearchProps = {

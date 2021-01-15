@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import nextArrow from '../../../common/img/icons/playlistarrownext.svg';
-import backArrow from '../../../common/img/icons/playlistarrowback.svg';
+import nextArrow from '../../../assets/img/icons/playlistarrownext.svg';
+import backArrow from '../../../assets/img/icons/playlistarrowback.svg';
 
 export const Container = styled.div`
   display: flex;

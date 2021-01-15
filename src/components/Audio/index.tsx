@@ -4,7 +4,7 @@ import Page from '../../common/Page';
 import AudioPage from './Audio';
 import ContentBox from '../../common/ContentBox/ContentBox';
 
-const AudioPage = (): JSX.Element => (
+const Audio = (): JSX.Element => (
   <Page>
     <ContentBox>
       <AudioPage />
