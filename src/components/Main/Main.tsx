@@ -5,12 +5,11 @@ import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
 import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
 import Page from '../../common/Page';
-import { MainContainer } from '../../common/styledComponents';
 import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
 import ErrorBlock from '../../common/errorBlock';
 import Loader from '../../common/Loader';
-import StyledLoadingWrapped from './styled';
+import { MainContainer, StyledLoadingWrapped } from './styled';
 
 const mapStateToProps = (state: RootState) => ({
   userModel: state.user,

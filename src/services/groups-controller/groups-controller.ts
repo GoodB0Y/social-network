@@ -9,7 +9,6 @@ interface FetchData {
 export default class {
   static urlBase = web;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static async fetching(path: string, data?: FetchData): Promise<any> {
     const res: Response = await fetch(`${this.urlBase}${path}`, data);
     if (!res.ok) {
@@ -30,7 +29,6 @@ export default class {
     return this.fetching(`api/v2/groups/${id}`);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static async apiLoadUsers({ groupId, page, size }: GroupRequestProps): Promise<GroupUser[]> {
     return this.fetching(`api/v2/groups/${groupId}/users?page=${page}&size=${size}`);
   }

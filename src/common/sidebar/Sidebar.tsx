@@ -3,11 +3,29 @@ import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import RoutePath from '../../routes/RoutePath';
-
-import { Wrapper, List } from '../styledComponents';
-
 import Player from './Player';
 import { RootState } from '../../redux-toolkit/store';
+
+const Wrapper = styled.div`
+  margin-top: 150px;
+  margin-left: 60px;
+  max-width: 280px;
+  width: 100%;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0 0 40px 0;
+`;
 
 const ItemLink = styled(Link)`
   font-family: Montserrat, serif;

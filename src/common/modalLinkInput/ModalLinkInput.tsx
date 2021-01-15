@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useCallback, useState } from 'react';
 import { Modal } from 'antd';
 import { Form, Button } from './styles';

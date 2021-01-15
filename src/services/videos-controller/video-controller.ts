@@ -9,7 +9,6 @@ export const fetchVideos = async (page = 2, total = 200): Promise<AxiosResponse>
 export const fetchAllVideosInAlbum = async (albumId = 10): Promise<AxiosResponse> =>
   axios.get(`${baseUrl}/album/${albumId}/video`);
 
-// eslint-disable-next-line max-len
 export const fetchAddVideoInAlbum = async (
   albumId: number,
   videoId: number
@@ -25,7 +24,6 @@ export const fetchAllAlbum = async (userId = 60): Promise<AxiosResponse> =>
 export const fetchAddAlbum = async (userId = 60, data = {}): Promise<AxiosResponse> =>
   axios.post(`${baseUrl}/user/${userId}/album`, data);
 
-// eslint-disable-next-line max-len
 export const fetchGetSomeVideoFromCollection = async (
   page = 0,
   count = 15

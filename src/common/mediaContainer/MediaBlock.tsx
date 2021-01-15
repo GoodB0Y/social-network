@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* !! Удалить правило сверху, когда появится возможность добавлять субтитры для аудио и видео */
 import React, { useCallback } from 'react';

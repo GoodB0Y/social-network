@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable implicit-arrow-linebreak */
 import axiosLib, { AxiosResponse } from 'axios';
 import { ICreatePost, IPost } from '../../types/post';
 import IComment, { ICreateComment } from '../../types/comment';

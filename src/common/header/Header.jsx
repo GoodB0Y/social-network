@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import logo from './img/H1 JMSN.svg';
@@ -7,16 +6,16 @@ import exit from './img/exit.svg';
 import customization from './img/customization.svg';
 import ru from './img/RU.svg';
 import search from './img/search.svg';
+import { removeCurrentUser } from '../../redux-toolkit/currentUserSlice';
 import {
   HeaderContainer,
   Logo,
-  RightBlockHeader,
   IconHeader,
-  InputHeader,
-  ButtonSearch,
   IconSearch,
-} from '../styledComponents';
-import { removeCurrentUser } from '../../redux-toolkit/currentUserSlice';
+  RightBlockHeader,
+  ButtonSearch,
+  InputHeader,
+} from './Header.styles';
 
 const Header = () => {
   const dispatch = useDispatch();
