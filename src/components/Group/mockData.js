@@ -1,6 +1,4 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable no-multi-str */
-/* eslint-disable import/prefer-default-export */
 
 /* Тестовые данные из-за отсутствия API */
 

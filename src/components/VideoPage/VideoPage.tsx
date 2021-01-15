@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { uniqueId } from 'lodash';
-// eslint-disable-next-line import/no-cycle
 import { Controller, useForm } from 'react-hook-form';
 import Alert from 'antd/lib/alert';
 // eslint-disable-next-line import/no-cycle

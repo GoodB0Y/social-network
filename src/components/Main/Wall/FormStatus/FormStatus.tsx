@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateStatus } from '../../../../redux-toolkit/currentUserSlice';

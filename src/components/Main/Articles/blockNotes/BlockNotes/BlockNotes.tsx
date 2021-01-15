@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Note from '../Note';

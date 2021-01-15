@@ -85,7 +85,6 @@ interface IBtnFilterAudio {
 }
 
 interface ISlickOnClick {
-  // eslint-disable-next-line react/require-default-props
   onClick?: () => void;
 }
 

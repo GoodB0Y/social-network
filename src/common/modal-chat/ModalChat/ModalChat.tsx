@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { nanoid } from 'nanoid';

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import { Avatar } from 'antd';
 import IComment from '../../../../../types/comment';

@@ -78,7 +78,6 @@ const Friends: React.FC = (): React.ReactElement => {
 
   const messageButtonHandler = (id: number): void => {
     history.push('/messages');
-    // eslint-disable-next-line no-console
     console.log('Сообщение для пользователя с id', id);
   };
 

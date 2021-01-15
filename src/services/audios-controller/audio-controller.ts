@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import axios, { AxiosResponse } from 'axios';
 import { baseUrlv2 } from '../config';
 

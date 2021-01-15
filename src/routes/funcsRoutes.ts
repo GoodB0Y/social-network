@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const funcsRoutes = {
   urlApi: (host: string, api: string): string => [host, api].join('/'),
   urlAllAudios: (hostApi: string, audios: string): string => [hostApi, audios].join('/'),

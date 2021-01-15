@@ -13,7 +13,6 @@ const renderMedia = (media: IMedia[], postId?: number, onDeleteMedia?: (index: n
     могут повторяться в одном посте по несколько раз или нескольких постах быть на одном и
     том же месте */
     return <MediaBlock key={`${postId}_${index}`} media={mediaItem} onClose={onClose} />;
-    /* eslint-enable */
   });
 
 interface Props {

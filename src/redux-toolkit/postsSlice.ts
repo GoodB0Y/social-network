@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable implicit-arrow-linebreak */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createNewPost,
