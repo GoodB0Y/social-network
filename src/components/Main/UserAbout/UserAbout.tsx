@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-shadow */
 import React from 'react';
 import desc from './models';
 
@@ -9,7 +7,7 @@ import {
   InfoHeaderTextBlock,
   InfoHeaderListItemLeft,
   InfoHeaderListItemRight,
-} from '../../../common/styledComponents';
+} from './UserAbout.styled';
 
 interface IUserAbout {
   dateOfBirth?: string;

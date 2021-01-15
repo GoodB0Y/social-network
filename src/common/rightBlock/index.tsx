@@ -1,10 +1,21 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
-import { RightBlockContainer } from '../styledComponents';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactChild;
 }
+
+const RightBlockContainer = styled.div`
+  background: #111;
+  position: relative;
+  padding-right: 23px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: white;
+  margin-top: 109px;
+`;
 
 const RightBlock: React.FC<Props> = (props: Props) => {
   const { children } = props;

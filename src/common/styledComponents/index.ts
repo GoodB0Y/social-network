@@ -75,197 +75,197 @@ export const bgColorBlack = '#111111';
 //   background: ${bgColorBlack};
 // `;
 
-export const LeftBlockContainer = styled.div`
-  margin-top: 109px;
-  background: ${bgColorBlack};
-  min-height: 100%;
-  flex-basis: 40%;
-  padding: 23px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-`;
+// export const LeftBlockContainer = styled.div`
+//   margin-top: 109px;
+//   background: ${bgColorBlack};
+//   min-height: 100%;
+//   flex-basis: 40%;
+//   padding: 23px;
+//   color: white;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-export const RightBlockContainer = styled.div`
-  background: ${bgColorBlack};
-  position: relative;
-  padding-right: 23px;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  color: white;
-  margin-top: 109px;
-`;
+// export const RightBlockContainer = styled.div`
+//   background: ${bgColorBlack};
+//   position: relative;
+//   padding-right: 23px;
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+//   color: white;
+//   margin-top: 109px;
+// `;
 
-export const UserInfoHeaderContainer = styled.div`
-  margin-left: 30px;
-  position: absolute;
-  height: 344px;
-  display: flex;
-  z-index: 10;
-`;
+// export const UserInfoHeaderContainer = styled.div`
+//   margin-left: 30px;
+//   position: absolute;
+//   height: 344px;
+//   display: flex;
+//   z-index: 10;
+// `;
 
-export const UserInfoAvatar = styled.div`
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-`;
+// export const UserInfoAvatar = styled.div`
+//   display: flex;
+//   align-items: flex-end;
+//   position: relative;
+// `;
 
-export const UserInfoNameBlock = styled.div`
-  height: 340px;
-  display: flex;
-  flex-direction: column;
-`;
+// export const UserInfoNameBlock = styled.div`
+//   height: 340px;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-export const Avatar = styled(ModalImage)`
-  width: 270px;
-  height: 270px;
-  object-fit: cover;
-  border-radius: 50%;
-  box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
-  &:hover {
-    cursor: pointer;
-  }
-`;
+// export const Avatar = styled(ModalImage)`
+//   width: 270px;
+//   height: 270px;
+//   object-fit: cover;
+//   border-radius: 50%;
+//   box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `;
 
-export const AddPhotoBlock = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: normal;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: none;
-  background-color: ${mainColor};
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-`;
+// export const AddPhotoBlock = styled.button`
+//   display: flex;
+//   justify-content: center;
+//   align-items: normal;
+//   width: 70px;
+//   height: 70px;
+//   border-radius: 50%;
+//   border: none;
+//   background-color: ${mainColor};
+//   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+//   overflow: hidden;
+// `;
 
-export const AddPhotoIcon = styled.img<{ src: string }>``;
+// export const AddPhotoIcon = styled.img<{ src: string }>``;
 
-export const UserName = styled.div`
-  margin-top: 136px;
-  margin-left: 32px;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 37px;
-  color: #ffffff;
-`;
+// export const UserName = styled.div`
+//   margin-top: 136px;
+//   margin-left: 32px;
+//   font-weight: bold;
+//   font-size: 30px;
+//   line-height: 37px;
+//   color: #fff;
+// `;
 
-export const UserProfession = styled.div`
-  margin-top: 13px;
-  margin-left: 32px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #c1c1c1;
-`;
+// export const UserProfession = styled.div`
+//   margin-top: 13px;
+//   margin-left: 32px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #c1c1c1;
+// `;
 
-export const UserOnlineStatus = styled.div`
-  margin-top: 91px;
-  margin-left: 32px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #c1c1c1;
-`;
+// export const UserOnlineStatus = styled.div`
+//   margin-top: 91px;
+//   margin-left: 32px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #c1c1c1;
+// `;
 
-export const UserOnlineIcon = styled.div`
-  position: absolute;
-  top: 25%;
-  right: 25%;
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  background: #ffb11b;
-`;
+// export const UserOnlineIcon = styled.div`
+//   position: absolute;
+//   top: 25%;
+//   right: 25%;
+//   width: 28px;
+//   height: 28px;
+//   border-radius: 14px;
+//   background: #ffb11b;
+// `;
 
-export const WallContainer = styled.div`
-  position: relative;
-  margin-top: 250px;
-  padding: 0 103px;
-  overflow: hidden;
-  height: 100%;
-  background: #ffffff;
-  border-radius: 15px 15px 0px 0px;
-  display: flex;
-  flex-direction: column;
-`;
+// export const WallContainer = styled.div`
+//   position: relative;
+//   margin-top: 250px;
+//   padding: 0 103px;
+//   overflow: hidden;
+//   height: 100%;
+//   background: #fff;
+//   border-radius: 15px 15px 0px 0px;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-export const StatusContainer = styled.div`
-  width: 530px;
-  margin-top: 149px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #515151;
-`;
+// export const WallInfoBlock = styled.div`
+//   max-width: 100%;
+//   margin-top: 25px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+// `;
 
-export const WallInfoBlock = styled.div`
-  max-width: 100%;
-  margin-top: 25px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
+// export const WallInfoUserAbout = styled.div`
+//   width: 531px;
+//   border-top: 1px solid #515151;
+// `;
 
-export const WallInfoUserAbout = styled.div`
-  width: 531px;
-  border-top: 1px solid #515151;
-`;
+// export const InfoHeaderText = styled.div`
+//   margin-top: 47px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #000;
+// `;
 
-export const InfoHeaderText = styled.div`
-  margin-top: 47px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-`;
+// export const InfoHeaderTextBlock = styled.div`
+//   margin-top: 47px;
+//   display: flex;
+//   flex-wrap: wrap;
+// `;
 
-export const InfoHeaderTextBlock = styled.div`
-  margin-top: 47px;
-  display: flex;
-  flex-wrap: wrap;
-`;
+// export const StatusContainer = styled.div`
+//   width: 530px;
+//   margin-top: 149px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #515151;
+// `;
 
-export const InfoHeaderTextLeftBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+// export const InfoHeaderTextLeftBlock = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-export const InfoHeaderTextRightBlock = styled.div`
-  margin-left: 100px;
-  display: flex;
-  flex-direction: column;
-`;
+// export const InfoHeaderTextRightBlock = styled.div`
+//   margin-left: 100px;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-export const InfoHeaderListItemLeft = styled.div`
-  margin-bottom: 23px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #515151;
-  flex-basis: 45%;
-`;
+// export const InfoHeaderListItemLeft = styled.div`
+//   margin-bottom: 23px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #515151;
+//   flex-basis: 45%;
+// `;
 
-export const InfoHeaderListItemRight = styled.div`
-  margin-bottom: 23px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  flex-basis: 45%;
-`;
+// export const InfoHeaderListItemRight = styled.div`
+//   margin-bottom: 23px;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #000;
+//   flex-basis: 45%;
+// `;
 
-export const InfoPhotoBlock = styled.div`
-  margin-top: 55px;
-  width: 560px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
-`;
+// export const InfoPhotoBlock = styled.div`
+//   margin-top: 55px;
+//   width: 560px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-content: space-between;
+// `;
 
-export const InfoUserPhoto = styled(ModalImage)`
-  width: 256px;
-  height: 162px;
-  margin-right: 22px;
-  margin-bottom: 22px;
-  border-radius: 15px;
-`;
+// export const InfoUserPhoto = styled(ModalImage)`
+//   width: 256px;
+//   height: 162px;
+//   margin-right: 22px;
+//   margin-bottom: 22px;
+//   border-radius: 15px;
+// `;
 
 // Wall Create Article
 export const WallCreateArticleContainer = styled.div`
