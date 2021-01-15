@@ -27,7 +27,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps & { userId: number; isCurrentUser: boolean };
 
-const AllUserPhotos: React.FC<Props> = ({
+const AllUserPhotos = ({
   loadImages: _loadImages,
   isCurrentUser,
   currentUserId,
@@ -35,7 +35,7 @@ const AllUserPhotos: React.FC<Props> = ({
   images,
   loading,
   error,
-}) => {
+}: Props) => {
   const [isCreateImageModalOpen, setCreateImageModalOpen] = useState(false);
   const [file, setFile] = useState<null | File>(null);
   const [imageUrl, setImageUrl] = useState<string>('');

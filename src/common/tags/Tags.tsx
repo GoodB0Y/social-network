@@ -8,7 +8,7 @@ interface ITags {
   tags: string[];
 }
 
-const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
+const Tags = ({ deleteTag, setTags, tags }: ITags): JSX.Element => {
   const [value, setValue] = useState('');
   const renderTags = useCallback(
     () =>

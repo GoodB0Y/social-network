@@ -62,12 +62,12 @@ const CloseButton = styled.button`
   background-color: black;
 `;
 
-const ModalEdit: React.FC<ModalData> = ({
+const ModalEdit = ({
   closeModal,
   // eslint-disable-next-line @typescript-eslint/no-shadow
   updateGroup,
   groupData: { description, linkSite, addressImageGroup, groupCategory, name, id },
-}) => {
+}: ModalData) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (formData: SubmitData): void => {

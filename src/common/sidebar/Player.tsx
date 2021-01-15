@@ -71,7 +71,7 @@ const TitleMusic = styled.h3`
   margin: 0;
 `;
 
-const Player = () => (
+const Player = (): JSX.Element => (
   <Wrapper>
     <Panel>
       <BtnBack />

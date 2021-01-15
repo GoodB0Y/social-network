@@ -45,7 +45,7 @@ interface Props {
   action: () => void;
 }
 
-const OpenedVideo: React.FC<Props> = ({ id, action }) => (
+const OpenedVideo = ({ id, action }: Props): JSX.Element => (
   <OpenedVideoWrapper onClick={action}>
     <VideoFrameWrapper>
       <VideoFrame

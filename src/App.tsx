@@ -31,7 +31,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }) => {
+const App = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }: Props) => {
   useEffect(() => {
     _loadCurrentUser();
   }, [_loadCurrentUser]);

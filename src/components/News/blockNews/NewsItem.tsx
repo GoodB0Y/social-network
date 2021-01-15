@@ -96,7 +96,7 @@ type Props = {
   sharePost: (postId: number) => void;
 };
 
-const NewsItem: React.FC<Props> = ({
+const NewsItem = ({
   postData,
   getPostsByTag,
   addBookmarkToPost,
@@ -104,7 +104,7 @@ const NewsItem: React.FC<Props> = ({
   addLikeToPost,
   removeLikeFromPost,
   sharePost,
-}) => {
+}: Props): JSX.Element => {
   const { post, comments, loading, error } = postData;
   const {
     id,
@@ -178,7 +178,7 @@ const NewsItem: React.FC<Props> = ({
           <ActionButton
             name="comments"
             value={commentAmount}
-            active={commentAmount! > 0}
+            active={commentAmount ? commentAmount > 0 : null}
             handler={scrollToComments}
           />
 

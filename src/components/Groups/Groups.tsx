@@ -32,8 +32,8 @@ const GroupsTitle = styled.h2`
 
 interface StateProps {
   groups: Group[];
-  loading: boolean;
-  error: Error | null;
+  // loading: boolean;
+  // error: Error | null;
 }
 interface DispatchProps {
   loadGroups: (page: number, size: number) => void;
@@ -43,8 +43,8 @@ type Props = StateProps & DispatchProps;
 
 const mapStateToProps = (state: RootState): StateProps => ({
   groups: state.groups.groups,
-  loading: state.groups.loading,
-  error: state.groups.error,
+  // loading: state.groups.loading,
+  // error: state.groups.error,
 });
 const mapDispatchToProps = {
   loadGroups,
@@ -52,13 +52,13 @@ const mapDispatchToProps = {
   loadAllUsers,
 };
 
-const Groups: React.FC<Props> = ({
+const Groups = ({
   loadGroups: _loadGroups,
   // loading,
   // error,
   groups,
   loadAllUsers: _loadAllUsers,
-}) => {
+}: Props) => {
   // temp
   const currentUserId = 10;
 

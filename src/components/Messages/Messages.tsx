@@ -39,13 +39,7 @@ const connector = connect(mapStateToProps, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const Messages: React.FC<Props> = ({
-  chats,
-  currentChat,
-  loadChatsOfUser,
-  loadCurrentChat,
-  user,
-}) => {
+const Messages = ({ chats, currentChat, loadChatsOfUser, loadCurrentChat, user }: Props) => {
   type BroadCast = {
     message: string;
     lastReductionDate: string;

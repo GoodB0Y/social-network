@@ -179,7 +179,7 @@ const mapDispatchToProps = {
   sharePost: addShare,
 };
 
-const News: React.FC<Props> = ({
+const News = ({
   data,
   loading,
   error,
@@ -192,7 +192,7 @@ const News: React.FC<Props> = ({
   addLikeToPost,
   removeLikeFromPost,
   sharePost,
-}) => {
+}: Props) => {
   const searchField = useRef<HTMLInputElement>(null);
   const [showSearchField, setShowSearchField] = useState(false);
   const [actualFilter, setActualFilter] = useState<string>('all');
@@ -204,7 +204,7 @@ const News: React.FC<Props> = ({
   }, [actualFilter, getAllPosts, getAllTags]);
 
   useEffect(() => {
-    if (showSearchField) searchField!.current!.focus();
+    if (showSearchField) searchField?.current?.focus();
   }, [showSearchField]);
 
   const setNewsFilter = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -245,7 +245,7 @@ const News: React.FC<Props> = ({
 
   const renderContent = (): JSX.Element | JSX.Element[] => {
     if (loading) return <Loader />;
-    if (error) return <ErrorBlock>Error occured with loading posts.</ErrorBlock>;
+    if (error) return <ErrorBlock errorMessage="Error occured with loading posts." />;
 
     if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
 

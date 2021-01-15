@@ -46,7 +46,7 @@ type Props = {
   handler: () => void;
 };
 
-const ActionButton: React.FC<Props> = ({ name, value, active, handler }) => {
+const ActionButton = ({ name, value, active, handler }: Props): JSX.Element | null => {
   let path;
   switch (name) {
     case 'bookmark':

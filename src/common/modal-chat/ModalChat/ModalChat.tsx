@@ -14,20 +14,15 @@ import {
   ModalChatWrapper,
   SubmitMessageWrap,
 } from './styles';
+import BroadcastMessage from './ModalChat.types';
 
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 35 };
 
 const ModalChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [broadcastMessage, setBroadcastMessage] = useState<
-    {
-      message: string;
-      lastReductionDate: string;
-      usersenderImage: string;
-    }[]
-  >([]);
+  const [broadcastMessage, setBroadcastMessage] = useState<BroadcastMessage[]>([]);
 
-  const onMessageReceivedWithoutSocket = (payload: any) => {
+  const onMessageReceivedWithoutSocket = (payload: BroadcastMessage) => {
     if (payload.message) {
       setBroadcastMessage([
         ...broadcastMessage,
@@ -83,7 +78,7 @@ const ModalChat: React.FC = () => {
             onSubmitMessage={(message) => {
               onMessageReceivedWithoutSocket({
                 message,
-                userSenderImage: '',
+                usersenderImage: '',
                 lastReductionDate: `${new Date()}`,
               });
             }}

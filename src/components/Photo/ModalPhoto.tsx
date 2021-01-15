@@ -19,7 +19,7 @@ interface Props {
   setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ModalPhoto: React.FC<Props> = ({ file, setImageUrl }): JSX.Element => {
+const ModalPhoto = ({ file, setImageUrl }: Props): JSX.Element => {
   const { url } = useStorage(file);
   useEffect(() => {
     if (url) {

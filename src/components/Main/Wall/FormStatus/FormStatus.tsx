@@ -10,11 +10,7 @@ interface IFormStatus {
   isCurrentUser: boolean;
 }
 
-const FormStatus: React.FC<IFormStatus> = ({
-  statusText,
-  updateStatus: _updateStatus,
-  isCurrentUser,
-}) => {
+const FormStatus = ({ statusText, updateStatus: _updateStatus, isCurrentUser }: IFormStatus) => {
   /*
   Не использовал formik, потому что мне необходимо было сделать
   зависимость от statusText, а formik принимает лишь initialValue, а после не реагирует

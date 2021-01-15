@@ -231,7 +231,7 @@ const LiItem = styled.li`
   margin-left: 5px;
 `;
 
-const NewsItem: React.FC<NewsProps> = ({
+const NewsItem = ({
   item: {
     title,
     addressImageGroup,
@@ -244,7 +244,7 @@ const NewsItem: React.FC<NewsProps> = ({
     countComments,
     countReposts,
   },
-}) => {
+}: NewsProps): JSX.Element => {
   const allowedProps = { isSelected: false };
   const [isOpen, setIsOpen] = useState(false);
   const [imgUrl, setImgUrl] = useState('');

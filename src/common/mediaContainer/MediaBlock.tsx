@@ -23,7 +23,7 @@ const renderCloseButton = (onClose: null | (() => void)) => {
   );
 };
 
-const MediaBlock: React.FC<Props> = ({ media, onClose }) => {
+const MediaBlock = ({ media, onClose }: Props): JSX.Element => {
   const renderContent = useCallback(() => {
     if (media.mediaType === 'IMAGE') {
       return <ModalImage id="Test" small={media.url} large={media.url} alt="Ваше изображение" />;

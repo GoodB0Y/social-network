@@ -109,13 +109,13 @@ const mapDispatchToProps = {
   leaveGroup,
 };
 
-const SingleGroup: React.FC<Props> = ({
+const SingleGroup = ({
   groupInfo: { addressImageGroup, name, groupCategory, subscribers, id },
   joinGroup: _joinGroup,
   leaveGroup: _leaveGroup,
   memberOf,
   history,
-}) => (
+}: Props) => (
   <SingleGroupContainer>
     <LeftWrapper>
       <GroupAvatar src={addressImageGroup} alt="avatar" />

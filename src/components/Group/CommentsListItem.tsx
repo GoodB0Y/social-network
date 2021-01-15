@@ -60,7 +60,7 @@ const Text = styled.div`
   color: #000000;
 `;
 
-const CommentsList: React.FC<CommentsListProps> = ({ data: { author, date, text } }) => (
+const CommentsList = ({ data: { author, date, text } }: CommentsListProps): JSX.Element => (
   <Container>
     <AvatarContainer>
       <AvatarImg src={avatar} alt="Aватар" />

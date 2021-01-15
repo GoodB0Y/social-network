@@ -37,7 +37,7 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & { user: IUser; isCurrentUser: boolean };
 
-const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, isCurrentUser }) => {
+const UserInfoHeader = ({ user, updateAvatar: _updateAvatar, isCurrentUser }: Props) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const onLinkSend = useCallback(
     (link: string) => {

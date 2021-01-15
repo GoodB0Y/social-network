@@ -37,7 +37,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & { userId: number; albumId?: number };
 
-const Photo: React.FC<Props> = ({
+const Photo = ({
   userId,
   albumId,
   userFirstName,
@@ -49,7 +49,7 @@ const Photo: React.FC<Props> = ({
   loadImages: _loadImages,
   loadAlbums: _loadAlbums,
   loadUser: _loadUser,
-}) => {
+}: Props) => {
   const [isCreateAlbumModalOpen, setCreateAlbumModalOpen] = useState(false);
   const isCurrentUser = Number(userId) === currentUserId;
 

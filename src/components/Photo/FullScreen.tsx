@@ -45,10 +45,7 @@ interface IFullScreenProps {
   setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
 }
 
-const FullScreen: React.FC<IFullScreenProps> = ({
-  selectedImage,
-  setSelectedImage,
-}): JSX.Element => {
+const FullScreen = ({ selectedImage, setSelectedImage }: IFullScreenProps): JSX.Element => {
   const clickHandler: React.MouseEventHandler = (evt: React.MouseEvent<HTMLDivElement>): void => {
     const element = evt.target as HTMLElement;
     if (element.tagName === 'DIV' || element.tagName === 'BUTTON') {

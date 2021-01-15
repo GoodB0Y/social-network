@@ -7,7 +7,7 @@ type Props = {
   onSubmitMessage: (values: string) => void;
 };
 
-const SubmitMessage: React.FC<Props> = ({ onSubmitMessage }) => (
+const SubmitMessage = ({ onSubmitMessage }: Props): JSX.Element => (
   <Formik
     initialValues={{ message: '' }}
     onSubmit={(values, actions): void => {
