@@ -36,7 +36,7 @@ interface Props {
   file: null | File;
 }
 
-const UploadForm: React.FC<Props> = ({ onChange, error, file }): JSX.Element => (
+const UploadForm = ({ onChange, error, file }: Props): JSX.Element => (
   <>
     <form>
       <FileInput id="file" type="file" onChange={onChange} />

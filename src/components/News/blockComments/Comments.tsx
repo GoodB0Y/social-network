@@ -74,7 +74,7 @@ const mapDispatchToProps = {
   /* addComment: addNewComment, */
 };
 
-const Comments: React.FC<Props> = ({
+const Comments = ({
   id,
   user,
   comments,
@@ -83,15 +83,15 @@ const Comments: React.FC<Props> = ({
   getComments,
   showComments,
   setShowComments,
-  /*  addComment, */
-}): JSX.Element => {
+}: /*  addComment, */
+Props): JSX.Element => {
   useEffect(() => {
     getComments(id);
   }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
     if (loading || !comments) return <Loader />;
-    if (error) return <ErrorBlock>Error occured with loading comments.</ErrorBlock>;
+    if (error) return <ErrorBlock errorMessage="Error occured with loading comments." />;
     return comments?.map((item) => {
       const {
         userDto: { firstName, lastName, avatar },

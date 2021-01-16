@@ -97,7 +97,7 @@ type Props = {
   media: IMedia[] | undefined;
 };
 
-const MediaContent: React.FC<Props> = ({ media }) => {
+const MediaContent = ({ media }: Props): JSX.Element => {
   const [showVideo, setShowVideo] = useState<string | null>(null);
 
   const videoData = media?.filter((item) => item.mediaType === 'VIDEO');
@@ -123,11 +123,15 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     if (imageData?.length === 0) return null;
     return (
       <Slider {...settings}>
-        {imageData!.map((image) => (
-          <SliderItem key={image.url}>
-            <Image src={image.url} alt={image.mediaType} />
-          </SliderItem>
-        ))}
+        {imageData ? (
+          imageData.map((image) => (
+            <SliderItem key={image.url}>
+              <Image src={image.url} alt={image.mediaType} />
+            </SliderItem>
+          ))
+        ) : (
+          <div />
+        )}
       </Slider>
     );
   };
@@ -149,18 +153,22 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     }
     return (
       <Slider {...settings}>
-        {videoData!.map((video) => {
-          const videoId = video.url.split('/').pop();
-          return (
-            <SliderItem key={videoId}>
-              <PlayButton onClick={(): void => setShowVideo(videoId!)} />
-              <Image
-                src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                alt="wait for load"
-              />
-            </SliderItem>
-          );
-        })}
+        {videoData ? (
+          videoData.map((video) => {
+            const videoId = video.url.split('/').pop();
+            return (
+              <SliderItem key={videoId}>
+                <PlayButton onClick={(): void => setShowVideo(videoId!)} />
+                <Image
+                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                  alt="wait for load"
+                />
+              </SliderItem>
+            );
+          })
+        ) : (
+          <div />
+        )}
       </Slider>
     );
   };

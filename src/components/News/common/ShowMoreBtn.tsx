@@ -26,7 +26,7 @@ type Props = {
   heightHandler: () => void;
 };
 
-const ShowMoreBtn: React.FC<Props> = ({ changeIcon, heightHandler }) => (
+const ShowMoreBtn = ({ changeIcon, heightHandler }: Props): JSX.Element => (
   <Button changeIcon={changeIcon} onClick={(): void => heightHandler()} />
 );
 

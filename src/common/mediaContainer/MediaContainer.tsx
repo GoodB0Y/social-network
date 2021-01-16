@@ -21,7 +21,7 @@ interface Props {
   onDeleteMedia?: (index: number) => void;
 }
 
-const MediaContainer: React.FC<Props> = ({ media, onDeleteMedia, postId }) => {
+const MediaContainer = ({ media, onDeleteMedia, postId }: Props): JSX.Element | null => {
   if (!media?.length) {
     return null;
   }

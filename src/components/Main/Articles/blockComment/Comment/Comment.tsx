@@ -7,7 +7,7 @@ interface Props {
   comment: IComment;
 }
 
-const Comment: React.FC<Props> = ({ comment }) => {
+const Comment = ({ comment }: Props): JSX.Element => {
   const {
     userDto: { firstName, lastName, avatar },
     persistDate,

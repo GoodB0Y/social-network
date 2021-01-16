@@ -26,7 +26,7 @@ const desc = {
   about: 'Личная информация',
   site: 'Личный сайт',
 };
-const UserAbout: React.FC<IUserAbout> = function UserAbout({
+const UserAbout = function UserAbout({
   dateOfBirth,
   education,
   profession,
@@ -34,7 +34,7 @@ const UserAbout: React.FC<IUserAbout> = function UserAbout({
   city,
   aboutMe,
   languages,
-}) {
+}: IUserAbout): JSX.Element {
   const descriptionItems = [
     [desc.birthday, dateOfBirth],
     [desc.educ, education],

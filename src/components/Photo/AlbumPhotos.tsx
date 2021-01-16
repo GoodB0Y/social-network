@@ -29,7 +29,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps & { isCurrentUser: boolean; albumId: number; userId: number };
 
-const AlbumPhotos: React.FC<Props> = ({
+const AlbumPhotos = ({
   loadImagesFromAlbum: _loadImagesFromAlbum,
   loadAlbums: _loadAlbums,
   resetImages: _resetImages,
@@ -41,7 +41,7 @@ const AlbumPhotos: React.FC<Props> = ({
   albumImages,
   loading,
   error,
-}) => {
+}: Props) => {
   const [isCreateImageModalOpen, setCreateImageModalOpen] = useState(false);
   // Суть проверки - не дать пользователю вбить неверного пользователя
   // и загрузить изображения корректного альбома без корректной загрузки альбомов

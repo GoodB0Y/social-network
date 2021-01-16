@@ -24,7 +24,7 @@ interface IWallCreateArticle {
   user: IUser;
 }
 
-const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
+const WallCreateArticle = ({ user }: IWallCreateArticle): JSX.Element | null => {
   const [isArticleOpen, setArticleOpen] = useState(false);
   const [isPhotoModalOpen, setPhotoModalOpen] = useState(false);
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);

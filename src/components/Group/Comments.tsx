@@ -19,7 +19,7 @@ const Heading = styled.div`
   text-align: left;
 `;
 
-const Comments: React.FC<CommentData> = ({ data }) => (
+const Comments = ({ data }: CommentData): JSX.Element => (
   <Container>
     <Heading>Комментарии</Heading>
     <CommentsList data={data} />

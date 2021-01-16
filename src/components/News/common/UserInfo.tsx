@@ -47,7 +47,7 @@ type Props = {
   date: string;
 };
 
-const UserInfo: React.FC<Props> = ({ avatar, firstName, lastName, date }) => (
+const UserInfo = ({ avatar, firstName, lastName, date }: Props): JSX.Element => (
   <Container>
     <AvatarMin src={avatar} alt="Aватар" />
     <UserWrapper>

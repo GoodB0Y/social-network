@@ -7,7 +7,7 @@ export interface Props extends HTMLProps<HTMLInputElement> {
   key?: Key;
 }
 
-const Checkbox = forwardRef<HTMLInputElement, Props>(({ className = '', ...rest }, ref) => (
+const Checkbox = forwardRef<HTMLInputElement, Props>(({ className = '', ...rest }: Props, ref) => (
   <div className={[classes.wrapper, className].join(' ')}>
     <input type="checkbox" {...rest} ref={ref} />
     <div />

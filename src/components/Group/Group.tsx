@@ -115,13 +115,13 @@ const mapDispatchToProps = {
   loadGroupPosts,
 };
 
-const Group: React.FC<Props> = ({
+const Group = ({
   loadGroupInfo: _loadGroupInfo,
   loadGroupPosts: _loadGroupPosts,
   loading,
   groupInfo,
   posts,
-}) => {
+}: Props) => {
   const params = useParams<RouteParams>();
   const { slug } = params;
 

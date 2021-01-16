@@ -27,7 +27,7 @@ const connector = connect(mapStateToProps, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & { userId: number };
 
-const Main: React.FC<Props> = ({
+const Main = ({
   loadUser: _loadUser,
   loadUserPhotos: _loadUserPhotos,
   loadPostsByUser: _loadPostsByUser,
@@ -35,7 +35,7 @@ const Main: React.FC<Props> = ({
   userModel,
   currentUserId,
   userId,
-}) => {
+}: Props) => {
   useEffect(() => {
     _loadUser(userId);
     _loadPostsByUser(userId);

@@ -35,14 +35,14 @@ const renderComments = (comments: IComment[] | undefined) => {
   return comments.map((item) => <Comment key={item.id} comment={item} />);
 };
 
-const BlockComments: React.FC<IBlockComments> = ({
+const BlockComments = ({
   currentUser,
   comments,
   id: postId,
   isOpen,
   setIsCommentsOpen: setIsOpen,
   loadCommentsByPost: _loadCommentsByPost,
-}) => {
+}: IBlockComments) => {
   useEffect(() => {
     if (!comments) {
       _loadCommentsByPost(postId);

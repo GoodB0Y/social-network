@@ -1,10 +1,11 @@
 import * as React from 'react';
 import StyledError from './styles';
 
-interface IErrorBlock {
+type Props = {
   errorMessage?: string;
-}
-const ErrorBlock: React.FC<IErrorBlock> = ({ errorMessage }) => (
+};
+
+const ErrorBlock = ({ errorMessage = 'Something went wrong...' }: Props): JSX.Element => (
   <StyledError>{errorMessage}</StyledError>
 );
 

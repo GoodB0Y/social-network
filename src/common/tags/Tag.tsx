@@ -7,7 +7,7 @@ interface ITag {
   deleteTag: () => void;
 }
 
-const Tag: React.FC<ITag> = ({ children, deleteTag }) => (
+const Tag = ({ children, deleteTag }: ITag): JSX.Element => (
   <StyledTag>
     <TagText>{children}</TagText>
     <CloseButton type="button" onClick={deleteTag}>

@@ -39,7 +39,12 @@ interface SliderComp {
   infinite?: boolean;
 }
 
-const SliderComp: React.FC<SliderComp> = ({ children, spaceBetween, slidesToShow, ...props }) => {
+const SliderComp = ({
+  children,
+  spaceBetween,
+  slidesToShow,
+  ...props
+}: SliderComp): JSX.Element => {
   const slides = () => {
     if (!Array.isArray(children)) return 1;
     if (!slidesToShow) return children.length >= 3 ? 3 : children.length;

@@ -53,7 +53,7 @@ type Props = {
   submitNewComment: (comment: string) => void;
 };
 
-const CommentForm: React.FC<Props> = ({ avatar, submitNewComment }): JSX.Element => {
+const CommentForm = ({ avatar, submitNewComment }: Props): JSX.Element => {
   const formik = useFormik({
     initialValues: { comment: '' },
     onSubmit: (values, actions) => {

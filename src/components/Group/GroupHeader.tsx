@@ -67,10 +67,10 @@ const Owner = styled.div`
   margin-bottom: 15px;
 `;
 
-const GroupHeader: React.FC<GroupHeaderData> = ({
+const GroupHeader = ({
   data: { description, linkSite, ownerFio, persistDate },
   data,
-}) => {
+}: GroupHeaderData): JSX.Element => {
   const originDate = persistDate ? format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm") : null;
 
   const [isModalOpen, setModal] = useState(false);

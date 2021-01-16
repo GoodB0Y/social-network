@@ -28,7 +28,7 @@ const UserName = styled.div`
 `;
 
 // нужно добавить ссылку на страницу пользователя от роутера
-const MessageAuthor = (arg: { img: string; name: string }) => (
+const MessageAuthor = (arg: { img: string; name: string }): JSX.Element => (
   <Wrapper>
     {/* <UserImg src={img} /> */}
     <Avatar style={{ backgroundColor: '#87d068' }} size={60} icon={<UserOutlined />} />
