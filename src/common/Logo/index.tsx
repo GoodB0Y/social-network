@@ -1,6 +1,6 @@
 import React from 'react';
 import Img from './Logo.styles';
-import logo from './logo.png';
+import logo from './assets/logo.png';
 import LogoSize from './Logo.types';
 
 export default function Logo(): JSX.Element {
