@@ -5,7 +5,7 @@ type Props = {
   errorMessage?: string;
 };
 
-const ErrorBlock = ({ errorMessage }: Props): JSX.Element => (
+const ErrorBlock = ({ errorMessage = 'Something went wrong...' }: Props): JSX.Element => (
   <StyledError>{errorMessage}</StyledError>
 );
 
