@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Page from '../../common/Page';
-import { PageMarker } from '../Friends/Friends';
 import BlockNotes from '../Main/Articles/blockNotes/BlockNotes';
 
 const BookmarksWrapper = styled.div`
@@ -12,6 +11,18 @@ const BookmarksWrapper = styled.div`
   margin-top: 275px;
   position: relative;
   min-height: 1200px;
+`;
+const PageMarker = styled.h2`
+  margin: 0;
+  left: 90px;
+  top: -91px;
+  padding: 58px 77px;
+  position: absolute;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  background: #ffb11b;
 `;
 
 const Bookmarks: React.FC = () => (
