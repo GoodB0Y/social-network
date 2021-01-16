@@ -8,7 +8,7 @@ import Alert from 'antd/lib/alert';
 import { VideoItem, OpenedVideo } from './index';
 import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
-import StyledButton from '../../common/button/Button';
+import StyledButton from '../../common/Button/Button';
 import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
 import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
