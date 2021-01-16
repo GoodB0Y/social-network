@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Loader from './index';
-import LoaderProps from './Loader.types';
+import Loader, { LoaderProps } from './index';
 
 export default {
   title: 'Common/Loader',
