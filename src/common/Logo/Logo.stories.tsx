@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import Logo from './Logo';
+import Logo from './index';
 
 export default {
   title: 'Common/Logo',
