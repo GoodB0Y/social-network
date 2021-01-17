@@ -19,7 +19,7 @@ import {
 } from './Audio.slice';
 import IAudios from '../../types/audios';
 import IFriendData from '../../types/friendData';
-import { AddPlayList, LeftSide, Main, RightSide } from './Audio.styles';
+import { AddPlayList, Main } from './Audio.styles';
 import FilterTabs, { Tabs } from './FilterTabs';
 import HeadSlider from './HeadSlider';
 import Search from './Search';
@@ -27,6 +27,7 @@ import PlaylistSlider from './PlaylistSlider';
 import Songs from './Songs';
 import Page from '../../common/Page';
 import ContentBox from '../../common/ContentBox';
+import SongItem from './SongItem';
 
 type AudioProps = IAudioState;
 
@@ -80,22 +81,15 @@ const Audio = ({
 
   const AllAudios =
     allAudios.length > 0 &&
-    allAudios.map(({ icon, author, name, id, length }: IAudios) => (
-      <li key={id}>
-        <LeftSide>
-          <div>
-            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-          </div>
-          <div>
-            <h3>{author}</h3>
-            <p>{name}</p>
-          </div>
-        </LeftSide>
-        <RightSide>
-          <h4>{timeAudio(length)}</h4>
-        </RightSide>
-      </li>
-    ));
+    allAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
+
+  const MyAudios =
+    myAudios.length > 0 &&
+    myAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
+
+  const PlayList =
+    currentSearch.length > 0 &&
+    currentSearch.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
 
   const Friends =
     friends.length > 0 &&
@@ -111,44 +105,6 @@ const Audio = ({
         <p>{firstName}</p>
         <p>{lastName}</p>
       </button>
-    ));
-
-  const MyAudios =
-    myAudios.length > 0 &&
-    myAudios.map(({ icon, author, name, id, length }: IAudios) => (
-      <li key={id}>
-        <LeftSide>
-          <div>
-            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-          </div>
-          <div>
-            <h3>{author}</h3>
-            <p>{name}</p>
-          </div>
-        </LeftSide>
-        <RightSide>
-          <h4>{timeAudio(length)}</h4>
-        </RightSide>
-      </li>
-    ));
-
-  const PlayList =
-    currentSearch.length > 0 &&
-    currentSearch.map(({ icon, author, name, id, length }: IAudios) => (
-      <li key={id}>
-        <LeftSide>
-          <div>
-            <img src={pic || `https://${icon}`} alt="icon" title="icon" />
-          </div>
-          <div>
-            <h3>{author}</h3>
-            <p>{name}</p>
-          </div>
-        </LeftSide>
-        <RightSide>
-          <h4>{timeAudio(length)}</h4>
-        </RightSide>
-      </li>
     ));
 
   const playlists = myPlaylists.map((list) => (
