@@ -8,7 +8,7 @@ import { RootState } from '../../redux-toolkit/store';
 import { loadImagesFromAlbum, loadAlbums, resetImages } from '../../redux-toolkit/imagesSlice';
 import ModalLinkInput from '../../common/modalLinkInput';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import Button from '../../common/Button';
 import { GridContainer, LinkArrow } from './styles';
 
 const mapStateToProps = (state: RootState) => ({

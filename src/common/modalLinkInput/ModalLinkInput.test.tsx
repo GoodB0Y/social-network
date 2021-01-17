@@ -42,9 +42,9 @@ describe('ModalLinkInput test', () => {
         expect(mockOnLinkSend).toHaveBeenCalledWith('some text');
       });
       /*
-      test('link submits with single text after button press', () => {
+      test('link submits with single text after Button press', () => {
         input.simulate('change', { target: { value: 'some text' } });
-        modal.find('button').simulate('click', { preventDefault: () => {} });
+        modal.find('Button').simulate('click', { preventDefault: () => {} });
         expect(mockSetUnvisible).toHaveBeenCalledTimes(1);
         expect(mockOnLinkSend).toHaveBeenCalledTimes(1);
         expect(mockOnLinkSend).toHaveBeenCalledWith('some text');
@@ -85,11 +85,11 @@ describe('ModalLinkInput test', () => {
         expect(mockOnLinkSend).toHaveBeenCalledWith(['some text 1', 'some text 2', 'some text 3']);
       });
       /*
-      test('link submits with single text after button press', () => {
+      test('link submits with single text after Button press', () => {
         input.at(0).simulate('change', { target: { value: 'some text 1' } });
         input.at(1).simulate('change', { target: { value: 'some text 2' } });
         input.at(2).simulate('change', { target: { value: 'some text 3' } });
-        modal.find('button').simulate('click', { preventDefault: () => {} });
+        modal.find('Button').simulate('click', { preventDefault: () => {} });
         expect(mockSetUnvisible).toHaveBeenCalledTimes(1);
         expect(mockOnLinkSend).toHaveBeenCalledTimes(1);
         expect(mockOnLinkSend).toHaveBeenCalledWith(['some text 1', 'some text 2', 'some text 3']);
