@@ -13,7 +13,7 @@ import {
   FriendFullName,
   FriendProfession,
   Placer,
-} from './SingleFriends.styled';
+} from './SingleFriends.styles';
 
 interface ISingleFriendProps {
   firstname: string;
