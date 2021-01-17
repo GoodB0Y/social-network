@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { baseUrlv2 } from '../config';
+import { baseUrlv2 } from '../../services/config';
 
 axios.defaults.baseURL = `${baseUrlv2}audio`;
 
