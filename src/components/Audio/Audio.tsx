@@ -1,25 +1,24 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
 import album from '../../assets/img/album5.png';
 import pic from '../../assets/img/pic.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { TypeDispatch } from '../../redux-toolkit/store';
-import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
+import { RootState, TypeDispatch } from '../../redux-toolkit/store';
 import {
   allAudiosAction,
   friendAudiosAction,
   friendsAudioAction,
+  IAudioState,
   myAudiosAction,
   myPlaylistsAction,
   openPlayListAction,
   searchSongsAction,
-} from '../../redux-toolkit/audios/allAudiosSlice';
-import fetchStates from '../../constants/fetchState';
+} from './Audio.slice';
 import IAudios from '../../types/audios';
-import IfriendData from '../../types/friendData';
+import IFriendData from '../../types/friendData';
 import { AddPlayList, LeftSide, Main, RightSide } from './Audio.styles';
 import FilterTabs from './FilterTabs';
 import { Tabs } from './FilterTabs/FilterTabs';
@@ -28,28 +27,29 @@ import Search from './Search';
 import PlaylistSlider from './PlaylistSlider';
 import Songs from './Songs/Songs';
 
-const { pending, rejected } = fetchStates;
+type AudioProps = IAudioState;
 
-const Audio: React.FC = () => {
+const Audio = ({
+  isLoading,
+  error,
+  myPlaylists,
+  allAudios,
+  friends,
+  myAudios,
+  currentSearch,
+}: AudioProps): JSX.Element => {
   const dispatch: TypeDispatch = useDispatch();
-  const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) => allAudiosReducer);
-  const loaded = objAudiosState.loading.endsWith(pending);
-  const playlistsData: Array<Record<string, any>> = objAudiosState.myPlaylists;
   const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
-
-  useEffect(() => {
-    setDragging(false);
-    if (objAudiosState.loading.endsWith(rejected)) {
-      message.error(objAudiosState.msgFetchState);
-    }
-  }, [objAudiosState, objAudiosState.loading, objAudiosState.msgFetchState]);
-
   const [activeTab, setActiveTab] = useState<Tabs>(Tabs.My);
 
   useEffect(() => {
+    setDragging(false);
+    if (error) {
+      message.error(error.message);
+    }
     dispatch(myAudiosAction());
     dispatch(myPlaylistsAction());
-  }, [dispatch]);
+  }, [error, dispatch]);
 
   const timeAudio = (sec: number): string | number => {
     if (sec === null) {
@@ -78,9 +78,8 @@ const Audio: React.FC = () => {
   };
 
   const AllAudios =
-    objAudiosState &&
-    objAudiosState.allAudios.length > 0 &&
-    objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAudios) => (
+    allAudios.length > 0 &&
+    allAudios.map(({ icon, author, name, id, length }: IAudios) => (
       <li key={id}>
         <LeftSide>
           <div>
@@ -98,9 +97,8 @@ const Audio: React.FC = () => {
     ));
 
   const Friends =
-    objAudiosState &&
-    objAudiosState.friends.length > 0 &&
-    objAudiosState.friends.map(({ firstName, lastName, id, avatar }: IfriendData) => (
+    friends.length > 0 &&
+    friends.map(({ firstName, lastName, id, avatar }: IFriendData) => (
       <button
         key={id}
         type="button"
@@ -115,9 +113,8 @@ const Audio: React.FC = () => {
     ));
 
   const MyAudios =
-    objAudiosState &&
-    objAudiosState.myAudios.length > 0 &&
-    objAudiosState.myAudios.map(({ icon, author, name, id, length }: IAudios) => (
+    myAudios.length > 0 &&
+    myAudios.map(({ icon, author, name, id, length }: IAudios) => (
       <li key={id}>
         <LeftSide>
           <div>
@@ -135,9 +132,8 @@ const Audio: React.FC = () => {
     ));
 
   const PlayList =
-    objAudiosState &&
-    objAudiosState.currentSearch.length > 0 &&
-    objAudiosState.currentSearch.map(({ icon, author, name, id, length }: IAudios) => (
+    currentSearch.length > 0 &&
+    currentSearch.map(({ icon, author, name, id, length }: IAudios) => (
       <li key={id}>
         <LeftSide>
           <div>
@@ -154,7 +150,7 @@ const Audio: React.FC = () => {
       </li>
     ));
 
-  const playlists = playlistsData.map((list) => (
+  const playlists = myPlaylists.map((list) => (
     <button
       key={list.id}
       type="button"
@@ -173,11 +169,11 @@ const Audio: React.FC = () => {
   );
 
   const audiosList =
-    (objAudiosState.currentSearch.length > 0 && PlayList) ||
+    (currentSearch.length > 0 && PlayList) ||
     (activeTab === Tabs.Friends && PlayList) ||
     (activeTab === Tabs.All && AllAudios) ||
     (activeTab === Tabs.My && MyAudios) ||
-    (loaded && 'Аудиозаписи не найдены');
+    (isLoading && 'Аудиозаписи не найдены');
 
   const startSearch = debounce((name) => {
     if (name) dispatch(searchSongsAction(name));
@@ -213,4 +209,6 @@ const Audio: React.FC = () => {
   );
 };
 
-export default Audio;
+const mapStateToProps = ({ audios }: RootState) => audios;
+
+export default connect(mapStateToProps)(Audio);
