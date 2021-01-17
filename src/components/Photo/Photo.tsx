@@ -82,7 +82,9 @@ const Photo = ({
         </Headline>
         <SectionHeader headline="Альбомы">
           {isCurrentUser ? (
-            <Button onClick={() => setCreateAlbumModalOpen(true)}>Создать</Button>
+            <Button label="Создать" onClick={() => setCreateAlbumModalOpen(true)}>
+              Создать
+            </Button>
           ) : undefined}
         </SectionHeader>
         <ModalLinkInput

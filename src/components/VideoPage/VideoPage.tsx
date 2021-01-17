@@ -317,7 +317,9 @@ const VideoPage: React.FC = () => {
           {openAlbum ? (
             <MyVideos>
               <SectionHeader headline="Видео в альбоме">
-                <StyledButton onClick={() => setOpenAlbum(false)}>Закрыть</StyledButton>
+                <StyledButton label="Закрыть" onClick={() => setOpenAlbum(false)}>
+                  Закрыть
+                </StyledButton>
               </SectionHeader>
               <Slider slidesToShow={2} slidesToScroll={2} loop>
                 {videosInAlbum.length ? (
@@ -351,6 +353,7 @@ const VideoPage: React.FC = () => {
                       alt="alt"
                     />
                     <StyledButton
+                      label="Добавить"
                       onClick={() => {
                         dispatch(addVideoInAlbumAction(id));
                         alert(message || 'ERROR');
@@ -366,7 +369,7 @@ const VideoPage: React.FC = () => {
             <div>
               <MyVideos>
                 <SectionHeader headline="Все видео">
-                  <StyledButton onClick={() => setShowModal((prev) => !prev)}>
+                  <StyledButton label="Добавить" onClick={() => setShowModal((prev) => !prev)}>
                     Добавить
                   </StyledButton>
                 </SectionHeader>
@@ -389,7 +392,7 @@ const VideoPage: React.FC = () => {
               <Divider />
               <MyVideos>
                 <SectionHeader headline="Мои альбомы">
-                  <StyledButton onClick={() => setShowModalAlbum((prev) => !prev)}>
+                  <StyledButton label="Создать" onClick={() => setShowModalAlbum((prev) => !prev)}>
                     Создать
                   </StyledButton>
                 </SectionHeader>
