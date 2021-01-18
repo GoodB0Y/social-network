@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../../../redux-toolkit/store';
 import { joinGroup, leaveGroup } from '../../../redux-toolkit/groups/groupsSlice';
+import Button from '../../../common/Button';
 import { Group, GroupRequestProps } from '../../../types/group';
 import {
   SingleGroupContainer,
@@ -57,13 +58,15 @@ const SingleGroup = ({
       </GroupDescriptionContainer>
     </LeftWrapper>
     {memberOf.some((element: number) => element === id) ? (
-      <UnFollowButton onClick={(): void => _leaveGroup({ userId: 4, groupId: id })}>
-        Выйти из группы
-      </UnFollowButton>
+      <Button
+        label="Выйти из группы"
+        onClick={(): void => _leaveGroup({ userId: 4, groupId: id })}
+      />
     ) : (
-      <FollowButton onClick={(): void => _joinGroup({ userId: 4, groupId: id })}>
-        Вступить в группу
-      </FollowButton>
+      <Button
+        label="Вступить в группу"
+        onClick={(): void => _joinGroup({ userId: 4, groupId: id })}
+      />
     )}
   </SingleGroupContainer>
 );
