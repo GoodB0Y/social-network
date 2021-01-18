@@ -317,9 +317,7 @@ const VideoPage: React.FC = () => {
           {openAlbum ? (
             <MyVideos>
               <SectionHeader headline="Видео в альбоме">
-                <StyledButton label="Закрыть" onClick={() => setOpenAlbum(false)}>
-                  Закрыть
-                </StyledButton>
+                <StyledButton size="large" label="Закрыть" onClick={() => setOpenAlbum(false)} />
               </SectionHeader>
               <Slider slidesToShow={2} slidesToScroll={2} loop>
                 {videosInAlbum.length ? (
@@ -358,9 +356,7 @@ const VideoPage: React.FC = () => {
                         dispatch(addVideoInAlbumAction(id));
                         alert(message || 'ERROR');
                       }}
-                    >
-                      Добавить
-                    </StyledButton>
+                    />
                   </>
                 );
               })}
@@ -369,9 +365,11 @@ const VideoPage: React.FC = () => {
             <div>
               <MyVideos>
                 <SectionHeader headline="Все видео">
-                  <StyledButton label="Добавить" onClick={() => setShowModal((prev) => !prev)}>
-                    Добавить
-                  </StyledButton>
+                  <StyledButton
+                    size="large"
+                    label="Добавить"
+                    onClick={() => setShowModal((prev) => !prev)}
+                  />
                 </SectionHeader>
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
                   {[...allVideos].map((obj) => {
@@ -392,9 +390,11 @@ const VideoPage: React.FC = () => {
               <Divider />
               <MyVideos>
                 <SectionHeader headline="Мои альбомы">
-                  <StyledButton label="Создать" onClick={() => setShowModalAlbum((prev) => !prev)}>
-                    Создать
-                  </StyledButton>
+                  <StyledButton
+                    size="large"
+                    label="Создать"
+                    onClick={() => setShowModalAlbum((prev) => !prev)}
+                  />
                 </SectionHeader>
                 {error ? <Alert type="error" closable message={error} /> : null}
                 <Slider slidesToShow={2} slidesToScroll={2} loop>

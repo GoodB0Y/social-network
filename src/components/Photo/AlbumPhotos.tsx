@@ -78,9 +78,7 @@ const AlbumPhotos = ({
         <SectionHeader headline={`Фотографии альбома\n\r${currentAlbum.name}`}>
           <Element name="all" />
           {isCurrentUser ? (
-            <Button label="Добавить" onClick={() => setCreateImageModalOpen(true)}>
-              Добавить
-            </Button>
+            <Button size="large" label="Добавить" onClick={() => setCreateImageModalOpen(true)} />
           ) : undefined}
           <ModalLinkInput
             title={['Ссылка на изображение:', 'Описание:']}

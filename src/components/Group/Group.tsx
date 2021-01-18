@@ -130,7 +130,7 @@ const Group = ({
     _loadGroupPosts(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(posts);
   if (posts && groupInfo) {
     let { addressImageGroup } = groupInfo;
     const { groupCategory, name } = groupInfo;
