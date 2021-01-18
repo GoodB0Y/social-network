@@ -14,8 +14,6 @@ import {
   GroupCategory,
   GroupFollowers,
   LeftWrapper,
-  FollowButton,
-  UnFollowButton,
 } from './SingleGroup.styles';
 
 interface StateProps {

@@ -56,28 +56,3 @@ export const LeftWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const FollowButton = styled.button`
-  background-color: #ffb11b;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 15px 40px;
-  &:focus {
-    outline: none;
-  }
-`;
-export const UnFollowButton = styled.button`
-  background-color: #fff;
-  color: #ffb11b;
-  border-radius: 5px;
-  border: solid #ffb11b 1px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 15px 40px;
-  &:focus {
-    outline: none;
-  }
-`;
