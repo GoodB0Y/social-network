@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useCallback } from 'react';
 import SmoothCollapse from 'react-smooth-collapse';
 import BlockComments from '../../blockComment/BlockComments/BlockComments';

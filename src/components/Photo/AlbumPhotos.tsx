@@ -8,7 +8,7 @@ import { RootState } from '../../redux-toolkit/store';
 import { loadImagesFromAlbum, loadAlbums, resetImages } from '../../redux-toolkit/imagesSlice';
 import ModalLinkInput from '../../common/modalLinkInput';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import Button from '../../common/Button';
 import { GridContainer, LinkArrow } from './styles';
 
 const mapStateToProps = (state: RootState) => ({
@@ -29,7 +29,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps & { isCurrentUser: boolean; albumId: number; userId: number };
 
-const AlbumPhotos: React.FC<Props> = ({
+const AlbumPhotos = ({
   loadImagesFromAlbum: _loadImagesFromAlbum,
   loadAlbums: _loadAlbums,
   resetImages: _resetImages,
@@ -41,7 +41,7 @@ const AlbumPhotos: React.FC<Props> = ({
   albumImages,
   loading,
   error,
-}) => {
+}: Props) => {
   const [isCreateImageModalOpen, setCreateImageModalOpen] = useState(false);
   // Суть проверки - не дать пользователю вбить неверного пользователя
   // и загрузить изображения корректного альбома без корректной загрузки альбомов
@@ -78,7 +78,7 @@ const AlbumPhotos: React.FC<Props> = ({
         <SectionHeader headline={`Фотографии альбома\n\r${currentAlbum.name}`}>
           <Element name="all" />
           {isCurrentUser ? (
-            <Button onClick={() => setCreateImageModalOpen(true)}>Добавить</Button>
+            <Button size="large" label="Добавить" onClick={() => setCreateImageModalOpen(true)} />
           ) : undefined}
           <ModalLinkInput
             title={['Ссылка на изображение:', 'Описание:']}

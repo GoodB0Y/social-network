@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import SearchIcon from '../../img/icons/search.svg';
 import style from './PageSearchInput.module.scss';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   defaultValue?: string;
 };
 
-const PageSearchInput: React.FC<Props> = ({ action, placeholder, defaultValue }) => {
+const PageSearchInput = ({ action, placeholder, defaultValue }: Props): JSX.Element => {
   const [value, setValue] = useState<string>('');
 
   const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {

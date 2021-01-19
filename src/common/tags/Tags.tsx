@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useCallback } from 'react';
 import { TagsContainer, Input } from './style';
 import Tag from './Tag';
@@ -9,7 +8,7 @@ interface ITags {
   tags: string[];
 }
 
-const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
+const Tags = ({ deleteTag, setTags, tags }: ITags): JSX.Element => {
   const [value, setValue] = useState('');
   const renderTags = useCallback(
     () =>

@@ -1,14 +1,15 @@
 import React from 'react';
+import Page from '../../common/Page';
+import BlockNotes from '../Main/Articles/blockNotes/BlockNotes';
+import { BookmarksWrapper, PageMarker } from './Bookmarks.styles';
 
-import PageWrapper from '../../common/pageWrapper';
-import BookMarksPage from './components';
-
-function Bookmarks() {
-  return (
-    <PageWrapper>
-      <BookMarksPage />
-    </PageWrapper>
-  );
-}
+const Bookmarks: React.FC = () => (
+  <Page>
+    <BookmarksWrapper>
+      <PageMarker>Закладки</PageMarker>
+      <BlockNotes />
+    </BookmarksWrapper>
+  </Page>
+);
 
 export default Bookmarks;

@@ -17,13 +17,13 @@ interface Props {
   isOpen: boolean;
 }
 
-const ComponentInput: React.FC<Props> = ({
+const ComponentInput = ({
   user,
   postId,
   setIsOpen,
   loadCommentsByPost: _loadCommentsByPost,
   isOpen,
-}) => {
+}: Props) => {
   const openOnClick = useCallback(() => {
     setIsOpen(false);
   }, [setIsOpen]);

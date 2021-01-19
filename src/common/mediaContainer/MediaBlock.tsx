@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* !! Удалить правило сверху, когда появится возможность добавлять субтитры для аудио и видео */
 import React, { useCallback } from 'react';
@@ -24,7 +23,7 @@ const renderCloseButton = (onClose: null | (() => void)) => {
   );
 };
 
-const MediaBlock: React.FC<Props> = ({ media, onClose }) => {
+const MediaBlock = ({ media, onClose }: Props): JSX.Element => {
   const renderContent = useCallback(() => {
     if (media.mediaType === 'IMAGE') {
       return <ModalImage id="Test" small={media.url} large={media.url} alt="Ваше изображение" />;

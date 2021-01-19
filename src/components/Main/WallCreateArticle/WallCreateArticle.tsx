@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
-
 import photo from './img/photo.svg';
 import music from './img/music.svg';
 import video from './img/video.svg';
 import add from './img/add.svg';
-
+import ArticleForm from '../ArticleForm';
+import ModalLinkInput from '../../../common/modalLinkInput';
+import { IUser } from '../../../types/user';
+import IMedia from '../../../types/media';
 import {
   AvatarMin,
   IconArticle,
@@ -16,17 +18,13 @@ import {
   WallCreateArticleHeaderBlockRight,
   WallCreateArticleIconContainer,
   WallCreateArticleAdditionIcons,
-} from '../../../common/styledComponents';
-import ArticleForm from '../ArticleForm';
-import ModalLinkInput from '../../../common/modalLinkInput';
-import { IUser } from '../../../types/user';
-import IMedia from '../../../types/media';
+} from './WallCreateArticle.styled';
 
 interface IWallCreateArticle {
   user: IUser;
 }
 
-const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
+const WallCreateArticle = ({ user }: IWallCreateArticle): JSX.Element | null => {
   const [isArticleOpen, setArticleOpen] = useState(false);
   const [isPhotoModalOpen, setPhotoModalOpen] = useState(false);
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);

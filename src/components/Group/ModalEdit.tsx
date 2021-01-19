@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
@@ -64,12 +62,12 @@ const CloseButton = styled.button`
   background-color: black;
 `;
 
-const ModalEdit: React.FC<ModalData> = ({
+const ModalEdit = ({
   closeModal,
   // eslint-disable-next-line @typescript-eslint/no-shadow
   updateGroup,
   groupData: { description, linkSite, addressImageGroup, groupCategory, name, id },
-}) => {
+}: ModalData) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (formData: SubmitData): void => {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import { Avatar } from 'antd';
 import IComment from '../../../../../types/comment';
@@ -8,7 +7,7 @@ interface Props {
   comment: IComment;
 }
 
-const Comment: React.FC<Props> = ({ comment }) => {
+const Comment = ({ comment }: Props): JSX.Element => {
   const {
     userDto: { firstName, lastName, avatar },
     persistDate,

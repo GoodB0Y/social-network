@@ -8,7 +8,7 @@ interface ISliderItem {
   isSelected?: boolean;
 }
 
-const SliderItem: React.FC<ISliderItem> = ({ url, headline, isSelected }) => (
+const SliderItem = ({ url, headline, isSelected }: ISliderItem): JSX.Element => (
   <SliderItemContainer $isSelected={isSelected}>
     <SliderItemPhoto src={url} />
     <SliderItemHeadline>{headline}</SliderItemHeadline>

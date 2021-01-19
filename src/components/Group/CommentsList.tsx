@@ -9,7 +9,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const CommentsList: React.FC<CommentData> = ({ data }) => (
+const CommentsList = ({ data }: CommentData): JSX.Element => (
   <Container>
     {data.map((item: Comment) => (
       <CommentsListItem

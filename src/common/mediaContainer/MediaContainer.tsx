@@ -13,7 +13,6 @@ const renderMedia = (media: IMedia[], postId?: number, onDeleteMedia?: (index: n
     могут повторяться в одном посте по несколько раз или нескольких постах быть на одном и
     том же месте */
     return <MediaBlock key={`${postId}_${index}`} media={mediaItem} onClose={onClose} />;
-    /* eslint-enable */
   });
 
 interface Props {
@@ -22,7 +21,7 @@ interface Props {
   onDeleteMedia?: (index: number) => void;
 }
 
-const MediaContainer: React.FC<Props> = ({ media, onDeleteMedia, postId }) => {
+const MediaContainer = ({ media, onDeleteMedia, postId }: Props): JSX.Element | null => {
   if (!media?.length) {
     return null;
   }

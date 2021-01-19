@@ -10,7 +10,7 @@ interface IMultipleLinkInput {
   isError: boolean[];
 }
 
-const MultipleLinkInput: React.FC<IMultipleLinkInput> = ({ setValue, titles, isError }) => {
+const MultipleLinkInput = ({ setValue, titles, isError }: IMultipleLinkInput): JSX.Element => {
   const onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
       const innerValue = event.target.value;

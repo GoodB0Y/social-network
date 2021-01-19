@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Note from '../Note';
@@ -26,7 +25,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const BlockNotes: React.FC<Props> = ({ posts, loading, error }) => {
+const BlockNotes = ({ posts, loading, error }: Props) => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
 
   const renderSearch = () =>

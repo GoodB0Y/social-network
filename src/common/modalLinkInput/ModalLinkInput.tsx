@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useCallback, useState } from 'react';
 import { Modal } from 'antd';
 import { Form, Button } from './styles';
@@ -6,7 +5,7 @@ import MultipleLinkInput from './MultipleLinkInput';
 import SingleLinkInput from './SingleLinkInput';
 import './style.scss';
 
-export interface IModalLinkInput<T> {
+export interface IModalLinkInput<T extends string | string[]> {
   title: T;
   visible: boolean;
   setUnvisible?: () => void;
@@ -61,7 +60,9 @@ const ModalLinkInput = <T extends string | string[]>({
 };
 
 // Написан, чтобы можно было вообще тестить, рендерится ли что-либо
-const ModalLinkInputWrapper = <T extends string | string[]>(props: IModalLinkInput<T>) => {
+const ModalLinkInputWrapper = <T extends string | string[]>(
+  props: IModalLinkInput<T>
+): JSX.Element => {
   const { visible, title, children, setUnvisible } = props;
   return (
     <Modal

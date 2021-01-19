@@ -1,8 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
-import { AvatarMin } from '../../../common/styledComponents';
 import send from '../../../assets/img/icons/send-message.svg';
+
+const AvatarMin = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const FormWrapper = styled.form`
   width: 100%;
@@ -44,7 +53,7 @@ type Props = {
   submitNewComment: (comment: string) => void;
 };
 
-const CommentForm: React.FC<Props> = ({ avatar, submitNewComment }): JSX.Element => {
+const CommentForm = ({ avatar, submitNewComment }: Props): JSX.Element => {
   const formik = useFormik({
     initialValues: { comment: '' },
     onSubmit: (values, actions) => {

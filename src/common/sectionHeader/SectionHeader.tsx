@@ -24,7 +24,7 @@ interface ISectionHeader {
   children?: (React.ReactElement | undefined)[] | React.ReactElement;
 }
 
-const SectionHeader: React.FC<ISectionHeader> = ({ headline, children }) => (
+const SectionHeader = ({ headline, children }: ISectionHeader): JSX.Element => (
   <Container>
     <Headline>{headline}</Headline>
     {children || null}

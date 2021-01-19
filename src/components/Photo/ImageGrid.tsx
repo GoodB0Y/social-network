@@ -43,12 +43,12 @@ interface IImageGridProps {
   error: { status: number; data?: string } | null;
   setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
 }
-const ImageGrid: React.FC<IImageGridProps> = ({
+const ImageGrid = ({
   images,
   loading,
   error,
   setSelectedImage,
-}): ReactElement | null => {
+}: IImageGridProps): ReactElement | null => {
   if (images) {
     return (
       <ImageList>

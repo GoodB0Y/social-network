@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateStatus } from '../../../../redux-toolkit/currentUserSlice';
@@ -11,11 +10,7 @@ interface IFormStatus {
   isCurrentUser: boolean;
 }
 
-const FormStatus: React.FC<IFormStatus> = ({
-  statusText,
-  updateStatus: _updateStatus,
-  isCurrentUser,
-}) => {
+const FormStatus = ({ statusText, updateStatus: _updateStatus, isCurrentUser }: IFormStatus) => {
   /*
   Не использовал formik, потому что мне необходимо было сделать
   зависимость от statusText, а formik принимает лишь initialValue, а после не реагирует

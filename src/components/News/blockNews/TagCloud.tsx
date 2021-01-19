@@ -43,7 +43,7 @@ type Props = {
   getPostsByTag: (tagName: string) => void;
 };
 
-const TagCloud: React.FC<Props> = ({ tags, getPostsByTag }) => {
+const TagCloud = ({ tags, getPostsByTag }: Props): JSX.Element => {
   if (!tags || tags?.length === 0) return <h1>Теги отсутствуют</h1>;
   return (
     <Container>

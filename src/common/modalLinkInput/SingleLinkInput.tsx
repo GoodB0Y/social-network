@@ -9,7 +9,7 @@ interface ISingleLinkInput {
   isError: boolean;
 }
 
-const SingleLinkInput: React.FC<ISingleLinkInput> = ({ setValue, isError }) => {
+const SingleLinkInput = ({ setValue, isError }: ISingleLinkInput): JSX.Element => {
   const onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const innerValue = event.target.value;

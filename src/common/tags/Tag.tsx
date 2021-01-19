@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 
 import { StyledTag, TagText, CloseButton, ClosePicture } from './style';
@@ -8,7 +7,7 @@ interface ITag {
   deleteTag: () => void;
 }
 
-const Tag: React.FC<ITag> = ({ children, deleteTag }) => (
+const Tag = ({ children, deleteTag }: ITag): JSX.Element => (
   <StyledTag>
     <TagText>{children}</TagText>
     <CloseButton type="button" onClick={deleteTag}>

@@ -3,17 +3,23 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Field, Formik } from 'formik';
 import SmoothCollapse from 'react-smooth-collapse';
 import * as Yup from 'yup';
-import { ArticleButton, ArticleStyledForm, InputName, InputText, ErrorLine } from './styles';
 import imgButtonMore from './img/BTN more.svg';
-import { ArticleName, ButtonMore } from '../../../common/styledComponents';
 import createPost from './createPost';
 import Tags from '../../../common/tags';
 import Loader from '../../../common/Loader';
 import MediaContainer from '../../../common/mediaContainer';
-
 import { loadPostsByUser } from '../../../redux-toolkit/postsSlice';
 import { RootState } from '../../../redux-toolkit/store';
 import IMedia from '../../../types/media';
+import {
+  ArticleButton,
+  ArticleStyledForm,
+  InputName,
+  InputText,
+  ErrorLine,
+  ArticleName,
+  ButtonMore,
+} from './ArticleForm.styled';
 
 const ArticleSchema = Yup.object().shape({
   articleName: Yup.string()
@@ -44,7 +50,7 @@ interface IArticleForm {
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & IArticleForm;
 
-const ArticleForm: React.FC<Props> = ({
+const ArticleForm = ({
   changeOpen,
   isOpen,
   loadPostsByUser: _loadPostsByUser,
@@ -52,7 +58,7 @@ const ArticleForm: React.FC<Props> = ({
   media,
   onDeleteMedia,
   resetMedia,
-}): JSX.Element => {
+}: Props): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   return (

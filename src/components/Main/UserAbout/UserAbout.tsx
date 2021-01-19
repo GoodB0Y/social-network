@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-shadow */
 import React from 'react';
-import desc from './models';
 
 import {
   WallInfoUserAbout,
@@ -9,7 +6,7 @@ import {
   InfoHeaderTextBlock,
   InfoHeaderListItemLeft,
   InfoHeaderListItemRight,
-} from '../../../common/styledComponents';
+} from './UserAbout.styled';
 
 interface IUserAbout {
   dateOfBirth?: string;
@@ -20,8 +17,16 @@ interface IUserAbout {
   aboutMe?: string;
   languages?: string[];
 }
-
-const UserAbout: React.FC<IUserAbout> = function UserAbout({
+const desc = {
+  birthday: 'День рождения',
+  educ: 'Образование',
+  prof: 'Профессия',
+  lang: 'Язык',
+  city: 'Город',
+  about: 'Личная информация',
+  site: 'Личный сайт',
+};
+const UserAbout = function UserAbout({
   dateOfBirth,
   education,
   profession,
@@ -29,7 +34,7 @@ const UserAbout: React.FC<IUserAbout> = function UserAbout({
   city,
   aboutMe,
   languages,
-}) {
+}: IUserAbout): JSX.Element {
   const descriptionItems = [
     [desc.birthday, dateOfBirth],
     [desc.educ, education],

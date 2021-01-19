@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
@@ -53,7 +52,7 @@ interface Props {
   date: string;
 }
 
-const Messages: React.FC<Props> = ({ messages, messagesType, date }) => {
+const Messages = ({ messages, messagesType, date }: Props): JSX.Element => {
   const date1 = format(new Date(date), 'MM/dd/yy  HH:mm');
   return (
     <Container>

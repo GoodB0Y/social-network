@@ -5,9 +5,9 @@ import { loadUser } from '../../redux-toolkit/userSlice';
 import createAlbumPhoto from './funcs/createAlbum';
 import sliderItems from './funcs/sliderItems';
 
-import PageWrapper from '../../common/pageWrapper';
+import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import Button from '../../common/Button';
 import ContentBox from '../../common/ContentBox/ContentBox';
 import { RootState } from '../../redux-toolkit/store';
 import ModalLinkInput from '../../common/modalLinkInput';
@@ -37,7 +37,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & { userId: number; albumId?: number };
 
-const Photo: React.FC<Props> = ({
+const Photo = ({
   userId,
   albumId,
   userFirstName,
@@ -49,7 +49,7 @@ const Photo: React.FC<Props> = ({
   loadImages: _loadImages,
   loadAlbums: _loadAlbums,
   loadUser: _loadUser,
-}) => {
+}: Props) => {
   const [isCreateAlbumModalOpen, setCreateAlbumModalOpen] = useState(false);
   const isCurrentUser = Number(userId) === currentUserId;
 
@@ -74,7 +74,7 @@ const Photo: React.FC<Props> = ({
   );
 
   return (
-    <PageWrapper>
+    <Page>
       <ContentBox>
         <Headline>
           {isCurrentUser && 'Ваши'} Фотографии
@@ -82,7 +82,7 @@ const Photo: React.FC<Props> = ({
         </Headline>
         <SectionHeader headline="Альбомы">
           {isCurrentUser ? (
-            <Button onClick={() => setCreateAlbumModalOpen(true)}>Создать</Button>
+            <Button size="large" label="Создать" onClick={() => setCreateAlbumModalOpen(true)} />
           ) : undefined}
         </SectionHeader>
         <ModalLinkInput
@@ -104,7 +104,7 @@ const Photo: React.FC<Props> = ({
           <AllUserPhotos isCurrentUser={isCurrentUser} userId={userId} />
         )}
       </ContentBox>
-    </PageWrapper>
+    </Page>
   );
 };
 

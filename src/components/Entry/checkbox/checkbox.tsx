@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { forwardRef, HTMLProps, Ref, Key } from 'react';
 import classes from './checkbox.module.scss';
 
@@ -8,7 +7,7 @@ export interface Props extends HTMLProps<HTMLInputElement> {
   key?: Key;
 }
 
-const Checkbox = forwardRef<HTMLInputElement, Props>(({ className = '', ...rest }, ref) => (
+const Checkbox = forwardRef<HTMLInputElement, Props>(({ className = '', ...rest }: Props, ref) => (
   <div className={[classes.wrapper, className].join(' ')}>
     <input type="checkbox" {...rest} ref={ref} />
     <div />

@@ -1,22 +1,21 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import addPhotoIcon from './img/add photo.svg';
+import ModalLinkInput from '../../../common/modalLinkInput';
+import { updateAvatar } from '../../../redux-toolkit/currentUserSlice';
+import { IUser } from '../../../types/user';
 import {
   UserInfoHeaderContainer,
   UserInfoAvatar,
   UserInfoNameBlock,
-  Avatar,
+  UserAvatar,
   AddPhotoBlock,
   AddPhotoIcon,
   UserName,
   UserProfession,
   UserOnlineStatus,
   UserOnlineIcon,
-} from '../../../common/styledComponents';
-import ModalLinkInput from '../../../common/modalLinkInput';
-import { updateAvatar } from '../../../redux-toolkit/currentUserSlice';
-import { IUser } from '../../../types/user';
+} from './UserInfoHeader.styled';
 
 const renderAddPhotoBlock = (setIsOpen: (newValue: boolean) => void, isCurrentUser: boolean) => {
   if (!isCurrentUser) {
@@ -38,7 +37,7 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & { user: IUser; isCurrentUser: boolean };
 
-const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, isCurrentUser }) => {
+const UserInfoHeader = ({ user, updateAvatar: _updateAvatar, isCurrentUser }: Props) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const onLinkSend = useCallback(
     (link: string) => {
@@ -51,7 +50,7 @@ const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, is
   return (
     <UserInfoHeaderContainer>
       <UserInfoAvatar>
-        <Avatar small={avatar} large={avatar} alt={`Аватар ${firstName} ${lastName}`} />
+        <UserAvatar small={avatar} large={avatar} alt={`Аватар ${firstName} ${lastName}`} />
         {renderAddPhotoBlock(setIsOpen, isCurrentUser)}
         <ModalLinkInput
           onLinkSend={onLinkSend}
