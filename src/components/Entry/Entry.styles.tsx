@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input } from 'antd';
+import Button from '../../common/Button';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -80,33 +81,9 @@ export const ButtonSingInUpTxt = styled.button<{ selected: boolean }>`
   }
 `;
 
-export const SubmitArea = styled.div<{ $isReg?: boolean }>`
-  margin-top: ${(props) => (props.$isReg ? '37px' : '66px')};
-  display: flex;
-  justify-content: center;
-
-  & a {
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    color: #959595;
-    align-self: flex-start;
-    margin-left: 35px;
-    text-decoration: none;
-  }
-  & button {
-    background-color: #ffb11b;
-    border: none;
-    max-width: 351px;
-    width: 100%;
-    height: 60px;
-    border-radius: ${(props) => (props.$isReg ? '15px' : '4px')};
-    span {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 16px;
-      letter-spacing: 0.05em;
-    }
-  }
+export const Submit = styled(Button)`
+  width: 100%;
+  margin-top: 60px;
 `;
 
 export const ForgetPasswordArea = styled.div`

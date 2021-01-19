@@ -10,9 +10,9 @@ import {
   Main,
   InputsArea,
   SearchInpit,
+  Submit,
   ButtonsArea,
   ButtonSingInUpTxt,
-  SubmitArea,
   ForgetPasswordArea,
   TxtLink,
   CheckboxWrapper,
@@ -77,11 +77,7 @@ const Entry: React.FC = (): JSX.Element => {
             placeholder="Введите ваш пароль"
           />
         </InputsArea>
-        <SubmitArea>
-          <button type="submit">
-            <span>ВОЙТИ</span>
-          </button>
-        </SubmitArea>
+        <Submit type="submit" label="Войти" size="medium" />
         <ForgetPasswordArea>
           <TxtLink href="/">Забыли пароль?</TxtLink>
         </ForgetPasswordArea>
@@ -187,11 +183,7 @@ const Entry: React.FC = (): JSX.Element => {
             {regForm.errors.terms}
           </InputError>
         </InputsArea>
-        <SubmitArea $isReg>
-          <button type="submit">
-            <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
-          </button>
-        </SubmitArea>
+        <Submit type="submit" label="Зарегистрироваться" size="medium" />
       </form>
     </FormWrap>
   );
