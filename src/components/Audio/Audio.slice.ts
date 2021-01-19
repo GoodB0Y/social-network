@@ -8,10 +8,10 @@ import {
   fetchPlaylist,
   fetchFriendAudios,
   fetchFriends,
-} from '../../services/audios-controller/audio-controller';
-import IfriendData from '../../types/friendData';
+} from './AudioAPI';
+import IFriendData from '../../types/friendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
-import { TypeRootReducer } from '../rootReducer';
+import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
 
 // Типа action, который потом диспатчится
 
@@ -80,7 +80,7 @@ export const friendsAudioAction = createAsyncThunk(
   async (data, argThunkAPI) => {
     try {
       const arrFriendsIds = await fetchMyFriends();
-      const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data.map(
+      const arrPromiseFriendsData: Array<Promise<IFriendData>> = arrFriendsIds.data.map(
         async ({ id }: { id: number }) => {
           try {
             const friendData = await fetchFriends(id);
@@ -91,7 +91,7 @@ export const friendsAudioAction = createAsyncThunk(
           }
         }
       );
-      const arrFriendsData: Array<IfriendData> = await Promise.all(arrPromiseFriendsData);
+      const arrFriendsData: Array<IFriendData> = await Promise.all(arrPromiseFriendsData);
       return arrFriendsData;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -111,17 +111,29 @@ export const myPlaylistsAction = createAsyncThunk(
   }
 );
 
-const allAudiosSlice = createSlice({
+export interface IAudioState {
+  myAudios: [];
+  allAudios: [];
+  friends: [];
+  myPlaylists: Array<Record<string, any>>;
+  currentSearch: [];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+const initialState: IAudioState = {
+  myAudios: [],
+  allAudios: [],
+  friends: [],
+  myPlaylists: [],
+  currentSearch: [],
+  isLoading: false,
+  error: null,
+};
+
+const audioSlice = createSlice({
   name: 'allAudiosSlice',
-  initialState: {
-    myAudios: [],
-    allAudios: [],
-    friends: [],
-    myPlaylists: [],
-    currentSearch: [],
-    loading: '',
-    msgFetchState: '',
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(allAudiosAction.pending, (state, action: PayloadAction<any>) => {
@@ -131,16 +143,16 @@ const allAudiosSlice = createSlice({
       state.friends = [];
       state.currentSearch = [];
       state.allAudios = action.payload;
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
     });
     builder.addCase(allAudiosAction.rejected, (state: Draft<any>, action) => {
       state.friends = [];
       state.currentSearch = [];
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(myAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.payload;
     });
     builder.addCase(myAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
@@ -153,7 +165,7 @@ const allAudiosSlice = createSlice({
       state.allAudios = [];
       state.friends = [];
       state.currentSearch = [];
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(friendsAudioAction.pending, (state, action) => {
@@ -170,11 +182,11 @@ const allAudiosSlice = createSlice({
     builder.addCase(friendsAudioAction.rejected, (state: Draft<any>, action) => {
       state.allAudios = [];
       state.currentSearch = [];
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(myPlaylistsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.payload;
     });
     builder.addCase(
@@ -184,11 +196,11 @@ const allAudiosSlice = createSlice({
       }
     );
     builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(openPlayListAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.payload;
     });
     builder.addCase(
@@ -200,11 +212,11 @@ const allAudiosSlice = createSlice({
       }
     );
     builder.addCase(openPlayListAction.rejected, (state: Draft<any>, action) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(searchSongsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.payload;
     });
     builder.addCase(
@@ -216,11 +228,11 @@ const allAudiosSlice = createSlice({
       }
     );
     builder.addCase(searchSongsAction.rejected, (state: Draft<any>, action) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
     builder.addCase(friendAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.payload;
     });
     builder.addCase(
@@ -230,15 +242,14 @@ const allAudiosSlice = createSlice({
       }
     );
     builder.addCase(friendAudiosAction.rejected, (state: Draft<any>, action) => {
-      state.loading = action.type;
+      state.isLoading = !state.isLoading;
       state.msgFetchState = action.error.message;
     });
   },
 });
 
 // Можно в useSelector подставлять просто эту константу
-export const allAudiosSliceSelector = (state: TypeRootReducer) => state.allAudiosReducer;
+export const allAudiosSliceSelector = (state: TypeRootReducer) => state.audios;
 // Можно в useSelector подставлять просто эту константу END
 
-const allAudiosReducer = allAudiosSlice.reducer;
-export default allAudiosReducer;
+export default audioSlice.reducer;
