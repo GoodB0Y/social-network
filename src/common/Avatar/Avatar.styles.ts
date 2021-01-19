@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AvatarProps } from './index';
 
-const Container = styled.div<AvatarProps>`
+const Container = styled.img<AvatarProps>`
   cursor: pointer;
   margin: 0 auto;
   width: ${({ size }) => size}px;
