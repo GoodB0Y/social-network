@@ -21,7 +21,7 @@ export default function LoginForm(): React.ReactElement {
             placeholder="Введите ваш пароль"
           />
         </InputsArea>
-        <Submit type="submit" label="Войти" size="medium" />
+        <Submit type="submit" label="Войти" size="medium" onClick={(e) => e.preventDefault()} />
         <ForgetPasswordArea>
           <TxtLink href="/">Забыли пароль?</TxtLink>
         </ForgetPasswordArea>
