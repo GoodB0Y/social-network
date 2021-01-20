@@ -1,34 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../../common/Logo';
 import LoginForm from './LoginForm';
 import RegForm from './RegForm';
-import { Wrapper, Main, ButtonsArea, ButtonSingInUpTxt } from './Entry.styles';
+import { EntryPage, TabsWrap, Tabs } from './Entry.styles';
 
-const Entry: React.FC = (): JSX.Element => {
-  const [currentForm, setCurrentForm] = useState<'login' | 'register'>('login');
+const { TabPane } = Tabs;
 
-  return (
-    <Wrapper>
-      <Logo />
-      <Main>
-        <ButtonsArea>
-          <ButtonSingInUpTxt
-            selected={currentForm === 'login'}
-            onClick={() => setCurrentForm('login')}
-          >
-            <span>Вход</span>
-          </ButtonSingInUpTxt>
-          <ButtonSingInUpTxt
-            selected={currentForm === 'register'}
-            onClick={() => setCurrentForm('register')}
-          >
-            <span>Регистрация</span>
-          </ButtonSingInUpTxt>
-        </ButtonsArea>
-        {currentForm === 'login' ? <LoginForm /> : <RegForm />}
-      </Main>
-    </Wrapper>
-  );
-};
+const Entry = (): JSX.Element => (
+  <EntryPage>
+    <Logo />
+    <TabsWrap>
+      <Tabs defaultActiveKey="Login">
+        <TabPane tab="Вход" key="Login">
+          <LoginForm />
+        </TabPane>
+        <TabPane tab="Регистрация" key="Reg">
+          <RegForm />
+        </TabPane>
+      </Tabs>
+    </TabsWrap>
+  </EntryPage>
+);
 
 export default Entry;
