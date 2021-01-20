@@ -7,8 +7,8 @@ type SongItemProps = IAudios & {
   timeAudio: (sec: number) => string | number;
 };
 
-const SongItem = ({ icon, author, name, id, length, timeAudio }: SongItemProps): JSX.Element => (
-  <li key={id}>
+const SongItem = ({ icon, author, name, length, timeAudio }: SongItemProps): JSX.Element => (
+  <li>
     <LeftSide>
       <div>
         <img src={pic || `https://${icon}`} alt="icon" title="icon" />

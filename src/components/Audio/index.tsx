@@ -81,15 +81,17 @@ const Audio = ({
 
   const AllAudios =
     allAudios.length > 0 &&
-    allAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
+    allAudios.map((song: IAudios) => <SongItem key={song.id} {...song} timeAudio={timeAudio} />);
 
   const MyAudios =
     myAudios.length > 0 &&
-    myAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
+    myAudios.map((song: IAudios) => <SongItem key={song.id} {...song} timeAudio={timeAudio} />);
 
   const PlayList =
     currentSearch.length > 0 &&
-    currentSearch.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
+    currentSearch.map((song: IAudios) => (
+      <SongItem key={song.id} {...song} timeAudio={timeAudio} />
+    ));
 
   const Friends =
     friends.length > 0 &&
