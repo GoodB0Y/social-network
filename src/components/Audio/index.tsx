@@ -8,38 +8,30 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { RootState, TypeDispatch } from '../../redux-toolkit/store';
 import {
-  allAudiosAction,
-  friendAudiosAction,
-  friendsAudioAction,
+  fetchAllTracks,
+  fetchFriendTracks,
+  fetchFriends,
   IAudioState,
-  myAudiosAction,
-  myPlaylistsAction,
-  openPlayListAction,
-  searchSongsAction,
+  fetchMyTracks,
+  fetchMyPlaylists,
+  fetchPlaylistTracks,
+  fetchSearchedTracks,
+  IPlaylist,
 } from './Audio.slice';
-import IAudios from '../../types/audios';
 import IFriendData from '../../types/friendData';
 import { AddPlayList, Main } from './Audio.styles';
 import FilterTabs, { Tabs } from './FilterTabs';
 import HeadSlider from './HeadSlider';
 import Search from './Search';
 import PlaylistSlider from './PlaylistSlider';
-import Songs from './Songs';
+import Tracks from './Tracks';
 import Page from '../../common/Page';
 import ContentBox from '../../common/ContentBox';
-import SongItem from './SongItem';
+import Loader from '../../common/Loader';
 
 type AudioProps = IAudioState;
 
-const Audio = ({
-  isLoading,
-  error,
-  myPlaylists,
-  allAudios,
-  friends,
-  myAudios,
-  currentSearch,
-}: AudioProps): JSX.Element => {
+const Audio = ({ tracks, isLoading, error, playlists, friends }: AudioProps): JSX.Element => {
   const dispatch: TypeDispatch = useDispatch();
   const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
   const [activeTab, setActiveTab] = useState<Tabs>(Tabs.My);
@@ -49,47 +41,24 @@ const Audio = ({
     if (error) {
       message.error(error.message);
     }
-    dispatch(myAudiosAction());
-    dispatch(myPlaylistsAction());
+    dispatch(fetchMyTracks());
+    dispatch(fetchMyPlaylists());
   }, [error, dispatch]);
-
-  const timeAudio = (sec: number): string | number => {
-    if (sec === null) {
-      return sec;
-    }
-    let minutes: number | string = Math.floor(sec / 60);
-    let seconds: number | string = sec % 60;
-    if (minutes < 10) minutes = `0${minutes}`;
-    if (seconds < 10) seconds = `0${seconds}`;
-    return `${minutes}:${seconds}`;
-  };
 
   const openTab = (tab: Tabs) => {
     setActiveTab(tab);
 
     switch (tab) {
       case Tabs.My:
-        return dispatch(myAudiosAction());
+        return dispatch(fetchMyTracks());
       case Tabs.All:
-        return dispatch(allAudiosAction());
+        return dispatch(fetchAllTracks());
       case Tabs.Friends:
-        return dispatch(friendsAudioAction());
+        return dispatch(fetchFriends());
       default:
         return null;
     }
   };
-
-  const AllAudios =
-    allAudios.length > 0 &&
-    allAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
-
-  const MyAudios =
-    myAudios.length > 0 &&
-    myAudios.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
-
-  const PlayList =
-    currentSearch.length > 0 &&
-    currentSearch.map((song: IAudios) => <SongItem {...song} timeAudio={timeAudio} />);
 
   const Friends =
     friends.length > 0 &&
@@ -98,7 +67,7 @@ const Audio = ({
         key={id}
         type="button"
         onClick={() => {
-          if (!dragging) dispatch(friendAudiosAction(id));
+          if (!dragging) dispatch(fetchFriendTracks(id));
         }}
       >
         <img src={pic || avatar} alt="" />
@@ -107,36 +76,29 @@ const Audio = ({
       </button>
     ));
 
-  const playlists = myPlaylists.map((list) => (
+  const playlistsRender = playlists.map(({ id, image, name }: IPlaylist) => (
     <button
-      key={list.id}
+      key={id}
       type="button"
       onClick={(): void => {
-        if (!dragging) dispatch(openPlayListAction(list.id));
+        if (!dragging) dispatch(fetchPlaylistTracks(id));
       }}
     >
-      <img src={album || list.image} alt="" />
-      <p>{list.name}</p>
+      <img src={album || image} alt="" />
+      <p>{name}</p>
     </button>
   ));
-  playlists.push(
+  playlistsRender.push(
     <AddPlayList>
       <p>Добавить плейлист</p>
     </AddPlayList>
   );
 
-  const audiosList =
-    (currentSearch.length > 0 && PlayList) ||
-    (activeTab === Tabs.Friends && PlayList) ||
-    (activeTab === Tabs.All && AllAudios) ||
-    (activeTab === Tabs.My && MyAudios) ||
-    (isLoading && 'Аудиозаписи не найдены');
-
   const startSearch = debounce((name) => {
-    if (name) dispatch(searchSongsAction(name));
+    if (name) dispatch(fetchSearchedTracks(name));
   }, 1000);
 
-  const searchSongs = (event: ChangeEvent<HTMLInputElement>) => {
+  const searchTracks = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     startSearch(value);
   };
@@ -145,7 +107,7 @@ const Audio = ({
   let playlistSliderTitle;
 
   if (activeTab === Tabs.My) {
-    playlistSliderItems = playlists;
+    playlistSliderItems = playlistsRender;
     playlistSliderTitle = 'Плейлисты';
   }
   if (activeTab === Tabs.Friends) {
@@ -159,11 +121,12 @@ const Audio = ({
         <Main>
           <HeadSlider />
           <FilterTabs openTab={openTab} activeTab={activeTab} />
-          <Search searchSongs={searchSongs} />
-          {playlistSliderItems && (
+          <Search searchTracks={searchTracks} />
+          {isLoading && <Loader />}
+          {playlistSliderItems && !isLoading && (
             <PlaylistSlider items={playlistSliderItems} title={playlistSliderTitle} />
           )}
-          <Songs items={audiosList} />
+          {!isLoading && <Tracks tracks={tracks} />}
         </Main>
       </ContentBox>
     </Page>

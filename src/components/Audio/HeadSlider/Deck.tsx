@@ -149,11 +149,11 @@ const Deck = () => {
     </SwiperSlide>
   ));
 
-  const chosenTrack = tracks.find((song) => song.id === currentTrackId);
-  const titleSong = typeFuncFind(chosenTrack).title;
-  const performerSong = typeFuncFind(chosenTrack).performer;
-  const albomSongs = typeFuncFind(chosenTrack).album;
-  const urlSong = typeFuncFind(chosenTrack).url;
+  const chosenTrack = tracks.find((track) => track.id === currentTrackId);
+  const titleTrack = typeFuncFind(chosenTrack).title;
+  const performerTrack = typeFuncFind(chosenTrack).performer;
+  const albomTracks = typeFuncFind(chosenTrack).album;
+  const urlTrack = typeFuncFind(chosenTrack).url;
 
   return (
     <Main>
@@ -173,10 +173,10 @@ const Deck = () => {
           <UpdSlider defaultValue={0} value={timePlayed * 100} />
         </ControlsContainer>
         <TrackInfoArea>
-          <TrackAlbum>{titleSong}</TrackAlbum>
+          <TrackAlbum>{titleTrack}</TrackAlbum>
           <TrackInfo>
-            <TrackPerformer>{performerSong}</TrackPerformer>
-            <TrackTitle>{albomSongs}</TrackTitle>
+            <TrackPerformer>{performerTrack}</TrackPerformer>
+            <TrackTitle>{albomTracks}</TrackTitle>
           </TrackInfo>
         </TrackInfoArea>
       </ButtonsArea>
@@ -210,7 +210,7 @@ const Deck = () => {
           setTimePlayed(played);
         }}
         playing={playing}
-        url={urlSong}
+        url={urlTrack}
       />
     </Main>
   );
