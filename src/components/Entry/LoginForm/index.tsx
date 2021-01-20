@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  ForgetPasswordArea,
-  FormWrap,
-  InputsArea,
-  SearchInpit,
-  Submit,
-  TxtLink,
-} from '../Entry.styles';
+import Submit from '../Submit';
+import { ForgetPasswordArea, FormWrap, InputsArea, SearchInpit, TxtLink } from '../Entry.styles';
 
 export default function LoginForm(): React.ReactElement {
   return (

@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ICreateUser, IUserWithTerms } from '../../../types/user';
 import { createNewUser } from '../../../services/user-controller';
+import Submit from '../Submit';
 import {
   CheckboxWrapper,
   FormWrap,
@@ -10,7 +11,6 @@ import {
   InputError,
   InputsArea,
   SearchInpit,
-  Submit,
 } from '../Entry.styles';
 import Checkbox from '../checkbox';
 

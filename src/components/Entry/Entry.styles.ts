@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Input, Tabs as TabsANTD } from 'antd';
-import Button from '../../common/Button';
 import jm from './assets/jm.svg';
 import sn from './assets/sn.svg';
 
