@@ -8,7 +8,7 @@ import Alert from 'antd/lib/alert';
 import { VideoItem, OpenedVideo } from './index';
 import { RootState } from '../../redux-toolkit/store';
 import Slider from '../../common/slider';
-import StyledButton from '../../common/button/Button';
+import StyledButton from '../../common/Button';
 import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
 import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
@@ -317,7 +317,7 @@ const VideoPage: React.FC = () => {
           {openAlbum ? (
             <MyVideos>
               <SectionHeader headline="Видео в альбоме">
-                <StyledButton onClick={() => setOpenAlbum(false)}>Закрыть</StyledButton>
+                <StyledButton size="large" label="Закрыть" onClick={() => setOpenAlbum(false)} />
               </SectionHeader>
               <Slider slidesToShow={2} slidesToScroll={2} loop>
                 {videosInAlbum.length ? (
@@ -351,13 +351,12 @@ const VideoPage: React.FC = () => {
                       alt="alt"
                     />
                     <StyledButton
+                      label="Добавить"
                       onClick={() => {
                         dispatch(addVideoInAlbumAction(id));
                         alert(message || 'ERROR');
                       }}
-                    >
-                      Добавить
-                    </StyledButton>
+                    />
                   </>
                 );
               })}
@@ -366,9 +365,11 @@ const VideoPage: React.FC = () => {
             <div>
               <MyVideos>
                 <SectionHeader headline="Все видео">
-                  <StyledButton onClick={() => setShowModal((prev) => !prev)}>
-                    Добавить
-                  </StyledButton>
+                  <StyledButton
+                    size="large"
+                    label="Добавить"
+                    onClick={() => setShowModal((prev) => !prev)}
+                  />
                 </SectionHeader>
                 <Slider slidesToShow={2} slidesToScroll={2} loop>
                   {[...allVideos].map((obj) => {
@@ -389,9 +390,11 @@ const VideoPage: React.FC = () => {
               <Divider />
               <MyVideos>
                 <SectionHeader headline="Мои альбомы">
-                  <StyledButton onClick={() => setShowModalAlbum((prev) => !prev)}>
-                    Создать
-                  </StyledButton>
+                  <StyledButton
+                    size="large"
+                    label="Создать"
+                    onClick={() => setShowModalAlbum((prev) => !prev)}
+                  />
                 </SectionHeader>
                 {error ? <Alert type="error" closable message={error} /> : null}
                 <Slider slidesToShow={2} slidesToScroll={2} loop>

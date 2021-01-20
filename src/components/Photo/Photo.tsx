@@ -7,7 +7,7 @@ import sliderItems from './funcs/sliderItems';
 
 import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import Button from '../../common/Button';
 import ContentBox from '../../common/ContentBox';
 import { RootState } from '../../redux-toolkit/store';
 import ModalLinkInput from '../../common/modalLinkInput';
@@ -82,7 +82,7 @@ const Photo = ({
         </Headline>
         <SectionHeader headline="Альбомы">
           {isCurrentUser ? (
-            <Button onClick={() => setCreateAlbumModalOpen(true)}>Создать</Button>
+            <Button size="large" label="Создать" onClick={() => setCreateAlbumModalOpen(true)} />
           ) : undefined}
         </SectionHeader>
         <ModalLinkInput

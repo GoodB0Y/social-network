@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import Login from '../components/LoginPage/loginPage';
+import Entry from '../components/Entry';
 import BlockComments from '../components/Main/Articles/blockComment/BlockComments/BlockComments';
 import BlockNotes from '../components/Main/Articles/blockNotes/BlockNotes';
 import UserInfoHeader from '../components/Main/UserInfoHeader';
@@ -15,7 +15,7 @@ import {
 } from './mediaContainer.stories';
 
 storiesOf('Social network', module)
-  .add('Страница авторизации', () => <Login />)
+  .add('Страница авторизации', () => <Entry />)
   .add('Страница сообщений', () => <MessagesPage />)
   .add('Блок комментариев', () => <BlockComments />)
   .add('Блок записей', () => <BlockNotes />)
