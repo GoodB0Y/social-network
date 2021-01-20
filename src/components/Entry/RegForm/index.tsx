@@ -1,29 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Checkbox from '../../common/checkbox';
-import Logo from '../../common/Logo';
-import { createNewUser } from '../../services/user-controller/user-controller';
-import { ICreateUser, IUserWithTerms } from '../../types/user';
+import { ICreateUser, IUserWithTerms } from '../../../types/user';
+import { createNewUser } from '../../../services/user-controller';
+import Submit from '../Submit';
 import {
-  Wrapper,
-  Main,
+  CheckboxWrapper,
+  FormWrap,
+  getInputErrorVisibilityStyle,
+  InputError,
   InputsArea,
   SearchInpit,
-  ButtonsArea,
-  ButtonSingInUpTxt,
-  SubmitArea,
-  ForgetPasswordArea,
-  TxtLink,
-  CheckboxWrapper,
-  InputError,
-  getInputErrorVisibilityStyle,
-  FormWrap,
-} from './loginPage.styles';
+} from '../Entry.styles';
+import Checkbox from '../checkbox';
 
-const Login: React.FC = (): JSX.Element => {
-  const [currentForm, setCurrentForm] = useState<'login' | 'register'>('login');
-
+export default function RegForm(): React.ReactElement {
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
   const initialValues: IUserWithTerms & { confirmPassword: string } = {
@@ -65,31 +56,7 @@ const Login: React.FC = (): JSX.Element => {
     },
   });
 
-  const loginForm = (
-    <FormWrap>
-      <form>
-        <InputsArea>
-          <SearchInpit id="email" name="email" placeholder="Введите ваш e-mail" />
-          <SearchInpit
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Введите ваш пароль"
-          />
-        </InputsArea>
-        <SubmitArea>
-          <button type="submit">
-            <span>ВОЙТИ</span>
-          </button>
-        </SubmitArea>
-        <ForgetPasswordArea>
-          <TxtLink href="/">Забыли пароль?</TxtLink>
-        </ForgetPasswordArea>
-      </form>
-    </FormWrap>
-  );
-
-  const registerForm = (
+  return (
     <FormWrap>
       <form onSubmit={regForm.handleSubmit}>
         <InputsArea>
@@ -187,37 +154,8 @@ const Login: React.FC = (): JSX.Element => {
             {regForm.errors.terms}
           </InputError>
         </InputsArea>
-        <SubmitArea $isReg>
-          <button type="submit">
-            <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
-          </button>
-        </SubmitArea>
+        <Submit type="submit" label="Зарегистрироваться" size="medium" />
       </form>
     </FormWrap>
   );
-
-  return (
-    <Wrapper>
-      <Logo />
-      <Main>
-        <ButtonsArea>
-          <ButtonSingInUpTxt
-            selected={currentForm === 'login'}
-            onClick={() => setCurrentForm('login')}
-          >
-            <span>Вход</span>
-          </ButtonSingInUpTxt>
-          <ButtonSingInUpTxt
-            selected={currentForm === 'register'}
-            onClick={() => setCurrentForm('register')}
-          >
-            <span>Регистрация</span>
-          </ButtonSingInUpTxt>
-        </ButtonsArea>
-        {currentForm === 'login' ? loginForm : registerForm}
-      </Main>
-    </Wrapper>
-  );
-};
-
-export default Login;
+}
