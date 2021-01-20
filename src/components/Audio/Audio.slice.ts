@@ -1,25 +1,37 @@
-import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import {
-  fetchAudiosAll,
-  fetchMyPartAudios,
-  fetchMyPlaylists,
-  fetchMyFriends,
-  fetchSearchedSongs,
-  fetchPlaylist,
-  fetchFriendAudios,
-  fetchFriends,
+  AnyAction,
+  AsyncThunk,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit';
+import {
+  getAllTracks,
+  getMyTracks,
+  getMyPlaylists,
+  getFriendIds,
+  getSearchedTracks,
+  getPlaylistTracks,
+  getFriendTracks,
+  getFriendData,
 } from './AudioAPI';
 import IFriendData from '../../types/friendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
-import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
+import ITrack from '../../types/audios';
 
-// Типа action, который потом диспатчится
+// TODO: вынести в константы
+const Prefix = 'audios';
 
-export const searchSongsAction = createAsyncThunk(
-  'audios/searchSongsAction',
-  async (name: string, argThunkAPI) => {
+// Правила нейминга typePrefix у Thunk: [действие][доп.описание][сущности]
+// ВАЖНО! сущности - то что получаем по API, например, треки или плейлисты
+// На сущностях основаны правила для addMatcher
+// Пример: fetchAllTracks
+
+export const fetchAllTracks = createAsyncThunk(
+  `${Prefix}/fetchAllTracks`,
+  async (data, argThunkAPI) => {
     try {
-      const response = await fetchSearchedSongs(name);
+      const response = await getAllTracks();
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -27,11 +39,23 @@ export const searchSongsAction = createAsyncThunk(
   }
 );
 
-export const openPlayListAction = createAsyncThunk(
-  'audios/openPlayListAction',
+export const fetchMyTracks = createAsyncThunk(
+  `${Prefix}/fetchMyTracks`,
+  async (data, argThunkAPI) => {
+    try {
+      const response = await getMyTracks();
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  }
+);
+
+export const fetchFriendTracks = createAsyncThunk(
+  `${Prefix}/fetchFriendTracks`,
   async (id: number, argThunkAPI) => {
     try {
-      const response = await fetchPlaylist(id);
+      const response = await getFriendTracks(id);
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -39,51 +63,16 @@ export const openPlayListAction = createAsyncThunk(
   }
 );
 
-export const allAudiosAction = createAsyncThunk(
-  'audios/allAudiosAction',
+// TODO: по user-запросам использовать существующий методы / создать контролер с user-запросами
+export const fetchFriends = createAsyncThunk(
+  `${Prefix}/fetchFriends`,
   async (data, argThunkAPI) => {
     try {
-      const response = await fetchAudiosAll();
-      return response.data;
-    } catch (err) {
-      return errFetchHandler(err.response.data, argThunkAPI);
-    }
-  }
-);
-
-export const myAudiosAction = createAsyncThunk(
-  'fetch/myAudiosAction',
-  async (data, argThunkAPI) => {
-    try {
-      const response = await fetchMyPartAudios();
-      return response.data;
-    } catch (err) {
-      return errFetchHandler(err.response.data, argThunkAPI);
-    }
-  }
-);
-
-export const friendAudiosAction = createAsyncThunk(
-  'fetch/friendAudiosAction',
-  async (id: number, argThunkAPI) => {
-    try {
-      const response = await fetchFriendAudios(id);
-      return response.data;
-    } catch (err) {
-      return errFetchHandler(err.response.data, argThunkAPI);
-    }
-  }
-);
-
-export const friendsAudioAction = createAsyncThunk(
-  'fetch/friendsAudioAction',
-  async (data, argThunkAPI) => {
-    try {
-      const arrFriendsIds = await fetchMyFriends();
+      const arrFriendsIds = await getFriendIds();
       const arrPromiseFriendsData: Array<Promise<IFriendData>> = arrFriendsIds.data.map(
         async ({ id }: { id: number }) => {
           try {
-            const friendData = await fetchFriends(id);
+            const friendData = await getFriendData(id);
             friendData.data.id = id;
             return friendData.data;
           } catch (e) {
@@ -99,11 +88,11 @@ export const friendsAudioAction = createAsyncThunk(
   }
 );
 
-export const myPlaylistsAction = createAsyncThunk(
-  'audios/myPlaylistsAction',
+export const fetchMyPlaylists = createAsyncThunk(
+  `${Prefix}/fetchMyPlaylists`,
   async (data, argThunkAPI) => {
     try {
-      const response = await fetchMyPlaylists();
+      const response = await getMyPlaylists();
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -111,145 +100,104 @@ export const myPlaylistsAction = createAsyncThunk(
   }
 );
 
+export const fetchPlaylistTracks = createAsyncThunk(
+  `${Prefix}/fetchPlaylistTracks`,
+  async (id: number, argThunkAPI) => {
+    try {
+      const response = await getPlaylistTracks(id);
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  }
+);
+
+export const fetchSearchedTracks = createAsyncThunk(
+  `${Prefix}/fetchSearchedTracks`,
+  async (name: string, argThunkAPI) => {
+    try {
+      const response = await getSearchedTracks(name);
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  }
+);
+
+export interface IPlaylist {
+  name: string;
+  id: number;
+  image: string;
+}
+
 export interface IAudioState {
-  myAudios: [];
-  allAudios: [];
-  friends: [];
-  myPlaylists: Array<Record<string, any>>;
-  currentSearch: [];
+  tracks: ITrack[];
+  friends: IFriendData[];
+  playlists: IPlaylist[];
   isLoading: boolean;
   error: Error | null;
 }
 
 const initialState: IAudioState = {
-  myAudios: [],
-  allAudios: [],
+  tracks: [],
   friends: [],
-  myPlaylists: [],
-  currentSearch: [],
-  isLoading: false,
+  playlists: [],
+  isLoading: true,
   error: null,
 };
 
+// Типы для addCatcher в slice в поле extraReducers
+
+type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
+
+type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
+type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
+type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
+
+// Функции возвращающие boolean, по условию соответсвия action.type отпределенному паттерну
+
+function isPendingAction(action: AnyAction): action is PendingAction {
+  return action.type.endsWith('/pending') && action.type.startsWith(Prefix);
+}
+
+function isRejectedAction(action: AnyAction): action is RejectedAction {
+  return action.type.endsWith('/rejected') && action.type.startsWith(Prefix);
+}
+
+function isFulfilledFetchingTracksAction(action: AnyAction): action is FulfilledAction {
+  return action.type.endsWith('Tracks/fulfilled') && action.type.startsWith(Prefix);
+}
+
 const audioSlice = createSlice({
-  name: 'allAudiosSlice',
+  name: 'audiosSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(allAudiosAction.pending, (state, action: PayloadAction<any>) => {
-      console.log(state, action, 'plug');
-    });
-    builder.addCase(allAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.friends = [];
-      state.currentSearch = [];
-      state.allAudios = action.payload;
-      state.isLoading = !state.isLoading;
-    });
-    builder.addCase(allAudiosAction.rejected, (state: Draft<any>, action) => {
-      state.friends = [];
-      state.currentSearch = [];
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(myAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.payload;
-    });
-    builder.addCase(myAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.allAudios = [];
-      state.friends = [];
-      state.currentSearch = [];
-      state.myAudios = action.payload;
-    });
-    builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action) => {
-      state.allAudios = [];
-      state.friends = [];
-      state.currentSearch = [];
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(friendsAudioAction.pending, (state, action) => {
-      console.log(state, action, 'plug');
-    });
-    builder.addCase(
-      friendsAudioAction.fulfilled,
-      (state: Draft<any>, action: PayloadAction<any>) => {
-        state.allAudios = [];
-        state.currentSearch = [];
+    // после всех addCase, addMatcher отлавливает все совпадения по определенному типу акшена
+    builder
+      .addCase(fetchFriends.fulfilled, (state: IAudioState, action: PayloadAction<any>) => {
         state.friends = action.payload;
-      }
-    );
-    builder.addCase(friendsAudioAction.rejected, (state: Draft<any>, action) => {
-      state.allAudios = [];
-      state.currentSearch = [];
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(myPlaylistsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.payload;
-    });
-    builder.addCase(
-      myPlaylistsAction.fulfilled,
-      (state: Draft<any>, action: PayloadAction<any>) => {
-        state.myPlaylists = action.payload;
-      }
-    );
-    builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(openPlayListAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.payload;
-    });
-    builder.addCase(
-      openPlayListAction.fulfilled,
-      (state: Draft<any>, action: PayloadAction<any>) => {
-        state.allAudios = [];
-        state.myAudios = [];
-        state.currentSearch = action.payload;
-      }
-    );
-    builder.addCase(openPlayListAction.rejected, (state: Draft<any>, action) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(searchSongsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.payload;
-    });
-    builder.addCase(
-      searchSongsAction.fulfilled,
-      (state: Draft<any>, action: PayloadAction<any>) => {
-        state.allAudios = [];
-        state.myAudios = [];
-        state.currentSearch = action.payload;
-      }
-    );
-    builder.addCase(searchSongsAction.rejected, (state: Draft<any>, action) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
-    builder.addCase(friendAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.payload;
-    });
-    builder.addCase(
-      friendAudiosAction.fulfilled,
-      (state: Draft<any>, action: PayloadAction<any>) => {
-        state.currentSearch = action.payload;
-      }
-    );
-    builder.addCase(friendAudiosAction.rejected, (state: Draft<any>, action) => {
-      state.isLoading = !state.isLoading;
-      state.msgFetchState = action.error.message;
-    });
+        state.isLoading = false;
+      })
+      .addCase(fetchMyPlaylists.fulfilled, (state: IAudioState, action: PayloadAction<any>) => {
+        state.playlists = action.payload;
+        state.isLoading = false;
+      })
+      .addMatcher(
+        isFulfilledFetchingTracksAction,
+        (state: IAudioState, action: PayloadAction<any>) => {
+          state.tracks = action.payload;
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(isPendingAction, (state: IAudioState) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isRejectedAction, (state: IAudioState, action) => {
+        state.isLoading = false;
+        state.error = new Error(action.error.message);
+      });
   },
 });
-
-// Можно в useSelector подставлять просто эту константу
-export const allAudiosSliceSelector = (state: TypeRootReducer) => state.audios;
-// Можно в useSelector подставлять просто эту константу END
 
 export default audioSlice.reducer;
