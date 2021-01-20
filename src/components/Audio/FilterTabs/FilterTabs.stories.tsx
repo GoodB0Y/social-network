@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import FilterTabs, { FilterTabsProps, Tabs } from './FilterTabs';
+import FilterTabs, { FilterTabsProps, Tabs } from './index';
 
 export default {
   title: 'FilterTabs',

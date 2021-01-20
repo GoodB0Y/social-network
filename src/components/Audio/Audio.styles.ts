@@ -5,21 +5,6 @@ export const Main = styled.div`
   //height: 1000vh;
 `;
 
-export const LeftSide = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  div {
-    margin-right: 27px;
-  }
-`;
-
-export const RightSide = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const AddPlayList = styled.button`
   background-color: #ffb11b !important;
   border-radius: 20px;
