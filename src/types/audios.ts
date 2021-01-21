@@ -1,4 +1,4 @@
-interface IAudios {
+interface ITrack {
   album: string;
   author: string;
   icon: string;
@@ -9,4 +9,4 @@ interface IAudios {
   persistDateTime: string;
 }
 
-export default IAudios;
+export default ITrack;
