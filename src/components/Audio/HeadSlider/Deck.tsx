@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCoverflow } from 'swiper';
 import 'swiper/swiper.scss';
 import { Slider } from 'antd';
-import tracks from '../tracks';
+import tracks from '../trackList';
 import 'antd/dist/antd.css';
 import Card from './Card';
 import forward from '../../../assets/img/icons/forward.svg';
