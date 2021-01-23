@@ -12,7 +12,7 @@ import {
   InputsArea,
   SearchInpit,
 } from '../Entry.styles';
-import Checkbox from '../CheckboxTest';
+import Checkbox from '../Checkbox';
 
 export default function RegForm(): React.ReactElement {
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
