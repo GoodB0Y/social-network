@@ -24,10 +24,10 @@ import FilterTabs, { Tabs } from './FilterTabs';
 import HeadSlider from './HeadSlider';
 import Search from './Search';
 import PlaylistSlider from './PlaylistSlider';
-import Tracks from './Tracks';
 import Page from '../../common/Page';
 import ContentBox from '../../common/ContentBox';
 import Loader from '../../common/Loader';
+import Tracks from './Tracks';
 
 type AudioProps = IAudioState;
 

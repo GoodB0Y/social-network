@@ -12,7 +12,8 @@ import {
   InputsArea,
   SearchInpit,
 } from '../Entry.styles';
-import Checkbox from '../checkbox';
+import Checkbox from '../Checkbox';
+// import Checkbox from '../checkbox';
 
 export default function RegForm(): React.ReactElement {
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
@@ -70,7 +71,7 @@ export default function RegForm(): React.ReactElement {
           />
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.firstName && regForm.touched.firstName) as boolean
+              (regForm.errors.firstName && regForm.touched.firstName) as boolean,
             )}
           >
             {regForm.errors.firstName}
@@ -85,7 +86,7 @@ export default function RegForm(): React.ReactElement {
           />
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.lastName && regForm.touched.lastName) as boolean
+              (regForm.errors.lastName && regForm.touched.lastName) as boolean,
             )}
           >
             {regForm.errors.lastName}
@@ -100,7 +101,7 @@ export default function RegForm(): React.ReactElement {
           />
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.email && regForm.touched.email) as boolean
+              (regForm.errors.email && regForm.touched.email) as boolean,
             )}
           >
             {regForm.errors.email}
@@ -116,7 +117,7 @@ export default function RegForm(): React.ReactElement {
           />
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.password && regForm.touched.password) as boolean
+              (regForm.errors.password && regForm.touched.password) as boolean,
             )}
           >
             {regForm.errors.password}
@@ -132,7 +133,7 @@ export default function RegForm(): React.ReactElement {
           />
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.confirmPassword && regForm.touched.confirmPassword) as boolean
+              (regForm.errors.confirmPassword && regForm.touched.confirmPassword) as boolean,
             )}
           >
             {regForm.errors.confirmPassword}
@@ -141,14 +142,14 @@ export default function RegForm(): React.ReactElement {
             <Checkbox
               id="terms"
               name="terms"
+              label='Я даю согласие на обработку своих данных'
               checked={regForm.values.terms}
               onChange={regForm.handleChange}
             />
-            <span>Я даю согласие на обработку своих данных</span>
           </CheckboxWrapper>
           <InputError
             style={getInputErrorVisibilityStyle(
-              (regForm.errors.terms && regForm.touched.terms) as boolean
+              (regForm.errors.terms && regForm.touched.terms) as boolean,
             )}
           >
             {regForm.errors.terms}

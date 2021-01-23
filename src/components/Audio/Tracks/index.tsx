@@ -1,7 +1,7 @@
 import React from 'react';
-import Container from './Tracks.styles';
 import ITrack from '../../../types/audios';
 import TrackItem from '../TrackItem';
+import Container from './Tracks.styles';
 
 type TracksProps = {
   tracks: ITrack[];
