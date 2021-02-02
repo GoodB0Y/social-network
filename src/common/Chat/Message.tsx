@@ -8,7 +8,7 @@ export type MessageProps = {
   date: string;
 };
 
-const Messages = ({ messages, messagesType, date }: MessageProps): JSX.Element => {
+const Message: React.FC<MessageProps> = ({ messages, messagesType, date }) => {
   let date1;
 
   try {
@@ -29,4 +29,4 @@ const Messages = ({ messages, messagesType, date }: MessageProps): JSX.Element =
   );
 };
 
-export default Messages;
+export default Message;
