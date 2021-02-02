@@ -1,7 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import ErrorBlock from '../../common/errorBlock/ErrorBlock';
-import MessagesChat from '../../common/chat/messages';
+import MessagesChat from '../../common/Chat/Message';
 import messagesClass from './Messages.module.scss';
 import Loader from '../../common/Loader';
 import { Ichat, IsingleChat } from '../../types/chat';

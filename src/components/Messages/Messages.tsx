@@ -6,12 +6,12 @@ import { Ichat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../assets/img/icons/chat-more-options.svg';
 import messagesClass from './Messages.module.scss';
-import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
+import SubmitMessage from '../../common/Chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
 import Page from '../../common/Page';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
-import MessagesChat from '../../common/chat/messages';
+import MessagesChat from '../../common/Chat/Message';
 
 // import {
 //   getChats,
