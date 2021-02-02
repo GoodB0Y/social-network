@@ -1,13 +1,14 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import addFileSrc from '../../../assets/img/icons/add-file.svg';
+import { TextWrap, FileIcon, SignInUpTxt } from './SubmitMessage.styles';
 import classSubmitMessage from './SubmitMessage.module.scss';
 
-type Props = {
+export type SubmitMessageProps = {
   onSubmitMessage: (values: string) => void;
 };
 
-const SubmitMessage = ({ onSubmitMessage }: Props): JSX.Element => (
+const SubmitMessage = ({ onSubmitMessage }: SubmitMessageProps): JSX.Element => (
   <Formik
     initialValues={{ message: '' }}
     onSubmit={(values, actions): void => {
@@ -16,20 +17,16 @@ const SubmitMessage = ({ onSubmitMessage }: Props): JSX.Element => (
     }}
   >
     <Form className={classSubmitMessage.wrapForm}>
-      <div className={classSubmitMessage.textWrap}>
+      <TextWrap>
         <Field
           className={classSubmitMessage.input}
           placeholder="Напишите что-нибудь..."
           name="message"
           autoComplete="off"
         />
-        <img className={classSubmitMessage.fileIcon} src={addFileSrc} alt="iconfile" />
-      </div>
-      <button
-        type="submit"
-        aria-label="submit-message"
-        className={classSubmitMessage.singInUpTxt}
-      />
+        <FileIcon src={addFileSrc} alt="iconfile" />
+      </TextWrap>
+      <SignInUpTxt type="submit" aria-label="submit-message" />
     </Form>
   </Formik>
 );

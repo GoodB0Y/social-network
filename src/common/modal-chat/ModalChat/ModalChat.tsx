@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { nanoid } from 'nanoid';
 import Author from '../message-author';
-import Messages from '../../chat/messages';
-import SubmitMessage from '../../chat/Submitmessage/SubmitMessage';
+import Messages from '../../Chat/Message';
+import SubmitMessage from '../../Chat/Submitmessage/SubmitMessage';
 import { dataMessages1 } from '../../../services/chat-controller/testFetch';
 import {
   Content,
