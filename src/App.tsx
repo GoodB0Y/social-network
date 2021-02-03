@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Entry from './components/Entry';
@@ -14,45 +14,41 @@ import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo';
 import Group from './components/Group';
 import Groups from './components/Groups';
-import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
-
+import { loadCurrentUser as loadCurrentUserThunk } from './redux-toolkit/currentUserSlice';
 import { RootState } from './redux-toolkit/store';
 import Page404 from './components/Page404/Page404';
 
-const mapDispatchToProps = {
-  loadCurrentUser,
+const mapDispatch = {
+  loadCurrentUser: loadCurrentUserThunk,
 };
 
-const mapStateToProps = (state: RootState) => ({
-  currentUserModel: state.currentUser,
+const mapState = ({ currentUser }: RootState) => ({
+  currentUser,
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
+const connector = connect(mapState, mapDispatch);
 
-const App = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }: Props) => {
+const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUser }) => {
   useEffect(() => {
-    _loadCurrentUser();
-  }, [_loadCurrentUser]);
+    loadCurrentUser();
+  }, [loadCurrentUser]);
   const checkUserIsLoggedIn = useCallback(() => {
-    if (currentUserModel?.error) {
+    if (currentUser?.error) {
       alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
       return <Redirect to={RoutePath.Login} />;
     }
-    if (!currentUserModel?.loading) {
-      _loadCurrentUser();
+    if (!currentUser?.loading) {
+      loadCurrentUser();
     }
     return null;
-  }, [currentUserModel, _loadCurrentUser]);
+  }, [currentUser, loadCurrentUser]);
   return (
     <Switch>
-      {/* <Route path={routes.login} component={Login} /> */}
       <Route
         path={RoutePath.Login}
         render={() => {
-          if (currentUserModel.data) {
-            return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
+          if (currentUser.data) {
+            return <Redirect to={funcRoutes.mainWithId(currentUser.data.userId)} />;
           }
           return <Entry />;
         }}
@@ -67,8 +63,8 @@ const App = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }: Props) => 
       <Route
         path={RoutePath.Photo}
         render={() => {
-          if (currentUserModel?.data) {
-            return <Redirect to={funcRoutes.photosWithId(currentUserModel.data.userId)} />;
+          if (currentUser?.data) {
+            return <Redirect to={funcRoutes.photosWithId(currentUser.data.userId)} />;
           }
           return checkUserIsLoggedIn();
         }}
@@ -95,15 +91,8 @@ const App = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }: Props) => 
       <Route
         path={RoutePath.Main}
         render={() => {
-          /*
-        Если пользователь заходит по главному адресу, его редиректит
-        на его личную страницу "по умолчанию". Если данные юзера ещё не получены
-        или он не авторизирован, то мы не выводим ничего.
-        На будущее: можно сделать, что, если пользователь не авторизирован
-        (например, это будет сообщать сервер), то выкидывать его на страницу с авторизацией
-        */
-          if (currentUserModel?.data) {
-            return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
+          if (currentUser?.data) {
+            return <Redirect to={funcRoutes.mainWithId(currentUser.data.userId)} />;
           }
           return checkUserIsLoggedIn();
         }}
