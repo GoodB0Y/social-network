@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
-import { TypeRootReducer } from '../rootReducer';
 import {
   fetchVideos,
   fetchAddVideo,
@@ -9,6 +8,7 @@ import {
   fetchAllVideosInAlbum,
   fetchAddVideoInAlbum,
 } from '../../services/videos-controller/video-controller';
+import { RootState } from '../store';
 
 export const allVideosAction = createAsyncThunk(
   'videos/allVideosAction',
@@ -167,6 +167,6 @@ const allVideosSlice = createSlice({
   },
 });
 
-export const allVideosSliceSelector = (state: TypeRootReducer) => state.videos;
+export const allVideosSliceSelector = (state: RootState) => state.videos;
 
 export const allVideosReducer = allVideosSlice.reducer;
