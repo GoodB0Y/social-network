@@ -23,6 +23,4 @@ const rootReducer = combineReducers({
   image: imagesReducer,
 });
 
-export type TypeRootReducer = ReturnType<typeof rootReducer>;
-
 export default rootReducer;
