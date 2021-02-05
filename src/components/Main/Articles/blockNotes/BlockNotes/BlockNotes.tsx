@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import Note from '../Note';
 import {
   Wrapper,
   MenuWrapper,
@@ -11,13 +10,10 @@ import {
   EmptyBlockNotes,
 } from './styles';
 import { RootState } from '../../../../../redux-toolkit/store';
-import Loader from '../../../../../common/Loader';
-import ErrorBlock from '../../../../../common/errorBlock';
+import ArticleList from '../../../../../common/ArticleList/ArticleList';
 
 const mapStateToProps = (state: RootState) => ({
   posts: state.posts.data,
-  loading: state.posts.loading,
-  error: state.posts.error,
 });
 
 const connector = connect(mapStateToProps);
@@ -25,7 +21,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const BlockNotes = ({ posts, loading, error }: Props) => {
+const BlockNotes = ({ posts }: Props) => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
 
   const renderSearch = () =>
@@ -36,16 +32,10 @@ const BlockNotes = ({ posts, loading, error }: Props) => {
     );
 
   const renderNotes = () => {
-    if (loading) {
-      return <Loader />;
-    }
-    if (error) {
-      return <ErrorBlock errorMessage="Error occured with loading posts." />;
-    }
     if (!posts) {
       return <EmptyBlockNotes>Ничего не найдено!</EmptyBlockNotes>;
     }
-    return posts.map((dataPost) => <Note key={dataPost.post.id} dataPost={dataPost} />);
+    return <ArticleList data={posts} />;
   };
 
   return (
