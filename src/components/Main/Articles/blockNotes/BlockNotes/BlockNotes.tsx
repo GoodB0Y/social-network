@@ -31,12 +31,7 @@ const BlockNotes = ({ posts }: Props) => {
       <ComponentSearch onClick={() => setIsOpenSearch(!isOpenSearch)} />
     );
 
-  const renderNotes = () => {
-    if (!posts) {
-      return <EmptyBlockNotes>Ничего не найдено!</EmptyBlockNotes>;
-    }
-    return <ArticleList data={posts} />;
-  };
+  const renderNotes = () => <ArticleList data={posts} />;
 
   return (
     <Wrapper>

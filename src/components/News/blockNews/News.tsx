@@ -238,11 +238,9 @@ const News = ({
   const renderContent = (): JSX.Element | JSX.Element[] => {
     if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
 
-    if (!data) return <h1>Ничего не найдено!</h1>;
-    const filteredNews = filterNews([...data], actualFilter, searchRequest);
-    if (filteredNews.length === 0) return <h1>Ничего не найдено!</h1>;
+    const posts = data ? filterNews([...data], actualFilter, searchRequest) : null;
 
-    return <ArticleList data={filteredNews} showPostByTag={showPostByTag} />;
+    return <ArticleList data={posts} showPostByTag={showPostByTag} />;
   }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
 
   return (

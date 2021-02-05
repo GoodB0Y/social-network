@@ -1,5 +1,5 @@
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux-toolkit/store';
 import {
@@ -18,6 +18,12 @@ import ErrorBlock from '../errorBlock';
 import Loader from '../Loader';
 import Article from './Article/Article';
 
+const EmptyBlockNotes = styled.div`
+  text-align: center;
+  color: black;
+  margin: 50px auto;
+`;
+
 interface StateProps {
   loading: boolean;
   error: null | Error;
@@ -32,7 +38,7 @@ interface DispatchProps {
 }
 
 interface NewsProps {
-  data: IDataPost[];
+  data: IDataPost[] | null;
   showPostByTag?: (tag: string) => void;
 }
 
@@ -64,6 +70,7 @@ const ArticleList = ({
 }: Props) => {
   if (loading) return <Loader />;
   if (error) return <ErrorBlock errorMessage="Error occured with loading posts." />;
+  if (!data || !data.length) return <EmptyBlockNotes>Ничего не найдено!</EmptyBlockNotes>;
 
   const articleList = data.map((postData) => (
     <Article
