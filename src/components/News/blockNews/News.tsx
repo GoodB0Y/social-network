@@ -16,10 +16,8 @@ import { IDataPost } from '../../../types/post';
 import ITag from '../../../types/tag';
 import filterNews from './helpers';
 
-import ErrorBlock from '../../../common/errorBlock';
-import Loader from '../../../common/Loader';
 import TagCloud from './TagCloud';
-import NewsItem from './NewsItem';
+import ArticleList from '../../../common/ArticleList/ArticleList';
 
 import img from '../../../assets/img/icons/search.svg';
 
@@ -143,8 +141,6 @@ const SearchField = styled.input.attrs(() => ({
 
 interface StateProps {
   data: null | IDataPost[];
-  loading: boolean;
-  error: null | Error;
   allTags: null | ITag[];
 }
 
@@ -163,8 +159,6 @@ type Props = StateProps & DispatchProps;
 
 const mapStateToProps = (state: RootState): StateProps => ({
   data: state.posts.data,
-  loading: state.posts.loading,
-  error: state.posts.error,
   allTags: state.posts.allTags,
 });
 
@@ -181,8 +175,6 @@ const mapDispatchToProps = {
 
 const News = ({
   data,
-  loading,
-  error,
   allTags,
   getAllPosts,
   getPostsByTag,
@@ -244,27 +236,13 @@ const News = ({
   };
 
   const renderContent = (): JSX.Element | JSX.Element[] => {
-    if (loading) return <Loader />;
-    if (error) return <ErrorBlock errorMessage="Error occured with loading posts." />;
-
     if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
 
     if (!data) return <h1>Ничего не найдено!</h1>;
     const filteredNews = filterNews([...data], actualFilter, searchRequest);
     if (filteredNews.length === 0) return <h1>Ничего не найдено!</h1>;
 
-    return filteredNews.map((postData) => (
-      <NewsItem
-        key={postData.post.id}
-        postData={postData}
-        getPostsByTag={showPostByTag}
-        addBookmarkToPost={addBookmarkToPost}
-        removeBookmarkFromPost={removeBookmarkFromPost}
-        addLikeToPost={addLikeToPost}
-        removeLikeFromPost={removeLikeFromPost}
-        sharePost={sharePost}
-      />
-    ));
+    return <ArticleList data={filteredNews} showPostByTag={showPostByTag} />;
   }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
 
   return (
