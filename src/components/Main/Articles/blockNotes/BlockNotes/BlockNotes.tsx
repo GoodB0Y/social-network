@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import {
-  Wrapper,
-  MenuWrapper,
-  Menu,
-  MenuItem,
-  ComponentSearch,
-  InputSearch,
-  EmptyBlockNotes,
-} from './styles';
+import { Wrapper, MenuWrapper, Menu, MenuItem, ComponentSearch, InputSearch } from './styles';
 import { RootState } from '../../../../../redux-toolkit/store';
 import ArticleList from '../../../../../common/ArticleList/ArticleList';
 

@@ -148,11 +148,6 @@ interface DispatchProps {
   getAllPosts: () => void;
   getPostsByTag: (tagName: string) => void;
   getAllTags: () => void;
-  addBookmarkToPost: (postId: number) => void;
-  removeBookmarkFromPost: (postId: number) => void;
-  addLikeToPost: (postId: number) => void;
-  removeLikeFromPost: (postId: number) => void;
-  sharePost: (postId: number) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -173,18 +168,7 @@ const mapDispatchToProps = {
   sharePost: addShare,
 };
 
-const News = ({
-  data,
-  allTags,
-  getAllPosts,
-  getPostsByTag,
-  getAllTags,
-  addBookmarkToPost,
-  removeBookmarkFromPost,
-  addLikeToPost,
-  removeLikeFromPost,
-  sharePost,
-}: Props) => {
+const News = ({ data, allTags, getAllPosts, getPostsByTag, getAllTags }: Props) => {
   const searchField = useRef<HTMLInputElement>(null);
   const [showSearchField, setShowSearchField] = useState(false);
   const [actualFilter, setActualFilter] = useState<string>('all');

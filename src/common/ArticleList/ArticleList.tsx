@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux-toolkit/store';
 import {
-  loadAllPosts,
-  loadAllTags,
   addBookmark,
   removeBookmark,
   addLike,
@@ -12,7 +10,6 @@ import {
   addShare,
 } from '../../redux-toolkit/postsSlice';
 import { IDataPost } from '../../types/post';
-import ITag from '../../types/tag';
 
 import ErrorBlock from '../errorBlock';
 import Loader from '../Loader';
