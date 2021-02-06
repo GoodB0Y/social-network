@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import iconDown from '../../../../assets/img/icons/more.svg';
-import iconUp from '../../../../assets/img/icons/moreUp.svg';
+import iconDown from '../../../assets/img/icons/more.svg';
+import iconUp from '../../../assets/img/icons/moreUp.svg';
 
 type ButtonProps = {
   changeIcon: boolean;

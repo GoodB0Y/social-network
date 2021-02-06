@@ -5,11 +5,11 @@ import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
 import { IDataPost } from '../../../types/post';
 
-import UserInfo from './common/UserInfo';
-import ActionButton from './common/ActionButton';
-import MediaContent from './common/MediaContent';
-import ShowMoreBtn from './common/ShowMoreBtn';
-import Comments from './common/blockComments/Comments';
+import UserInfo from '../UserInfo/UserInfo';
+import ActionButton from '../ActionButton/ActionButton';
+import MediaContent from '../MediaContent/MediaContent';
+import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
+import Comments from '../Comments/Comments';
 
 const { Element } = Scroll;
 const { scroller } = Scroll;

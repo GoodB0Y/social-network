@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
-import send from '../../../../../assets/img/icons/send-message.svg';
+import send from '../../assets/img/icons/send-message.svg';
 
 const AvatarMin = styled.img`
   width: 70px;

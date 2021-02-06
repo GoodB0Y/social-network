@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SmoothCollapse from 'react-smooth-collapse';
 import styled from 'styled-components';
-import { RootState } from '../../../../../redux-toolkit/store';
-import { loadCommentsByPost /*  addNewComment */ } from '../../../../../redux-toolkit/postsSlice';
+import { RootState } from '../../../redux-toolkit/store';
+import { loadCommentsByPost /*  addNewComment */ } from '../../../redux-toolkit/postsSlice';
 
-import IComment from '../../../../../types/comment';
-import { IUser } from '../../../../../types/user';
+import IComment from '../../../types/comment';
+import { IUser } from '../../../types/user';
 
-import ErrorBlock from '../../../../errorBlock';
-import Loader from '../../../../Loader';
-import UserInfo from '../UserInfo';
-import CommentForm from './CommentForm';
-import ShowMoreBtn from '../ShowMoreBtn';
+import ErrorBlock from '../../errorBlock';
+import Loader from '../../Loader';
+import UserInfo from '../UserInfo/UserInfo';
+import CommentForm from '../CommentForm';
+import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 
 const Container = styled.div`
   position: relative;
