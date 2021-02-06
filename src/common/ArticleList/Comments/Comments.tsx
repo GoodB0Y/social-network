@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SmoothCollapse from 'react-smooth-collapse';
-import styled from 'styled-components';
+import { useFormik } from 'formik';
 import { RootState } from '../../../redux-toolkit/store';
 import { loadCommentsByPost /*  addNewComment */ } from '../../../redux-toolkit/postsSlice';
 
@@ -11,40 +11,19 @@ import { IUser } from '../../../types/user';
 import ErrorBlock from '../../errorBlock';
 import Loader from '../../Loader';
 import UserInfo from '../UserInfo/UserInfo';
-import CommentForm from '../CommentForm';
-import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
+import ShowMoreBtn from '../ShowMoreBtn';
 
-const Container = styled.div`
-  position: relative;
-  border-top: 1px solid #515151;
-  padding: 41px 47px 0 47px;
-  margin-top: 55px;
-`;
-
-const Title = styled.h2`
-  font-weight: 500;
-  color: #515151;
-  text-align: left;
-`;
-
-const CommentsList = styled.ul`
-  padding: 0;
-  margin: 41px 0 0 0;
-`;
-
-const CommentsItem = styled.li`
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-`;
-
-const Comment = styled.p`
-  color: #000000;
-  text-align: justify;
-  margin-left: 94px;
-`;
+import {
+  AvatarMin,
+  FormWrapper,
+  Input,
+  SubmitComment,
+  Container,
+  Title,
+  CommentList,
+  CommentItem,
+  Comment,
+} from './Comments.styles';
 
 interface StateProps {
   user: null | IUser;
@@ -55,7 +34,12 @@ interface DispatchProps {
   /* addComment: (postId: number, comment: ICreateComment) => void; */
 }
 
-type Props = StateProps &
+type CommentFormProps = {
+  avatar: string | undefined;
+  submitNewComment: (comment: string) => void;
+};
+
+type CommentsProps = StateProps &
   DispatchProps & {
     id: number;
     comments?: IComment[];
@@ -74,6 +58,23 @@ const mapDispatchToProps = {
   /* addComment: addNewComment, */
 };
 
+const CommentForm = ({ avatar, submitNewComment }: CommentFormProps): JSX.Element => {
+  const formik = useFormik({
+    initialValues: { comment: '' },
+    onSubmit: (values, actions) => {
+      submitNewComment(values.comment);
+      actions.resetForm();
+    },
+  });
+  return (
+    <FormWrapper onSubmit={formik.handleSubmit}>
+      <AvatarMin src={avatar} />
+      <Input name="comment" onChange={formik.handleChange} value={formik.values.comment} />
+      <SubmitComment type="submit" />
+    </FormWrapper>
+  );
+};
+
 const Comments = ({
   id,
   user,
@@ -84,7 +85,7 @@ const Comments = ({
   showComments,
   setShowComments,
 }: /*  addComment, */
-Props): JSX.Element => {
+CommentsProps): JSX.Element => {
   useEffect(() => {
     getComments(id);
   }, [id, getComments]);
@@ -100,7 +101,7 @@ Props): JSX.Element => {
         id: commentId,
       } = item;
       return (
-        <CommentsItem key={commentId}>
+        <CommentItem key={commentId}>
           <UserInfo
             avatar={avatar}
             firstName={firstName}
@@ -108,7 +109,7 @@ Props): JSX.Element => {
             date={lastRedactionDate}
           />
           <Comment>{comment}</Comment>
-        </CommentsItem>
+        </CommentItem>
       );
     });
   };
@@ -126,9 +127,9 @@ Props): JSX.Element => {
   return (
     <Container>
       <Title>Комментарии</Title>
-      <CommentsList as={SmoothCollapse} expanded={showComments}>
+      <CommentList as={SmoothCollapse} expanded={showComments}>
         {renderComments()}
-      </CommentsList>
+      </CommentList>
       <CommentForm avatar={user?.avatar} submitNewComment={submitNewComment} />
       <ShowMoreBtn changeIcon={showComments} heightHandler={setShowComments} />
     </Container>

@@ -1,97 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import Slider from '../../slider';
-import arrowLeft from '../../../assets/img/icons/arr_left.svg';
-import arrowRigth from '../../../assets/img/icons/arr_right.svg';
-import arrowFilled from '../../../assets/img/icons/arrow_filled.svg';
-import almostCircleIcon from '../../../assets/img/icons/almost_circle.svg';
 import IMedia from '../../../types/media';
 
-const Container = styled.div`
-  width: 1000px;
-  margin: 0 auto;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  @media (max-width: 1900px) {
-    width: 1000px;
-  }
-  @media (max-width: 1650px) {
-    width: 700px;
-  }
-`;
-
-const SliderItem = styled.div`
-  position: relative;
-  width: 100%;
-  height: 480px;
-  padding: 0 10px;
-  border-radius: 5px;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  object-fit: contain;
-  border-radius: 5px;
-`;
-
-const Video = styled.iframe`
-  width: 100%;
-  height: 480px;
-  border-radius: 5px;
-  object-fit: contain;
-  @media (max-width: 1900px) {
-    height: 400px;
-  }
-  @media (max-width: 1650px) {
-    height: 350px;
-  }
-`;
-
-const Arrow = styled.button<{ next?: boolean }>`
-  &::before {
-    content: '';
-  }
-  position: absolute;
-  top: 50%;
-  left: ${({ next }) => (next ? '93%' : '5%')};
-  z-index: 5;
-  width: 50px;
-  height: 50px;
-  background-color: #515151;
-  background: url(${({ next }) => (next ? arrowRigth : arrowLeft)}) no-repeat;
-`;
-
-const PlayButton = styled.button`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  background: url(${almostCircleIcon}) center/contain no-repeat,
-    url(${arrowFilled}) center no-repeat;
-  border: none;
-  outline: none;
-`;
-
-const CloseButton = styled.button`
-  &::before {
-    content: 'x';
-    font-size: 30px;
-    color: #fff;
-  }
-  position: absolute;
-  top: 5%;
-  left: 95%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  background: none;
-  border: none;
-  outline: none;
-`;
+import {
+  Container,
+  SliderItem,
+  Image,
+  Video,
+  Arrow,
+  PlayButton,
+  CloseButton,
+} from './MediaContent.styles';
 
 type Props = {
   media: IMedia[] | undefined;
