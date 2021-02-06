@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import searchLogo from '../../icons/search-logo.svg';
+import searchLogo from './icons/search-logo.svg';
 
 export const Wrapper = styled.div`
   border-bottom: 1px solid #515151;

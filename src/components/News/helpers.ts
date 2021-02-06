@@ -1,4 +1,4 @@
-import { IDataPost } from '../../../types/post';
+import { IDataPost } from '../../types/post';
 
 const filterNews = (posts: IDataPost[], filter: string, request?: string | null): IDataPost[] => {
   if (filter === 'all') return posts.splice(0, 5);

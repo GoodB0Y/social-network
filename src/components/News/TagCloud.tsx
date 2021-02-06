@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ITag from '../../../types/tag';
+import ITag from '../../types/tag';
 
 const Container = styled.div`
   width: 1000px;

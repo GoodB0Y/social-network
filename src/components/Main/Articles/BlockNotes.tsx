@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Wrapper, MenuWrapper, Menu, MenuItem, ComponentSearch, InputSearch } from './styles';
-import { RootState } from '../../../../../redux-toolkit/store';
-import ArticleList from '../../../../../common/ArticleList/ArticleList';
+import { RootState } from '../../../redux-toolkit/store';
+import ArticleList from '../../../common/ArticleList/ArticleList';
 
 const mapStateToProps = (state: RootState) => ({
   posts: state.posts.data,

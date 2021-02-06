@@ -1,7 +1,7 @@
 import React from 'react';
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
-import BlockNotes from '../Articles/blockNotes/BlockNotes';
+import BlockNotes from '../Articles';
 import UserAbout from '../UserAbout';
 import { IUser } from '../../../types/user';
 import { ImageDto } from '../../../types/image';

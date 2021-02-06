@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { RootState } from '../../../redux-toolkit/store';
+import { RootState } from '../../redux-toolkit/store';
 import {
   loadAllPosts,
   loadPostsByTag,
@@ -11,15 +11,15 @@ import {
   addLike,
   removeLike,
   addShare,
-} from '../../../redux-toolkit/postsSlice';
-import { IDataPost } from '../../../types/post';
-import ITag from '../../../types/tag';
+} from '../../redux-toolkit/postsSlice';
+import { IDataPost } from '../../types/post';
+import ITag from '../../types/tag';
 import filterNews from './helpers';
 
 import TagCloud from './TagCloud';
-import ArticleList from '../../../common/ArticleList/ArticleList';
+import ArticleList from '../../common/ArticleList/ArticleList';
 
-import img from '../../../assets/img/icons/search.svg';
+import img from '../../assets/img/icons/search.svg';
 
 const Wrapper = styled.div`
   background: #111111;

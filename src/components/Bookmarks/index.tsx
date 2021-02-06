@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from '../../common/Page';
-import BlockNotes from '../Main/Articles/blockNotes/BlockNotes';
+import BlockNotes from '../Main/Articles';
 import { BookmarksWrapper, PageMarker } from './Bookmarks.styles';
 
 const Bookmarks: React.FC = () => (
