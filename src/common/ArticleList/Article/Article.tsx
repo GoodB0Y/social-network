@@ -23,8 +23,8 @@ type Props = {
 const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
   const { post, comments, loading, error } = postData;
   const { id, firstName, lastName, avatar, persistDate, title, text, media, tags } = post;
-  const [showContent, setShowContent] = useState(false);
-  const [showComments, setShowComments] = useState(false);
+  const [showContent, setShowContent] = useState<boolean>(false);
+  const [showComments, setShowComments] = useState<boolean>(false);
   const SmoothCollapseSettings = {
     expanded: showContent,
     heightTransition: '.70s ease',

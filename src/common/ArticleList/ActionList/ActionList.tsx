@@ -98,12 +98,12 @@ const ActionList = ({
     bookmarkAmount,
   } = post;
 
-  const toggleLikes = () => {
+  const toggleLikes = (): void => {
     if (isLiked) return removeLikeFromPost(id);
     return addLikeToPost(id);
   };
 
-  const toggleBookmarks = () => {
+  const toggleBookmarks = (): void => {
     if (isBookmarked) return removeBookmarkFromPost(id);
     return addBookmarkToPost(id);
   };
