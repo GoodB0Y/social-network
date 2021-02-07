@@ -23,11 +23,11 @@ const Button = styled.button<ButtonProps>`
 
 type Props = {
   changeIcon: boolean;
-  heightHandler: () => void;
+  show: () => void;
 };
 
-const ShowMoreBtn = ({ changeIcon, heightHandler }: Props): JSX.Element => (
-  <Button changeIcon={changeIcon} onClick={(): void => heightHandler()} />
+const ShowMoreBtn = ({ changeIcon, show }: Props): JSX.Element => (
+  <Button changeIcon={changeIcon} onClick={show} />
 );
 
 export default ShowMoreBtn;

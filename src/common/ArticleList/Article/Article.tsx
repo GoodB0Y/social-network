@@ -28,11 +28,15 @@ const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
   const SmoothCollapseSettings = {
     expanded: showContent,
     heightTransition: '.70s ease',
-    collapsedHeight: '200px',
+    collapsedHeight: '100px',
   };
 
   const showBlockComment = (): void => {
     setShowComments((prev) => !prev);
+  };
+
+  const showBlockContent = (): void => {
+    setShowContent((prev) => !prev);
   };
 
   const tagItemClickHandler = (tag: ITag): void => {
@@ -60,10 +64,7 @@ const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
           <MediaContent media={media} />
         </SmoothCollapse>
 
-        <ShowMoreBtn
-          changeIcon={showContent}
-          heightHandler={(): void => setShowContent((prev) => !prev)}
-        />
+        <ShowMoreBtn changeIcon={showContent} show={showBlockContent} />
       </Content>
 
       <TagList>{tagList}</TagList>

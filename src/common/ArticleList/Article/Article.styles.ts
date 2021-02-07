@@ -43,6 +43,7 @@ export const Title = styled.div`
 
 export const OneArticle = styled(ReactMarkdown)`
   width: 100%;
+  min-height: 120px;
   font-size: 16px;
   line-height: 165%;
   text-align: justify;
