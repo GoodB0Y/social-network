@@ -131,7 +131,7 @@ CommentsProps): JSX.Element => {
         {renderComments()}
       </CommentList>
       <CommentForm avatar={user?.avatar} submitNewComment={submitNewComment} />
-      <ShowMoreBtn changeIcon={showComments} heightHandler={setShowComments} />
+      <ShowMoreBtn changeIcon={showComments} show={setShowComments} />
     </Container>
   );
 };
