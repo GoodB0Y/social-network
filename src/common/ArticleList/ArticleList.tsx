@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../redux-toolkit/store';
 import { IDataPost } from '../../types/post';
@@ -15,9 +15,14 @@ const EmptyBlockNotes = styled.div`
   margin: 50px auto;
 `;
 
+const mapStateToProps = (state: RootState): StateProps => ({
+  loading: state.posts.loading,
+  error: state.posts.error,
+});
+
 interface StateProps {
-  loading?: boolean;
-  error?: null | Error;
+  loading: boolean;
+  error: null | Error;
 }
 
 interface ParentsProps {
@@ -25,12 +30,11 @@ interface ParentsProps {
   showPostByTag?: (tag: string) => void;
 }
 
-type Props = StateProps & ParentsProps;
+const connector = connect(mapStateToProps);
 
-const mapStateToProps = (state: RootState): StateProps => ({
-  loading: state.posts.loading,
-  error: state.posts.error,
-});
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = StateProps & ParentsProps & PropsFromRedux;
 
 const ArticleList = ({ data, loading, error, showPostByTag }: Props) => {
   if (loading) return <Loader />;
@@ -44,4 +48,4 @@ const ArticleList = ({ data, loading, error, showPostByTag }: Props) => {
   return <ul>{articleList}</ul>;
 };
 
-export default connect(mapStateToProps, null)(ArticleList);
+export default connector(ArticleList);

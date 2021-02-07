@@ -32,15 +32,20 @@ import {
 const { Element } = Scroll;
 const { scroller } = Scroll;
 
-type Props = {
+interface ParentsProps {
   postData: IDataPost;
   getPostsByTag?: (tagName: string) => void;
+}
+
+interface DispatchProps {
   addBookmarkToPost: (postId: number) => void;
   removeBookmarkFromPost: (postId: number) => void;
   addLikeToPost: (postId: number) => void;
   removeLikeFromPost: (postId: number) => void;
   sharePost: (postId: number) => void;
-};
+}
+
+type Props = ParentsProps & DispatchProps;
 
 const mapDispatchToProps = {
   addBookmarkToPost: addBookmark,
