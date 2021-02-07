@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const ActionsWrapper = styled.div`
+  width: 324px;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const Icon = styled.svg.attrs(() => ({
   width: '30px',
   height: '30px',
