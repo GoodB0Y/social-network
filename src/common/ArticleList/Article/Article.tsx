@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import * as Scroll from 'react-scroll';
 import SmoothCollapse from 'react-smooth-collapse';
+import { connect } from 'react-redux';
+
 import { IDataPost } from '../../../types/post';
+import {
+  addBookmark,
+  removeBookmark,
+  addLike,
+  removeLike,
+  addShare,
+} from '../../../redux-toolkit/postsSlice';
 
 import UserInfo from '../UserInfo/UserInfo';
 import ActionButton from '../ActionButton/ActionButton';
@@ -31,6 +40,14 @@ type Props = {
   addLikeToPost: (postId: number) => void;
   removeLikeFromPost: (postId: number) => void;
   sharePost: (postId: number) => void;
+};
+
+const mapDispatchToProps = {
+  addBookmarkToPost: addBookmark,
+  removeBookmarkFromPost: removeBookmark,
+  addLikeToPost: addLike,
+  removeLikeFromPost: removeLike,
+  sharePost: addShare,
 };
 
 const Article = ({
@@ -164,4 +181,4 @@ const Article = ({
   );
 };
 
-export default Article;
+export default connect(null, mapDispatchToProps)(Article);
