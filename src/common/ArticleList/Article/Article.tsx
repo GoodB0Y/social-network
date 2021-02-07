@@ -3,6 +3,7 @@ import * as Scroll from 'react-scroll';
 import SmoothCollapse from 'react-smooth-collapse';
 
 import { IDataPost } from '../../../types/post';
+import ITag from '../../../types/tag';
 
 import UserInfo from '../UserInfo/UserInfo';
 import ActionList from '../ActionList/ActionList';
@@ -34,6 +35,16 @@ const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
     setShowComments((prev) => !prev);
   };
 
+  const tagItemClickHandler = (tag: ITag): void => {
+    if (getPostsByTag) getPostsByTag(tag.text);
+  };
+
+  const tagList = tags?.map((tag: ITag) => (
+    <TagItem key={tag.id} onClick={(): void => tagItemClickHandler(tag)}>
+      {`#${tag.text} `}
+    </TagItem>
+  ));
+
   return (
     <Container>
       <Header>
@@ -55,18 +66,7 @@ const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
         />
       </Content>
 
-      <TagList>
-        {tags?.map((tag) => (
-          <TagItem
-            key={tag.id}
-            onClick={(): void => {
-              if (getPostsByTag) getPostsByTag(tag.text);
-            }}
-          >
-            {`#${tag.text} `}
-          </TagItem>
-        ))}
-      </TagList>
+      <TagList>{tagList}</TagList>
 
       <Element name={id.toString()}>
         <Comments
