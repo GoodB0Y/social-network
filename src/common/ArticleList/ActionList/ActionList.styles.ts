@@ -36,9 +36,8 @@ export const Button = styled.button`
   &:active,
   &:focus {
     transform: scale(1.05);
-    outline: none;
     color: #ffb11b;
-
+    outline: none;
     ${Icon} {
       fill: #ffb11b;
     }
