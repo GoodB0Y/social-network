@@ -4,11 +4,11 @@ import * as Scroll from 'react-scroll';
 
 import { IPost } from '../../../types/post';
 import {
-  addBookmark,
-  removeBookmark,
-  addLike,
-  removeLike,
   addShare,
+  addLike,
+  addBookmark,
+  removeLike,
+  removeBookmark,
 } from '../../../redux-toolkit/postsSlice';
 
 import { ActionsWrapper, Icon, Button } from './ActionList.styles';
@@ -16,27 +16,27 @@ import { ActionsWrapper, Icon, Button } from './ActionList.styles';
 const { scroller } = Scroll;
 
 const mapDispatchToProps = {
-  addBookmarkToPost: addBookmark,
-  removeBookmarkFromPost: removeBookmark,
-  addLikeToPost: addLike,
-  removeLikeFromPost: removeLike,
   sharePost: addShare,
+  addLikeToPost: addLike,
+  addBookmarkToPost: addBookmark,
+  removeLikeFromPost: removeLike,
+  removeBookmarkFromPost: removeBookmark,
 };
 
-interface ParentsProps {
+interface ParentProps {
   post: IPost;
   setShowComments: (value: boolean) => void;
 }
 
 interface DispatchProps {
-  addBookmarkToPost: (postId: number) => void;
-  removeBookmarkFromPost: (postId: number) => void;
-  addLikeToPost: (postId: number) => void;
-  removeLikeFromPost: (postId: number) => void;
   sharePost: (postId: number) => void;
+  addLikeToPost: (postId: number) => void;
+  addBookmarkToPost: (postId: number) => void;
+  removeLikeFromPost: (postId: number) => void;
+  removeBookmarkFromPost: (postId: number) => void;
 }
 
-type ListProps = ParentsProps & DispatchProps;
+type ListProps = ParentProps & DispatchProps;
 
 type ButtonProps = {
   name: string;
@@ -47,6 +47,7 @@ type ButtonProps = {
 
 const ActionButton = ({ name, value, active, handler }: ButtonProps): JSX.Element | null => {
   let path;
+
   switch (name) {
     case 'bookmark':
       path =
@@ -80,46 +81,40 @@ const ActionButton = ({ name, value, active, handler }: ButtonProps): JSX.Elemen
 
 const ActionList = ({
   post,
+  sharePost,
+  addLikeToPost,
   setShowComments,
   addBookmarkToPost,
-  removeBookmarkFromPost,
-  addLikeToPost,
   removeLikeFromPost,
-  sharePost,
+  removeBookmarkFromPost,
 }: ListProps): JSX.Element => {
   const {
     id,
-    commentAmount,
+    isShared,
     isLiked,
     isBookmarked,
-    isShared,
     shareAmount,
     likeAmount,
     bookmarkAmount,
+    commentAmount,
   } = post;
 
-  const toggleLikes = (): void => {
-    if (isLiked) return removeLikeFromPost(id);
-    return addLikeToPost(id);
-  };
+  const isCommentated = commentAmount ? commentAmount > 0 : false;
 
-  const toggleBookmarks = (): void => {
-    if (isBookmarked) return removeBookmarkFromPost(id);
-    return addBookmarkToPost(id);
-  };
-
-  const toggleShared = (): void => {
-    if (isShared) return console.log('НЕОБХОДИМ НОВЫЙ ЭНДПОИНТ НА УДАЛЕНИЕ ИЗ РЕПОСТОВ');
-    return sharePost(id);
-  };
+  const toggleLike = (): void => (isLiked ? removeLikeFromPost(id) : addLikeToPost(id));
+  const toggleBookmark = (): void =>
+    isBookmarked ? removeBookmarkFromPost(id) : addBookmarkToPost(id);
+  const toggleShare = (): void =>
+    isShared ? console.log('НЕОБХОДИМ НОВЫЙ ЭНДПОИНТ НА УДАЛЕНИЕ ИЗ РЕПОСТОВ') : sharePost(id);
 
   const scrollToComments = (): void => {
     scroller.scrollTo(id, {
-      duration: 1000,
       delay: 10,
-      smooth: true,
       offset: -100,
+      smooth: true,
+      duration: 1000,
     });
+
     setShowComments(true);
   };
 
@@ -127,21 +122,18 @@ const ActionList = ({
     <ActionsWrapper>
       <ActionButton
         name="bookmark"
-        value={bookmarkAmount}
         active={isBookmarked}
-        handler={toggleBookmarks}
+        value={bookmarkAmount}
+        handler={toggleBookmark}
       />
-
-      <ActionButton name="like" value={likeAmount} active={isLiked} handler={toggleLikes} />
-
+      <ActionButton name="like" active={isLiked} value={likeAmount} handler={toggleLike} />
       <ActionButton
         name="comments"
+        active={isCommentated}
         value={commentAmount}
-        active={commentAmount ? commentAmount > 0 : null}
         handler={scrollToComments}
       />
-
-      <ActionButton name="share" value={shareAmount} active={isShared} handler={toggleShared} />
+      <ActionButton name="share" active={isShared} value={shareAmount} handler={toggleShare} />
     </ActionsWrapper>
   );
 };

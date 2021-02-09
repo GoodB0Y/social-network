@@ -21,27 +21,22 @@ type Props = {
 };
 
 const Article = ({ postData, getPostsByTag }: Props): JSX.Element => {
-  const { post, comments, loading, error } = postData;
-  const { id, firstName, lastName, avatar, persistDate, title, text, media, tags } = post;
   const [showContent, setShowContent] = useState<boolean>(false);
   const [showComments, setShowComments] = useState<boolean>(false);
+
+  const { post, comments, loading, error } = postData;
+  const { id, firstName, lastName, avatar, persistDate, title, text, media, tags } = post;
+
   const SmoothCollapseSettings = {
     expanded: showContent,
     heightTransition: '.70s ease',
     collapsedHeight: '100px',
   };
 
-  const showBlockComment = (): void => {
-    setShowComments((prev) => !prev);
-  };
+  const showBlockComment = (): void => setShowComments((prev) => !prev);
+  const showBlockContent = (): void => setShowContent((prev) => !prev);
 
-  const showBlockContent = (): void => {
-    setShowContent((prev) => !prev);
-  };
-
-  const tagItemClickHandler = (tag: ITag): void => {
-    if (getPostsByTag) getPostsByTag(tag.text);
-  };
+  const tagItemClickHandler = (tag: ITag): void => getPostsByTag?.(tag.text);
 
   const tagList = tags?.map((tag: ITag) => (
     <TagItem key={tag.id} onClick={(): void => tagItemClickHandler(tag)}>

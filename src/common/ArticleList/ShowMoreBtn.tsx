@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import iconDown from '../../assets/img/icons/more.svg';
 import iconUp from '../../assets/img/icons/moreUp.svg';
 
-type ButtonProps = {
+interface ButtonProps {
   changeIcon: boolean;
-};
+}
 
 const Button = styled.button<ButtonProps>`
   position: absolute;
@@ -13,16 +14,15 @@ const Button = styled.button<ButtonProps>`
   right: 0;
   width: 35px;
   height: 35px;
-  border-radius: 50%;
-  background: url(${({ changeIcon }) => (changeIcon ? iconUp : iconDown)}) center no-repeat;
-  border: none;
-  cursor: pointer;
   padding: 0;
+  border: none;
+  border-radius: 50%;
   outline: none;
+  cursor: pointer;
+  background: url(${({ changeIcon }) => (changeIcon ? iconUp : iconDown)}) center no-repeat;
 `;
 
-type Props = {
-  changeIcon: boolean;
+type Props = ButtonProps & {
   show: () => void;
 };
 

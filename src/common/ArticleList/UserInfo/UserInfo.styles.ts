@@ -5,6 +5,7 @@ export const AvatarMin = styled.img`
   height: 70px;
   border-radius: 35px;
   object-fit: cover;
+
   &:hover {
     cursor: pointer;
   }
@@ -16,17 +17,17 @@ export const Container = styled.div`
 `;
 
 export const UserWrapper = styled.div`
-  height: 70px;
-  margin-left: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  height: 70px;
+  line-height: 20px;
+  margin-left: 24px;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 20px;
 `;
 
 export const User = styled.span`

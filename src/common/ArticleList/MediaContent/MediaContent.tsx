@@ -4,11 +4,11 @@ import Slider from '../../slider';
 import IMedia from '../../../types/media';
 
 import {
-  Container,
-  SliderItem,
   Image,
   Video,
   Arrow,
+  Container,
+  SliderItem,
   PlayButton,
   CloseButton,
 } from './MediaContent.styles';
@@ -41,6 +41,7 @@ const MediaContent = ({ media }: Props): JSX.Element => {
 
   const renderImages = (): JSX.Element | null => {
     if (imageData?.length === 0) return null;
+
     return (
       <Slider {...settings}>
         {imageData ? (
@@ -58,6 +59,7 @@ const MediaContent = ({ media }: Props): JSX.Element => {
 
   const renderVideos = (): JSX.Element | null => {
     if (videoData?.length === 0) return null;
+
     if (showVideo) {
       return (
         <SliderItem onClick={() => setShowVideo(null)}>
@@ -71,6 +73,7 @@ const MediaContent = ({ media }: Props): JSX.Element => {
         </SliderItem>
       );
     }
+
     return (
       <Slider {...settings}>
         {videoData ? (

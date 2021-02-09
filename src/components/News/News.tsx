@@ -219,7 +219,7 @@ const News = ({ data, allTags, getAllPosts, getPostsByTag, getAllTags }: Props) 
     getPostsByTag(tag);
   };
 
-  const renderContent = (): JSX.Element | JSX.Element[] => {
+  const renderContent = (): JSX.Element => {
     if (actualFilter === 'tags') return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
 
     const posts = data ? filterNews([...data], actualFilter, searchRequest) : null;

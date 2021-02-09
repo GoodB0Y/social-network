@@ -23,7 +23,7 @@ const BlockNotes = ({ posts }: Props) => {
       <ComponentSearch onClick={() => setIsOpenSearch(!isOpenSearch)} />
     );
 
-  const renderNotes = () => <ArticleList data={posts} />;
+  const renderNotes = (): JSX.Element => <ArticleList data={posts} />;
 
   return (
     <Wrapper>

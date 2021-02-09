@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SmoothCollapse from 'react-smooth-collapse';
 import { useFormik } from 'formik';
+
 import { RootState } from '../../../redux-toolkit/store';
 import { loadCommentsByPost /*  addNewComment */ } from '../../../redux-toolkit/postsSlice';
 
@@ -14,16 +15,25 @@ import UserInfo from '../UserInfo/UserInfo';
 import ShowMoreBtn from '../ShowMoreBtn';
 
 import {
+  Input,
+  Title,
+  Comment,
+  Container,
   AvatarMin,
   FormWrapper,
-  Input,
-  SubmitComment,
-  Container,
-  Title,
   CommentList,
   CommentItem,
-  Comment,
+  SubmitComment,
 } from './Comments.styles';
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  user: state.currentUser.data,
+});
+
+const mapDispatchToProps = {
+  getComments: loadCommentsByPost,
+  /* addComment: addNewComment, */
+};
 
 interface StateProps {
   user: null | IUser;
@@ -42,21 +52,12 @@ type CommentFormProps = {
 type CommentsProps = StateProps &
   DispatchProps & {
     id: number;
-    comments?: IComment[];
     loading: boolean;
     error: Error | null;
+    comments?: IComment[];
     showComments: boolean;
     setShowComments: () => void;
   };
-
-const mapStateToProps = (state: RootState): StateProps => ({
-  user: state.currentUser.data,
-});
-
-const mapDispatchToProps = {
-  getComments: loadCommentsByPost,
-  /* addComment: addNewComment, */
-};
 
 const CommentForm = ({ avatar, submitNewComment }: CommentFormProps): JSX.Element => {
   const formik = useFormik({
@@ -66,6 +67,7 @@ const CommentForm = ({ avatar, submitNewComment }: CommentFormProps): JSX.Elemen
       actions.resetForm();
     },
   });
+
   return (
     <FormWrapper onSubmit={formik.handleSubmit}>
       <AvatarMin src={avatar} />
@@ -78,9 +80,9 @@ const CommentForm = ({ avatar, submitNewComment }: CommentFormProps): JSX.Elemen
 const Comments = ({
   id,
   user,
-  comments,
-  loading,
   error,
+  loading,
+  comments,
   getComments,
   showComments,
   setShowComments,
@@ -93,6 +95,7 @@ CommentsProps): JSX.Element => {
   const renderComments = (): JSX.Element | JSX.Element[] => {
     if (loading || !comments) return <Loader />;
     if (error) return <ErrorBlock errorMessage="Error occured with loading comments." />;
+
     return comments?.map((item) => {
       const {
         userDto: { firstName, lastName, avatar },
@@ -100,6 +103,7 @@ CommentsProps): JSX.Element => {
         comment,
         id: commentId,
       } = item;
+
       return (
         <CommentItem key={commentId}>
           <UserInfo

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const ActionsWrapper = styled.div`
-  width: 324px;
-  margin-left: auto;
   display: flex;
   justify-content: space-between;
+  width: 324px;
+  margin-left: auto;
 `;
 
 export const Icon = styled.svg.attrs(() => ({
@@ -18,29 +18,28 @@ export const Icon = styled.svg.attrs(() => ({
 `;
 
 export const Button = styled.button`
+  display: flex;
   min-width: 30px;
   height: 30px;
+  line-height: 160.9%;
   padding: 0;
-  display: flex;
-  background: none;
   border: none;
-  cursor: pointer;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
-  line-height: 160.9%;
-  color: #515151;
+  cursor: pointer;
   transition: 0.1s;
+  background: none;
+  color: #515151;
+
   &:hover,
   &:active,
   &:focus {
     transform: scale(1.05);
     color: #ffb11b;
+    outline: none;
     ${Icon} {
       fill: #ffb11b;
     }
-  }
-  &:focus {
-    outline: none;
   }
 `;
