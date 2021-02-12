@@ -54,7 +54,7 @@ const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => (
       {renderPhotoBlock(photos)}
     </WallInfoBlock>
     {renderCreateArticle(user, isCurrentUser)}
-    <BlockNotes />
+    <BlockNotes userId={user?.userId} />
   </WallContainer>
 );
 
