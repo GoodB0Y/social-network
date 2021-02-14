@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Page from '../../common/Page';
 import SingleGroup from './SingleGroup';
+import Chip from '../../common/Chip';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { RootState } from '../../redux-toolkit/store';
 import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groups/groupsSlice';
@@ -57,7 +58,7 @@ const Groups = ({ loadGroups: _loadGroups, groups, loadAllUsers: _loadAllUsers }
     <Page>
       <GroupsContainer>
         <PageSearchInput placeholder="Начните поиск группы..." action={handleInput} />
-        <GroupsTitle>Группы</GroupsTitle>
+        <Chip>Группы</Chip>
         {groupName.length > 0 ? renderGroups(filterGroups(groups)) : renderGroups(groups)}
       </GroupsContainer>
     </Page>

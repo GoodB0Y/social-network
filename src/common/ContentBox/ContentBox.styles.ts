@@ -4,7 +4,7 @@ export const Box = styled.div`
   position: relative;
   background-color: #ffffff;
   border-radius: 15px;
-  margin-top: 150px;
+  margin-top: 250px;
   padding: 85px;
   color: #000000;
   max-width: 1291px;

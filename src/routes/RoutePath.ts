@@ -13,6 +13,7 @@ enum RoutePath {
   Bookmarks = '/bookmarks',
   Video = '/video',
   Audio = '/audio',
+  Settings = '/user/settings',
 }
 
 export default RoutePath;
