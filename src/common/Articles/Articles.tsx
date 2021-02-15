@@ -8,7 +8,7 @@ import {
   Menu,
   ButtonSearch,
   SearchField,
-} from './ArticlesMenu.styles';
+} from './Articles.styles';
 import { menuItemsTitles, menuItemsNames } from './menuItemsData';
 
 import { RootState } from '../../redux-toolkit/store';
@@ -64,7 +64,7 @@ const mapDispatchToProps = {
   changeLoading: setLoading,
 };
 
-const ArticlesMenu = ({
+const Articles = ({
   data,
   userId,
   allTags,
@@ -168,4 +168,4 @@ const ArticlesMenu = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticlesMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(Articles);

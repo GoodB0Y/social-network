@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { menuItemsNames } from '../../../common/ArticlesMenu/menuItemsData';
+import { menuItemsNames } from '../../../common/Articles/menuItemsData';
 
-import ArticlesMenu from '../../../common/ArticlesMenu/ArticlesMenu';
+import Articles from '../../../common/Articles/Articles';
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
 import UserAbout from '../UserAbout';
@@ -60,7 +60,7 @@ const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => {
         {renderPhotoBlock(photos)}
       </WallInfoBlock>
       {renderCreateArticle(user, isCurrentUser)}
-      <ArticlesMenu itemsNames={[all, myNotes, recommend]} userId={user?.userId} />
+      <Articles itemsNames={[all, myNotes, recommend]} userId={user?.userId} />
     </WallContainer>
   );
 };

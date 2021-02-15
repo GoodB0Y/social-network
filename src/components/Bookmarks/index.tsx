@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../redux-toolkit/store';
-import { menuItemsNames } from '../../common/ArticlesMenu/menuItemsData';
+import { menuItemsNames } from '../../common/Articles/menuItemsData';
 
-import ArticlesMenu from '../../common/ArticlesMenu/ArticlesMenu';
+import Articles from '../../common/Articles/Articles';
 import Page from '../../common/Page';
 import Chip from '../../common/Chip';
 
@@ -33,7 +33,7 @@ const Bookmarks = ({ user }: PropsFromRedux): JSX.Element => {
     <Page>
       <BookmarksWrapper>
         <Chip>Закладки</Chip>
-        <ArticlesMenu itemsNames={[all, myNotes, recommend]} userId={user?.data?.userId} />
+        <Articles itemsNames={[all, myNotes, recommend]} userId={user?.data?.userId} />
       </BookmarksWrapper>
     </Page>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { menuItemsNames } from '../../common/ArticlesMenu/menuItemsData';
-import ArticlesMenu from '../../common/ArticlesMenu/ArticlesMenu';
+import { menuItemsNames } from '../../common/Articles/menuItemsData';
+import Articles from '../../common/Articles/Articles';
 import Chip from '../../common/Chip';
 
 const Wrapper = styled.div`
@@ -33,7 +33,7 @@ const News = (): JSX.Element => {
     <Wrapper>
       <Container>
         <Chip>Новости</Chip>
-        <ArticlesMenu itemsNames={[all, date, popular, tags]} />
+        <Articles itemsNames={[all, date, popular, tags]} />
       </Container>
     </Wrapper>
   );
