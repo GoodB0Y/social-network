@@ -16,17 +16,13 @@ import { IDataPost } from '../../../types/post';
 import ITag from '../../../types/tag';
 import filterNews from './helpers';
 
+import Chip from '../../../common/Chip';
 import ErrorBlock from '../../../common/errorBlock';
 import Loader from '../../../common/Loader';
 import TagCloud from './TagCloud';
 import NewsItem from './NewsItem';
 
 import img from '../../../assets/img/icons/search.svg';
-
-const Wrapper = styled.div`
-  background: #111111;
-  padding: 100px 100px 100px 0;
-`;
 
 const Container = styled.div`
   position: relative;
@@ -40,26 +36,8 @@ const Container = styled.div`
   text-align: center;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 50px;
+  margin-top: 275px;
   border-radius: 15px 15px 0px 0px;
-`;
-
-const Label = styled.div`
-  position: absolute;
-  top: -100px;
-  width: 299px;
-  height: 155px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffb11b;
-  border-radius: 15px;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  color: #000000;
 `;
 
 const MenuWrapper = styled.nav`
@@ -268,30 +246,28 @@ const News = ({
   }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
 
   return (
-    <Wrapper>
-      <Container>
-        <Label>Новости</Label>
-        <MenuWrapper>
-          <Menu>
-            <MenuItem name="all" onClick={setNewsFilter}>
-              Все
-            </MenuItem>
-            <MenuItem name="new" onClick={setNewsFilter}>
-              По дате
-            </MenuItem>
-            <MenuItem name="popular" onClick={setNewsFilter}>
-              По популярности
-            </MenuItem>
-            <MenuItem name="tags" onClick={setNewsFilter}>
-              По тегам
-            </MenuItem>
-          </Menu>
-          {renderSearchField()}
-        </MenuWrapper>
+    <Container>
+      <Chip>Новости</Chip>
+      <MenuWrapper>
+        <Menu>
+          <MenuItem name="all" onClick={setNewsFilter}>
+            Все
+          </MenuItem>
+          <MenuItem name="new" onClick={setNewsFilter}>
+            По дате
+          </MenuItem>
+          <MenuItem name="popular" onClick={setNewsFilter}>
+            По популярности
+          </MenuItem>
+          <MenuItem name="tags" onClick={setNewsFilter}>
+            По тегам
+          </MenuItem>
+        </Menu>
+        {renderSearchField()}
+      </MenuWrapper>
 
-        {renderContent()}
-      </Container>
-    </Wrapper>
+      {renderContent()}
+    </Container>
   );
 };
 
