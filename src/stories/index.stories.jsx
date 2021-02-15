@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Entry from '../components/Entry';
-import BlockNotes from '../components/Main/Articles';
 import UserInfoHeader from '../components/Main/UserInfoHeader';
 import Wall from '../components/Main/Wall';
 import WallCreateArticle from '../components/Main/WallCreateArticle';
@@ -16,7 +15,6 @@ import {
 storiesOf('Social network', module)
   .add('Страница авторизации', () => <Entry />)
   .add('Страница сообщений', () => <MessagesPage />)
-  .add('Блок записей', () => <BlockNotes />)
   .add('Аватар', () => <UserInfoHeader />)
   .add('Стена', () => <Wall />)
   .add('Создание записи на стене', () => <WallCreateArticle />)
