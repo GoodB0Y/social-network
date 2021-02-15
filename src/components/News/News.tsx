@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { menuItemsNames } from '../../common/ArticlesMenu/menuItemsData';
 import ArticlesMenu from '../../common/ArticlesMenu/ArticlesMenu';
+import Chip from '../../common/Chip';
 
 const Wrapper = styled.div`
   background: #111111;
@@ -25,31 +26,13 @@ const Container = styled.div`
   border-radius: 15px 15px 0px 0px;
 `;
 
-const Label = styled.div`
-  position: absolute;
-  top: -100px;
-  width: 299px;
-  height: 155px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffb11b;
-  border-radius: 15px;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  color: #000000;
-`;
-
 const News = (): JSX.Element => {
   const { all, date, popular, tags } = menuItemsNames;
 
   return (
     <Wrapper>
       <Container>
-        <Label>Новости</Label>
+        <Chip>Новости</Chip>
         <ArticlesMenu itemsNames={[all, date, popular, tags]} />
       </Container>
     </Wrapper>
