@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import img from '../../assets/img/icons/search.svg';
 
+export const ArticlesWrapper = styled.nav`
+  margin-bottom: 137px;
+  border-bottom: 1px solid #515151;
+`;
+
 export const MenuWrapper = styled.nav`
   min-height: 150px;
   padding: 108px 0 61px 0;

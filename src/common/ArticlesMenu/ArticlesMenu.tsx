@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { MenuWrapper, MenuItem, Menu, ButtonSearch, SearchField } from './ArticlesMenu.styles';
+import {
+  ArticlesWrapper,
+  MenuWrapper,
+  MenuItem,
+  Menu,
+  ButtonSearch,
+  SearchField,
+} from './ArticlesMenu.styles';
 import { menuItemsTitles, menuItemsNames } from './menuItemsData';
 
 import { RootState } from '../../redux-toolkit/store';
@@ -151,13 +158,13 @@ const ArticlesMenu = ({
   }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */
 
   return (
-    <>
+    <ArticlesWrapper>
       <MenuWrapper>
         <Menu>{menuItems}</Menu>
         {renderSearch()}
       </MenuWrapper>
       {renderContent()}
-    </>
+    </ArticlesWrapper>
   );
 };
 

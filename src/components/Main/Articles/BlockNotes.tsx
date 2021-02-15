@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper } from './styles';
+// import { Wrapper } from './styles';
 import { menuItemsNames } from '../../../common/ArticlesMenu/menuItemsData';
 import ArticlesMenu from '../../../common/ArticlesMenu/ArticlesMenu';
 
@@ -10,11 +10,7 @@ type Props = {
 const BlockNotes = ({ userId }: Props): JSX.Element => {
   const { all, myNotes, recommend } = menuItemsNames;
 
-  return (
-    <Wrapper>
-      <ArticlesMenu itemsNames={[all, myNotes, recommend]} userId={userId} />
-    </Wrapper>
-  );
+  return <ArticlesMenu itemsNames={[all, myNotes, recommend]} userId={userId} />;
 };
 
 export default BlockNotes;
