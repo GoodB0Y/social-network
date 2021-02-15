@@ -1,7 +1,10 @@
 import React from 'react';
+
+import { menuItemsNames } from '../../../common/ArticlesMenu/menuItemsData';
+
+import ArticlesMenu from '../../../common/ArticlesMenu/ArticlesMenu';
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
-import BlockNotes from '../Articles';
 import UserAbout from '../UserAbout';
 import { IUser } from '../../../types/user';
 import { ImageDto } from '../../../types/image';
@@ -39,23 +42,27 @@ const renderCreateArticle = (user: IUser, isCurrentUser: boolean) => {
 
 type Props = { user: IUser; photos: Array<ImageDto> | null; isCurrentUser: boolean }; // PropsFromRedux;
 
-const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => (
-  <WallContainer>
-    <FormStatus statusText={user?.status} isCurrentUser={isCurrentUser} />
-    <WallInfoBlock>
-      <UserAbout
-        dateOfBirth={user?.dateOfBirth}
-        education={user?.education}
-        profession={user?.profession}
-        linkSite={user?.linkSite}
-        city={user?.city}
-        aboutMe={user?.aboutMe}
-      />
-      {renderPhotoBlock(photos)}
-    </WallInfoBlock>
-    {renderCreateArticle(user, isCurrentUser)}
-    <BlockNotes userId={user?.userId} />
-  </WallContainer>
-);
+const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => {
+  const { all, myNotes, recommend } = menuItemsNames;
+
+  return (
+    <WallContainer>
+      <FormStatus statusText={user?.status} isCurrentUser={isCurrentUser} />
+      <WallInfoBlock>
+        <UserAbout
+          dateOfBirth={user?.dateOfBirth}
+          education={user?.education}
+          profession={user?.profession}
+          linkSite={user?.linkSite}
+          city={user?.city}
+          aboutMe={user?.aboutMe}
+        />
+        {renderPhotoBlock(photos)}
+      </WallInfoBlock>
+      {renderCreateArticle(user, isCurrentUser)}
+      <ArticlesMenu itemsNames={[all, myNotes, recommend]} userId={user?.userId} />
+    </WallContainer>
+  );
+};
 
 export default Wall;
