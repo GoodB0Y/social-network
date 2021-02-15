@@ -7,6 +7,7 @@ import Alert from 'antd/lib/alert';
 // eslint-disable-next-line import/no-cycle
 import { VideoItem, OpenedVideo } from './index';
 import { RootState } from '../../redux-toolkit/store';
+import Chip from '../../common/Chip';
 import Slider from '../../common/slider';
 import StyledButton from '../../common/Button';
 import arrowNotFilled from '../../assets/img/icons/arr_left.svg';
@@ -31,20 +32,6 @@ const ComponentWrapper = styled.div`
   padding: 114px 114px 114px 91px;
   margin: 275px auto 0 auto;
   position: relative;
-`;
-
-const PageMarker = styled.h2`
-  margin: 0;
-  left: 90px;
-  top: -91px;
-  padding: 58px 77px;
-  position: absolute;
-  border-radius: 15px;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  background: #ffb11b;
-  color: black;
 `;
 
 const MyVideos = styled.div`
@@ -313,7 +300,7 @@ const VideoPage: React.FC = () => {
       <Page>
         <ComponentWrapper>
           {' '}
-          <PageMarker>Видеозаписи</PageMarker>
+          <Chip>Видеозаписи</Chip>
           {openAlbum ? (
             <MyVideos>
               <SectionHeader headline="Видео в альбоме">

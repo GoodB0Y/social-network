@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { Ichat } from '../../types/chat';
+
 import { RootState } from '../../redux-toolkit/store';
-import moreOptionSrc from '../../assets/img/icons/chat-more-options.svg';
-import messagesClass from './Messages.module.scss';
+import * as actions from '../../redux-toolkit/chatSlice';
+
+import MessagesChat from '../../common/Chat/Message';
+import Chip from '../../common/Chip';
 import SubmitMessage from '../../common/Chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
 import Page from '../../common/Page';
-import * as actions from '../../redux-toolkit/chatSlice';
+
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
-import MessagesChat from '../../common/Chat/Message';
+import { Ichat } from '../../types/chat';
+
+import moreOptionSrc from '../../assets/img/icons/chat-more-options.svg';
+import messagesClass from './Messages.module.scss';
 
 // import {
 //   getChats,
@@ -117,6 +122,7 @@ const Messages = ({ chats, currentChat, loadChatsOfUser, loadCurrentChat, user }
     <Page messages>
       <div className={messagesClass.wrapper}>
         <div className={messagesClass.selectChat}>
+          <Chip>Сообщения</Chip>
           <div className={messagesClass.pageSearchInputWrapper}>
             <PageSearchInput
               placeholder="Поиск..."
