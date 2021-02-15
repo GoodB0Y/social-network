@@ -73,13 +73,12 @@ const Articles = ({
   changeLoading,
 }: Props): JSX.Element => {
   const searchField = useRef<HTMLInputElement>(null);
-  const { allFilter, tagsFilter, recommendFilter, requestFilter } = filters;
+
+  const { allFilter, tagsFilter, recommendFilter, requestFilter, postByTagFilter } = filters;
 
   const [showSearchField, setShowSearchField] = useState<boolean>(false);
   const [actualFilter, setActualFilter] = useState<string>(allFilter);
   const [searchRequest, setSearchRequest] = useState<string>(' ');
-
-  const postByTag = 'postByTag';
 
   useEffect(() => {
     if (filterList.includes(tagsFilter)) {
@@ -89,7 +88,7 @@ const Articles = ({
     if (userId) {
       if (actualFilter === recommendFilter) getAllPosts();
       else getPostsByUser(userId);
-    } else if (actualFilter !== postByTag) getAllPosts();
+    } else if (actualFilter !== postByTagFilter) getAllPosts();
   }, [
     actualFilter,
     filterList,
@@ -98,6 +97,7 @@ const Articles = ({
     getAllTags,
     getPostsByUser,
     tagsFilter,
+    postByTagFilter,
     recommendFilter,
   ]);
 
@@ -106,7 +106,7 @@ const Articles = ({
   }, [showSearchField]);
 
   const showPostByTag = (tag: string): void => {
-    setActualFilter(postByTag);
+    setActualFilter(postByTagFilter);
     getPostsByTag(tag);
   };
 
@@ -122,13 +122,9 @@ const Articles = ({
     }
   };
 
-  const buttonSearchClickHandler = (): void => {
-    setShowSearchField((prev) => !prev);
-  };
+  const buttonSearchClickHandler = (): void => setShowSearchField((prev) => !prev);
 
-  const searchFieldBlurHandler = (): void => {
-    setShowSearchField(false);
-  };
+  const searchFieldBlurHandler = (): void => setShowSearchField(false);
 
   const menuItemClickHandler = (event: React.MouseEvent<HTMLButtonElement>): void => {
     changeLoading(true);

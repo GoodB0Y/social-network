@@ -6,6 +6,7 @@ export const filters = {
   myNotesFilter: 'myNotes',
   recommendFilter: 'recommend',
   requestFilter: 'request',
+  postByTagFilter: 'postByTag',
 };
 
 const {
