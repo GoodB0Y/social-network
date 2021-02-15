@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+
+import Settings from './components/Settings/Settings';
 import Entry from './components/Entry';
 import Messages from './components/Messages/Messages';
 import Main from './components/Main';
@@ -14,9 +16,10 @@ import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo';
 import Group from './components/Group';
 import Groups from './components/Groups';
+import Page404 from './components/Page404/Page404';
+
 import { loadCurrentUser as loadCurrentUserThunk } from './redux-toolkit/currentUserSlice';
 import { RootState } from './redux-toolkit/store';
-import Page404 from './components/Page404/Page404';
 
 const mapDispatch = {
   loadCurrentUser: loadCurrentUserThunk,
@@ -32,6 +35,7 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
   useEffect(() => {
     loadCurrentUser();
   }, [loadCurrentUser]);
+
   const checkUserIsLoggedIn = useCallback(() => {
     if (currentUser?.error) {
       alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
@@ -42,6 +46,7 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
     }
     return null;
   }, [currentUser, loadCurrentUser]);
+
   return (
     <Switch>
       <Route
@@ -106,6 +111,7 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
         }}
         exact
       />
+      <Route path={RoutePath.Settings} component={Settings} exact />
       <Route component={Page404} />
     </Switch>
   );

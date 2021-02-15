@@ -5,6 +5,7 @@ import { loadUser } from '../../redux-toolkit/userSlice';
 import createAlbumPhoto from './funcs/createAlbum';
 import sliderItems from './funcs/sliderItems';
 
+import Chip from '../../common/Chip';
 import Page from '../../common/Page';
 import SectionHeader from '../../common/sectionHeader';
 import Button from '../../common/Button';
@@ -76,10 +77,10 @@ const Photo = ({
   return (
     <Page>
       <ContentBox>
-        <Headline>
+        <Chip>
           {isCurrentUser && 'Ваши'} Фотографии
           {userFirstName || ''} {userLastName || ''}
-        </Headline>
+        </Chip>
         <SectionHeader headline="Альбомы">
           {isCurrentUser ? (
             <Button size="large" label="Создать" onClick={() => setCreateAlbumModalOpen(true)} />

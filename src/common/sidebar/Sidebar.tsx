@@ -62,7 +62,7 @@ const Sidebar: React.FC<ReduxProps> = () => (
       <ItemLink to={RoutePath.Photo}>Фотографии</ItemLink>
       <ItemLink to={RoutePath.Video}>Видеозаписи</ItemLink>
       <ItemLink to={RoutePath.Audio}>Аудиозаписи</ItemLink>
-      <ItemLink to="#">Настройки</ItemLink>
+      <ItemLink to={RoutePath.Settings}>Настройки</ItemLink>
     </List>
     <Player />
   </Wrapper>
