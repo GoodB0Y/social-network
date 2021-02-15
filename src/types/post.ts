@@ -10,7 +10,7 @@ export interface IPost {
   id: number;
   lastName: string;
   lastRedactionDate: string;
-  likeAmount: number | null;
+  likeAmount: number | 0;
   media?: IMedia[];
   persistDate: string;
   shareAmount: number | null;

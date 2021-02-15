@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { menuItemsNames } from '../../common/Articles/menuItemsData';
+import { filters } from '../../common/Articles/menuItemsData';
 import Articles from '../../common/Articles/Articles';
 import Chip from '../../common/Chip';
 
@@ -27,13 +27,14 @@ const Container = styled.div`
 `;
 
 const News = (): JSX.Element => {
-  const { all, date, popular, tags } = menuItemsNames;
+  const { allFilter, dateFilter, popularFilter, tagsFilter } = filters;
+  const currentFilterList = [allFilter, dateFilter, popularFilter, tagsFilter];
 
   return (
     <Wrapper>
       <Container>
         <Chip>Новости</Chip>
-        <Articles itemsNames={[all, date, popular, tags]} />
+        <Articles filterList={currentFilterList} />
       </Container>
     </Wrapper>
   );

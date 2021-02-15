@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { menuItemsNames } from '../../../common/Articles/menuItemsData';
+import { filters } from '../../../common/Articles/menuItemsData';
 
 import Articles from '../../../common/Articles/Articles';
 import WallCreateArticle from '../WallCreateArticle';
@@ -43,7 +43,8 @@ const renderCreateArticle = (user: IUser, isCurrentUser: boolean) => {
 type Props = { user: IUser; photos: Array<ImageDto> | null; isCurrentUser: boolean }; // PropsFromRedux;
 
 const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => {
-  const { all, myNotes, recommend } = menuItemsNames;
+  const { allFilter, myNotesFilter, recommendFilter } = filters;
+  const currentFilterList = [allFilter, myNotesFilter, recommendFilter];
 
   return (
     <WallContainer>
@@ -60,7 +61,7 @@ const Wall = ({ user, photos, isCurrentUser }: Props): JSX.Element => {
         {renderPhotoBlock(photos)}
       </WallInfoBlock>
       {renderCreateArticle(user, isCurrentUser)}
-      <Articles itemsNames={[all, myNotes, recommend]} userId={user?.userId} />
+      <Articles filterList={currentFilterList} userId={user?.userId} />
     </WallContainer>
   );
 };

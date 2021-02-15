@@ -1,47 +1,27 @@
-export const menuItemsNames = {
-  all: 'all',
-  date: 'date',
-  popular: 'popular',
-  tags: 'tags',
-  myNotes: 'myNotes',
-  recommend: 'recommend',
-  request: 'request',
+export const filters = {
+  allFilter: 'all',
+  dateFilter: 'date',
+  popularFilter: 'popular',
+  tagsFilter: 'tags',
+  myNotesFilter: 'myNotes',
+  recommendFilter: 'recommend',
+  requestFilter: 'request',
 };
 
-const { all, date, popular, tags, myNotes, recommend } = menuItemsNames;
+const {
+  allFilter,
+  dateFilter,
+  popularFilter,
+  tagsFilter,
+  myNotesFilter,
+  recommendFilter,
+} = filters;
 
 export const menuItemsTitles = {
-  [all]: 'Все',
-  [date]: 'По дате',
-  [popular]: 'По популярности',
-  [tags]: 'По тегам',
-  [myNotes]: 'Мои заметки',
-  [recommend]: 'Рекомендации',
-};
-
-export const menuItemsData = {
-  all: {
-    name: 'all',
-    title: 'Все',
-  },
-  date: {
-    name: 'date',
-    title: 'По дате',
-  },
-  popular: {
-    name: 'popular',
-    title: 'По популярности',
-  },
-  tags: {
-    name: 'tags',
-    title: 'По тегам',
-  },
-  myNotes: {
-    name: 'myNotes',
-    title: 'Мои заметки',
-  },
-  recommend: {
-    name: 'recommend',
-    title: 'Рекомендации',
-  },
+  [allFilter]: 'Все',
+  [dateFilter]: 'По дате',
+  [popularFilter]: 'По популярности',
+  [tagsFilter]: 'По тегам',
+  [myNotesFilter]: 'Мои заметки',
+  [recommendFilter]: 'Рекомендации',
 };

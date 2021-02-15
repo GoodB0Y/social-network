@@ -2,34 +2,31 @@ import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  ArticlesWrapper,
-  MenuWrapper,
-  MenuItem,
-  Menu,
-  ButtonSearch,
-  SearchField,
-} from './Articles.styles';
-import { menuItemsTitles, menuItemsNames } from './menuItemsData';
-
-import { RootState } from '../../redux-toolkit/store';
-import {
-  loadAllPosts,
-  loadPostsByUser,
-  loadPostsByTag,
-  loadAllTags,
   setLoading,
+  loadAllTags,
+  loadAllPosts,
+  loadPostsByTag,
+  loadPostsByUser,
 } from '../../redux-toolkit/postsSlice';
-import { IDataPost } from '../../types/post';
+import { RootState } from '../../redux-toolkit/store';
+
 import ITag from '../../types/tag';
+import { IDataPost } from '../../types/post';
 
-import ArticleList from '../ArticleList/ArticleList';
-import TagCloud from './TagCloud';
 import filterNews from './helpers';
+import { menuItemsTitles, filters } from './menuItemsData';
 
-/* interface IdataItem {
-    name: string,
-    title: string,
-} */
+import TagCloud from './TagCloud';
+import ArticleList from '../ArticleList/ArticleList';
+
+import {
+  Menu,
+  MenuItem,
+  MenuWrapper,
+  SearchField,
+  ButtonSearch,
+  ArticlesWrapper,
+} from './Articles.styles';
 
 interface StateProps {
   data: null | IDataPost[];
@@ -37,16 +34,16 @@ interface StateProps {
 }
 
 interface ParentProps {
-  itemsNames: string[];
   userId?: number;
+  filterList: string[];
 }
 
 interface DispatchProps {
-  getAllPosts: () => void;
-  getPostsByTag: (tagName: string) => void;
   getAllTags: () => void;
+  getAllPosts: () => void;
+  getPostsByTag: (tag: string) => void;
   getPostsByUser: (id: number) => void;
-  changeLoading: (load: boolean) => void;
+  changeLoading: (loading: boolean) => void;
 }
 
 type Props = StateProps & DispatchProps & ParentProps;
@@ -57,10 +54,10 @@ const mapStateToProps = (state: RootState): StateProps => ({
 });
 
 const mapDispatchToProps = {
-  getAllPosts: loadAllPosts,
-  getPostsByUser: loadPostsByUser,
-  getPostsByTag: loadPostsByTag,
   getAllTags: loadAllTags,
+  getAllPosts: loadAllPosts,
+  getPostsByTag: loadPostsByTag,
+  getPostsByUser: loadPostsByUser,
   changeLoading: setLoading,
 };
 
@@ -68,29 +65,41 @@ const Articles = ({
   data,
   userId,
   allTags,
-  itemsNames,
+  filterList,
+  getAllTags,
   getAllPosts,
   getPostsByTag,
-  changeLoading,
-  getAllTags,
   getPostsByUser,
+  changeLoading,
 }: Props): JSX.Element => {
   const searchField = useRef<HTMLInputElement>(null);
+  const { allFilter, tagsFilter, recommendFilter, requestFilter } = filters;
+
   const [showSearchField, setShowSearchField] = useState<boolean>(false);
-  const [actualFilter, setActualFilter] = useState<string>(menuItemsNames.all);
-  const [searchRequest, setSearchRequest] = useState<string | null>(null);
+  const [actualFilter, setActualFilter] = useState<string>(allFilter);
+  const [searchRequest, setSearchRequest] = useState<string>(' ');
 
   const postByTag = 'postByTag';
+
   useEffect(() => {
-    if (itemsNames.includes(menuItemsNames.tags)) {
-      if (actualFilter === menuItemsNames.tags) getAllTags();
+    if (filterList.includes(tagsFilter)) {
+      if (actualFilter === tagsFilter) getAllTags();
     }
 
     if (userId) {
-      if (actualFilter === menuItemsNames.recommend) getAllPosts();
+      if (actualFilter === recommendFilter) getAllPosts();
       else getPostsByUser(userId);
     } else if (actualFilter !== postByTag) getAllPosts();
-  }, [actualFilter, itemsNames, userId, getAllPosts, getAllTags, getPostsByUser]);
+  }, [
+    actualFilter,
+    filterList,
+    userId,
+    getAllPosts,
+    getAllTags,
+    getPostsByUser,
+    tagsFilter,
+    recommendFilter,
+  ]);
 
   useEffect(() => {
     if (showSearchField) searchField?.current?.focus();
@@ -107,29 +116,18 @@ const Articles = ({
 
   const submitNewsRequest = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
-      setActualFilter?.(menuItemsNames.request);
+      setActualFilter(requestFilter);
       setSearchRequest(event.currentTarget.value);
       event.currentTarget.value = '';
     }
   };
 
-  const renderSearch = (): JSX.Element => {
-    if (showSearchField) {
-      return (
-        <SearchField
-          ref={searchField}
-          onBlur={(): void => setShowSearchField(false)}
-          onKeyPress={submitNewsRequest}
-        />
-      );
-    }
-    return (
-      <ButtonSearch
-        onClick={(): void => {
-          setShowSearchField((prev) => !prev);
-        }}
-      />
-    );
+  const buttonSearchClickHandler = (): void => {
+    setShowSearchField((prev) => !prev);
+  };
+
+  const searchFieldBlurHandler = (): void => {
+    setShowSearchField(false);
   };
 
   const menuItemClickHandler = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -137,18 +135,24 @@ const Articles = ({
     changeFilter(event);
   };
 
-  const menuItems = itemsNames.map((itemName) => {
-    const title = menuItemsTitles[itemName];
+  const search = showSearchField ? (
+    <SearchField ref={searchField} onBlur={searchFieldBlurHandler} onKeyPress={submitNewsRequest} />
+  ) : (
+    <ButtonSearch onClick={buttonSearchClickHandler} />
+  );
+
+  const menuItems = filterList.map((Filter) => {
+    const title = menuItemsTitles[Filter];
 
     return (
-      <MenuItem name={itemName} onClick={menuItemClickHandler}>
+      <MenuItem name={Filter} onClick={menuItemClickHandler}>
         {title}
       </MenuItem>
     );
   });
 
   const renderContent = (): JSX.Element => {
-    if (actualFilter === menuItemsNames.tags) {
+    if (actualFilter === tagsFilter) {
       return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
     }
 
@@ -161,7 +165,7 @@ const Articles = ({
     <ArticlesWrapper>
       <MenuWrapper>
         <Menu>{menuItems}</Menu>
-        {renderSearch()}
+        {search}
       </MenuWrapper>
       {renderContent()}
     </ArticlesWrapper>
