@@ -141,8 +141,9 @@ const ArticlesMenu = ({
   });
 
   const renderContent = (): JSX.Element => {
-    if (actualFilter === menuItemsNames.tags)
+    if (actualFilter === menuItemsNames.tags) {
       return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
+    }
 
     const posts = data ? filterNews([...data], actualFilter, searchRequest) : null;
 
