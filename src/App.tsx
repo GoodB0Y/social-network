@@ -37,7 +37,6 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
   }, [loadCurrentUser]);
 
   const checkUserIsLoggedIn = useCallback(() => {
-    console.log('checkUserIsLoggedIn');
     if (currentUser?.error) {
       alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
       return <Redirect to={RoutePath.Login} />;
