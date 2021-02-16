@@ -37,6 +37,7 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
   }, [loadCurrentUser]);
 
   const checkUserIsLoggedIn = useCallback(() => {
+    console.log('checkUserIsLoggedIn');
     if (currentUser?.error) {
       alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
       return <Redirect to={RoutePath.Login} />;
@@ -64,7 +65,24 @@ const App: FC<ConnectedProps<typeof connector>> = ({ loadCurrentUser, currentUse
       <Route path={RoutePath.News} component={News} />
       <Route path={RoutePath.Video} component={VideoPage} />
       <Route path={RoutePath.Messages} component={Messages} />
-      <Route path={RoutePath.Bookmarks} component={Bookmarks} />
+      <Route
+        path={RoutePath.Bookmarks}
+        render={() => {
+          if (currentUser?.data) {
+            return <Redirect to={funcRoutes.bookmarksWithId(currentUser.data.userId)} />;
+          }
+          return checkUserIsLoggedIn();
+        }}
+        exact
+      />
+      <Route
+        path={RoutePath.BookmarksWithId}
+        render={({ match }) => {
+          const { userId } = match.params;
+          return <Bookmarks userId={userId} />;
+        }}
+        exact
+      />
       <Route
         path={RoutePath.Photo}
         render={() => {

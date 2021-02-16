@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect, ConnectedProps } from 'react-redux';
 
-import { RootState } from '../../redux-toolkit/store';
 import { filters } from '../../common/Articles/menuItemsData';
 
 import Articles from '../../common/Articles/Articles';
@@ -19,24 +17,22 @@ const BookmarksWrapper = styled.div`
   min-height: 1200px;
 `;
 
-const mapStateToProps = (state: RootState) => ({
-  user: state.user,
-});
+type Props = {
+  userId: number;
+};
 
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+const Bookmarks = ({ userId }: Props): JSX.Element => {
+  const { allFilter, myNotesFilter, bookmarksFilter } = filters;
+  const currentFilterList = [allFilter, myNotesFilter, bookmarksFilter];
 
-const Bookmarks = ({ user }: PropsFromRedux): JSX.Element => {
-  const { allFilter, myNotesFilter, recommendFilter } = filters;
-  const currentFilterList = [allFilter, myNotesFilter, recommendFilter];
   return (
     <Page>
       <BookmarksWrapper>
         <Chip>Закладки</Chip>
-        <Articles filterList={currentFilterList} userId={user?.data?.userId} />
+        <Articles filterList={currentFilterList} userId={userId} />
       </BookmarksWrapper>
     </Page>
   );
 };
 
-export default connector(Bookmarks);
+export default Bookmarks;

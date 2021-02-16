@@ -13,7 +13,7 @@ import { RootState } from '../../redux-toolkit/store';
 import ITag from '../../types/tag';
 import { IDataPost } from '../../types/post';
 
-import filterNews from './helpers';
+import { filterNews, loadPosts } from './helpers';
 import { menuItemsTitles, filters } from './menuItemsData';
 
 import TagCloud from './TagCloud';
@@ -74,32 +74,21 @@ const Articles = ({
 }: Props): JSX.Element => {
   const searchField = useRef<HTMLInputElement>(null);
 
-  const { allFilter, tagsFilter, recommendFilter, requestFilter, postByTagFilter } = filters;
+  const { allFilter, tagsFilter, requestFilter, postByTagFilter } = filters;
 
   const [showSearchField, setShowSearchField] = useState<boolean>(false);
   const [actualFilter, setActualFilter] = useState<string>(allFilter);
   const [searchRequest, setSearchRequest] = useState<string>(' ');
 
   useEffect(() => {
-    if (filterList.includes(tagsFilter)) {
-      if (actualFilter === tagsFilter) getAllTags();
-    }
+    const getPostsFuncs = {
+      getTags: getAllTags,
+      getUserPosts: getPostsByUser,
+      getPosts: getAllPosts,
+    };
 
-    if (userId) {
-      if (actualFilter === recommendFilter) getAllPosts();
-      else getPostsByUser(userId);
-    } else if (actualFilter !== postByTagFilter) getAllPosts();
-  }, [
-    actualFilter,
-    filterList,
-    userId,
-    getAllPosts,
-    getAllTags,
-    getPostsByUser,
-    tagsFilter,
-    postByTagFilter,
-    recommendFilter,
-  ]);
+    loadPosts(filterList, actualFilter, getPostsFuncs, userId);
+  }, [actualFilter, filterList, getAllPosts, getAllTags, getPostsByUser, userId]);
 
   useEffect(() => {
     if (showSearchField) searchField?.current?.focus();
@@ -150,7 +139,7 @@ const Articles = ({
       return <TagCloud tags={allTags} getPostsByTag={showPostByTag} />;
     }
 
-    const posts = data ? filterNews([...data], actualFilter, searchRequest) : null;
+    const posts = data ? filterNews([...data], actualFilter, searchRequest, filterList) : null;
 
     return <ArticleList data={posts} showPostByTag={showPostByTag} />;
   }; /* B filterNews УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */

@@ -7,6 +7,7 @@ export const filters = {
   recommendFilter: 'recommend',
   requestFilter: 'request',
   postByTagFilter: 'postByTag',
+  bookmarksFilter: 'bookmarks',
 };
 
 const {
