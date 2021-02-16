@@ -110,10 +110,6 @@ const Articles = ({
     getPostsByTag(tag);
   };
 
-  const changeFilter = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setActualFilter(event.currentTarget.name);
-  };
-
   const submitNewsRequest = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
       setActualFilter(requestFilter);
@@ -127,8 +123,10 @@ const Articles = ({
   const searchFieldBlurHandler = (): void => setShowSearchField(false);
 
   const menuItemClickHandler = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    changeLoading(true);
-    changeFilter(event);
+    if (actualFilter !== event.currentTarget.name) {
+      changeLoading(true);
+      setActualFilter(event.currentTarget.name);
+    }
   };
 
   const search = showSearchField ? (
