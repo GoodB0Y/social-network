@@ -135,11 +135,11 @@ const Articles = ({
     <ButtonSearch onClick={buttonSearchClickHandler} />
   );
 
-  const menuItems = filterList.map((Filter) => {
-    const title = menuItemsTitles[Filter];
+  const menuItems = filterList.map((filter) => {
+    const title = menuItemsTitles[filter];
 
     return (
-      <MenuItem name={Filter} onClick={menuItemClickHandler}>
+      <MenuItem name={filter} onClick={menuItemClickHandler}>
         {title}
       </MenuItem>
     );
