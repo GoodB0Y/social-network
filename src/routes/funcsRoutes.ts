@@ -6,6 +6,7 @@ const funcsRoutes = {
   urlFriendsAudios: (hostApi: string, user: string, getFriends: string): string =>
     [hostApi, user, getFriends].join('/'),
   mainWithId: (id: number): string => `${id}`,
+  bookmarksWithId: (id: number): string => `/${id}/bookmarks`,
   urlGetMyPlaylists: (
     hostApi: string,
     audios: string,
