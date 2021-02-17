@@ -11,6 +11,7 @@ enum RoutePath {
   Groups = '/groups',
   Group = '/group/:slug',
   Bookmarks = '/bookmarks',
+  BookmarksWithId = '/:userId/bookmarks',
   Video = '/video',
   Audio = '/audio',
   Settings = '/user/settings',

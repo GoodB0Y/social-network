@@ -13,7 +13,7 @@ const loadUserPhotos = createAsyncThunk('user/loadUserImages', async (userId: nu
   getAllImagesByUserId({ limit: 4, offset: 0, userId })
 );
 
-interface UserState {
+export interface UserState {
   data: null | IUser;
   loading: boolean;
   error: null | Error;
