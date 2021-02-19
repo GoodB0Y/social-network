@@ -10,9 +10,8 @@ const Container = styled.img<AvatarProps>`
   max-height: 100%;
   border-radius: 50%;
   box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: white;
+  object-fit: cover;
 `;
 
 export default Container;
