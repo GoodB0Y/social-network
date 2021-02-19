@@ -5,6 +5,7 @@ import MessagesChat from '../../common/Chat/Message';
 import messagesClass from './Messages.module.scss';
 import Loader from '../../common/Loader';
 import { Ichat, IsingleChat } from '../../types/chat';
+import Avatar from '../../common/Avatar';
 
 type Chats = {
   data: Ichat[];
@@ -32,7 +33,7 @@ const renderchatList = (
       type="button"
       onClick={() => loadCurrentChat(chat.id)}
     >
-      <img alt="avatar" src={chat.image} />
+      <Avatar size={90} src={chat.image} />
       <div className={messagesClass.selectChatUserInfo}>
         <span>{chat.title}</span>
         <p>{chat.lastMessage}</p>
@@ -52,7 +53,7 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
           key={nanoid()}
         >
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
-          <img alt="avatar" src={el.userSenderImage} />
+          <Avatar size={61} src={el.userSenderImage} />
         </div>
       );
     }
@@ -61,7 +62,7 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
         className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--theirs']}`}
         key={nanoid()}
       >
-        <img alt="avatar" src={el.userSenderImage} />
+        <Avatar size={61} src={el.userSenderImage} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>
     );
