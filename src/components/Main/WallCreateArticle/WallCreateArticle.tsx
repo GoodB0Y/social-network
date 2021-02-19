@@ -4,11 +4,11 @@ import music from './img/music.svg';
 import video from './img/video.svg';
 import add from './img/add.svg';
 import ArticleForm from '../ArticleForm';
+import Avatar from '../../../common/Avatar';
 import ModalLinkInput from '../../../common/modalLinkInput';
 import { IUser } from '../../../types/user';
 import IMedia from '../../../types/media';
 import {
-  AvatarMin,
   IconArticle,
   IconCross,
   WallCreateArticleContainer,
@@ -63,7 +63,7 @@ const WallCreateArticle = ({ user }: IWallCreateArticle): JSX.Element | null => 
     <WallCreateArticleContainer>
       <WallCreateArticleHeaderBlock>
         <WallCreateArticleHeaderBlockLeft>
-          <AvatarMin src={user.avatar} />
+          <Avatar src={user.avatar} size={70} alt={`Аватар ${user.firstName} ${user.lastName}`} />
           <WallCreateArticleHeaderBlockLeftText>
             Напишите заметку или статью...
           </WallCreateArticleHeaderBlockLeftText>

@@ -4,16 +4,6 @@ import send from '../../../assets/img/icons/send-message.svg';
 
 // CommentForm
 
-export const AvatarMin = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
-  object-fit: cover;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export const FormWrapper = styled.form`
   width: 100%;
   display: flex;

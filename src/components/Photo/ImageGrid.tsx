@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import Loader from '../../common/Loader';
 import ErrorBlock from '../../common/errorBlock';
 import { secondaryColor } from '../../colors.module';
 import { ImageDto } from '../../types/image';
+import nophoto from '../../common/Avatar/assets/nophoto.png';
 
 const ImageList = styled.ul`
   display: grid;
@@ -30,10 +31,11 @@ const ImageItem = styled.li`
   & img {
     min-width: 100%;
     min-height: 100%;
-    max-width: 150%;
+    max-width: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    object-fit: cover;
   }
 `;
 
@@ -43,6 +45,23 @@ interface IImageGridProps {
   error: { status: number; data?: string } | null;
   setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
 }
+
+type ItemProps = {
+  setSelectedImage: React.Dispatch<React.SetStateAction<undefined | string>>;
+  url: string;
+  alt: string;
+};
+
+const Item = ({ setSelectedImage, url, alt }: ItemProps): JSX.Element => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  return (
+    <ImageItem onClick={() => setSelectedImage(url)}>
+      <img src={imageUrl || url} alt={alt} onError={() => setImageUrl(nophoto)} />
+    </ImageItem>
+  );
+};
+
 const ImageGrid = ({
   images,
   loading,
@@ -53,12 +72,12 @@ const ImageGrid = ({
     return (
       <ImageList>
         {images.map((image) => (
-          <ImageItem
+          <Item
             key={`${image.persistDateTime} ${image.id} of ${image.userId}`}
-            onClick={() => setSelectedImage(image.url)}
-          >
-            <img src={image.url} alt={`${image.description}`} />
-          </ImageItem>
+            setSelectedImage={setSelectedImage}
+            url={image.url}
+            alt={`${image.description}`}
+          />
         ))}
       </ImageList>
     );

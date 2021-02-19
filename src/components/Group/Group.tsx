@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { GroupPosts, GroupInt } from '../../types/group';
 import Loader from '../../common/Loader';
+import Avatar from '../../common/Avatar';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import { RootState } from '../../redux-toolkit/store';
@@ -54,14 +55,6 @@ const GroupIco = styled.div`
   height: 155px;
   border-radius: 50%;
   margin-right: 20px;
-`;
-
-const Img = styled.img`
-  display: block;
-  object-fit: cover;
-  width: 155px;
-  height: 155px;
-  border-radius: 50%;
 `;
 
 const DataContainer = styled.div`
@@ -151,7 +144,7 @@ const Group = ({
           <Container>
             <Label>
               <GroupIco>
-                <Img src={addressImageGroup} alt="Фото группы" />
+                <Avatar src={addressImageGroup} size={155} alt={`Фото группы ${name}`} />
               </GroupIco>
               <DataContainer>
                 <NameGroup>{name}</NameGroup>

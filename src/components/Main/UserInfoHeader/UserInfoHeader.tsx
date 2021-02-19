@@ -4,11 +4,12 @@ import addPhotoIcon from './img/add photo.svg';
 import ModalLinkInput from '../../../common/modalLinkInput';
 import { updateAvatar } from '../../../redux-toolkit/currentUserSlice';
 import { IUser } from '../../../types/user';
+
+import Avatar from '../../../common/Avatar';
 import {
   UserInfoHeaderContainer,
   UserInfoAvatar,
   UserInfoNameBlock,
-  UserAvatar,
   AddPhotoBlock,
   AddPhotoIcon,
   UserName,
@@ -50,7 +51,7 @@ const UserInfoHeader = ({ user, updateAvatar: _updateAvatar, isCurrentUser }: Pr
   return (
     <UserInfoHeaderContainer>
       <UserInfoAvatar>
-        <UserAvatar small={avatar} large={avatar} alt={`Аватар ${firstName} ${lastName}`} />
+        <Avatar src={avatar} size={270} alt={`Аватар ${firstName} ${lastName}`} modalAvatar />
         {renderAddPhotoBlock(setIsOpen, isCurrentUser)}
         <ModalLinkInput
           onLinkSend={onLinkSend}

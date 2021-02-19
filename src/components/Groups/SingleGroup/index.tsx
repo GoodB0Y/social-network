@@ -4,10 +4,10 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../../../redux-toolkit/store';
 import { joinGroup, leaveGroup } from '../../../redux-toolkit/groups/groupsSlice';
 import Button from '../../../common/Button';
+import Avatar from '../../../common/Avatar';
 import { Group, GroupRequestProps } from '../../../types/group';
 import {
   SingleGroupContainer,
-  GroupAvatar,
   GroupDescriptionContainer,
   GroupTitle,
   ItemLink,
@@ -46,7 +46,7 @@ const SingleGroup = ({
 }: Props) => (
   <SingleGroupContainer>
     <LeftWrapper>
-      <GroupAvatar src={addressImageGroup} alt="avatar" />
+      <Avatar src={addressImageGroup} size={90} alt={`Фото группы ${name}`} />
       <GroupDescriptionContainer>
         <GroupTitle>
           <ItemLink onClick={(): void => history.push(`/group/${id}`)}>{name}</ItemLink>

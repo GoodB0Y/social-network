@@ -13,18 +13,11 @@ export const SingleFriendWrapper = styled.div`
   border-bottom: 1px solid #b2b2b2;
 `;
 
-export const FriendAvatar = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
 export const FriendAvatarWrapper = styled.a`
   cursor: pointer;
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  overflow: hidden;
   margin-right: 37px;
 `;
 

@@ -2,10 +2,10 @@ import React from 'react';
 import swal from 'sweetalert';
 import funcsRoutes from '../../../routes/funcsRoutes';
 import userFoto from '../../../assets/img/userFoto.png';
+import Avatar from '../../../common/Avatar';
 
 import {
   SingleFriendWrapper,
-  FriendAvatar,
   FriendAvatarWrapper,
   DeleteButton,
   MessageButton,
@@ -38,7 +38,7 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
     <Placer>
       <FriendAvatarWrapper href="#">
         {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
-        <FriendAvatar src={userFoto || avatarka} alt="there should be avatarka" />
+        <Avatar src={userFoto} size={90} alt={`Аватар ${firstname} ${lastname}`} />
       </FriendAvatarWrapper>
       <FriendInfo>
         <FriendFullName to={funcsRoutes.mainWithId(id)}>

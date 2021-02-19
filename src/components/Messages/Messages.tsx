@@ -11,6 +11,7 @@ import Chip from '../../common/Chip';
 import SubmitMessage from '../../common/Chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
 import Page from '../../common/Page';
+import Avatar from '../../common/Avatar';
 
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
 import { Ichat } from '../../types/chat';
@@ -93,7 +94,11 @@ const Messages = ({ chats, currentChat, loadChatsOfUser, loadCurrentChat, user }
       key={nanoid()}
     >
       <MessagesChat messages={el.message} messagesType="our" date={el.lastReductionDate} />
-      <img className={messagesClass.avatarIcon} alt="avatar" src={el.usersenderImage} />
+      <Avatar
+        size={61}
+        src={el.usersenderImage}
+        alt={`Аватар ${user?.firstName} ${user?.lastName}`}
+      />
     </div>
   ));
 
@@ -138,7 +143,11 @@ const Messages = ({ chats, currentChat, loadChatsOfUser, loadCurrentChat, user }
 
         <div className={messagesClass.contentWrapper}>
           <div className={messagesClass.contentHeader}>
-            <img alt="avatar" src={user?.avatar} />
+            <Avatar
+              size={155}
+              src={user?.avatar}
+              alt={`Аватар ${user?.firstName} ${user?.lastName}`}
+            />
             <div className={messagesClass.contentUserInfo}>
               <span>{`${user?.firstName} ${user?.lastName}`}</span>
             </div>

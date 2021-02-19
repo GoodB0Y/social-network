@@ -28,6 +28,7 @@ const useStorage = (file: File): StorageObject => {
       })
       .catch((err) => setError(err));
   }, [file]);
+  console.log(url, error);
   return { url, error };
 };
 
