@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import Container from './Avatar.styles';
+import React, { useState, useEffect } from 'react';
+import { AvatarImage, ModalAvatarImage } from './Avatar.styles';
 import nophoto from './assets/nophoto.png';
 
-export type AvatarProps = { size?: number; src?: string; onError?: () => void };
+export type AvatarProps = {
+  src?: string;
+  size: number;
+  alt: string;
+  modalAvatar?: boolean;
+};
 
-const Avatar = ({ size = 150, src = nophoto }: AvatarProps): JSX.Element => {
-  const [path, setPath] = useState(src);
+const Avatar = ({ size, src = nophoto, alt, modalAvatar }: AvatarProps): JSX.Element => {
+  const [currentUrl, setCurrentUrl] = useState<string>(nophoto);
 
-  return <Container size={size} src={path} onError={() => setPath(nophoto)} />;
+  useEffect(() => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setCurrentUrl(src);
+  }, [src]);
+
+  if (modalAvatar) {
+    return <ModalAvatarImage size={size} small={currentUrl} medium={currentUrl} alt={alt} />;
+  }
+
+  return <AvatarImage size={size} src={currentUrl} alt={alt} />;
 };
 
 export default Avatar;
