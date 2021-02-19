@@ -33,7 +33,7 @@ const renderchatList = (
       type="button"
       onClick={() => loadCurrentChat(chat.id)}
     >
-      <Avatar size={90} src={chat.image} />
+      <Avatar size={90} src={chat.image} alt={`Аватар ${chat.title}`} />
       <div className={messagesClass.selectChatUserInfo}>
         <span>{chat.title}</span>
         <p>{chat.lastMessage}</p>
@@ -53,7 +53,7 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
           key={nanoid()}
         >
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
-          <Avatar size={61} src={el.userSenderImage} />
+          <Avatar size={61} src={el.userSenderImage} alt={`Аватар ${el.username}`} />
         </div>
       );
     }
@@ -62,7 +62,7 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
         className={`${messagesClass.messageWrapper} ${messagesClass['messageWrapper--theirs']}`}
         key={nanoid()}
       >
-        <Avatar size={61} src={el.userSenderImage} />
+        <Avatar size={61} src={el.userSenderImage} alt={`Аватар ${el.username}`} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>
     );
