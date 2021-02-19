@@ -11,7 +11,7 @@ const container = css<Avatar>`
   width: ${({ size }) => `${size}px`};
   height: ${({ size }) => `${size}px`};
   border-radius: 50%;
-  box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   background-color: white;
   object-fit: cover;
 `;
@@ -22,4 +22,5 @@ export const AvatarImage = styled.img`
 
 export const ModalAvatarImage = styled(ModalImage)`
   ${container}
+  box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
 `;
