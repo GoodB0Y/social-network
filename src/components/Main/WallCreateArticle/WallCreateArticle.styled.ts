@@ -1,16 +1,6 @@
 import styled from 'styled-components';
 import Iimg from '../../../types/Iimg';
 
-export const AvatarMin = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
-  object-fit: cover;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export const IconArticle = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
   margin-left: 13px;
   cursor: pointer;

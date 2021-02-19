@@ -9,13 +9,6 @@ export const SingleGroupContainer = styled.div`
   border-bottom: 1px solid #b2b2b2;
 `;
 
-export const GroupAvatar = styled.img`
-  border-radius: 50%;
-  overflow: hidden;
-  width: 90px;
-  height: 90px;
-`;
-
 export const GroupDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;

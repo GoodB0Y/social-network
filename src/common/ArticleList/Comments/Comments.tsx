@@ -13,13 +13,13 @@ import ErrorBlock from '../../errorBlock';
 import Loader from '../../Loader';
 import UserInfo from '../UserInfo/UserInfo';
 import ShowMoreBtn from '../ShowMoreBtn';
+import Avatar from '../../Avatar';
 
 import {
   Input,
   Title,
   Comment,
   Container,
-  AvatarMin,
   FormWrapper,
   CommentList,
   CommentItem,
@@ -70,7 +70,7 @@ const CommentForm = ({ avatar, submitNewComment }: CommentFormProps): JSX.Elemen
 
   return (
     <FormWrapper onSubmit={formik.handleSubmit}>
-      <AvatarMin src={avatar} />
+      <Avatar src={avatar} size={70} alt="Аватар" />
       <Input name="comment" onChange={formik.handleChange} value={formik.values.comment} />
       <SubmitComment type="submit" />
     </FormWrapper>

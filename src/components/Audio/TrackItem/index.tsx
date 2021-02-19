@@ -2,6 +2,7 @@ import React from 'react';
 import ITrack from '../../../types/audios';
 import { LeftSide, RightSide } from './TrackItem.styles';
 import pic from '../../../assets/img/pic.png';
+import Avatar from '../../../common/Avatar';
 
 const timeAudio = (sec: number): string | number => {
   if (sec === null) {
@@ -18,7 +19,7 @@ const TrackItem = ({ icon, author, name, id, length }: ITrack): JSX.Element => (
   <li key={id}>
     <LeftSide>
       <div>
-        <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+        <Avatar src={pic || `https://${icon}`} size={90} alt={`Обложка аудиозаписи ${name}`} />
       </div>
       <div>
         <h3>{author}</h3>

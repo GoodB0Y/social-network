@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-export const AvatarMin = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
-  object-fit: cover;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export const Container = styled.div`
   display: flex;
   justify-content: flex-start;
