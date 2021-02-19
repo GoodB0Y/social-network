@@ -47,4 +47,5 @@ export const InfoUserPhoto = styled(ModalImage)`
   margin-right: 22px;
   margin-bottom: 22px;
   border-radius: 15px;
+  object-fit: cover;
 `;

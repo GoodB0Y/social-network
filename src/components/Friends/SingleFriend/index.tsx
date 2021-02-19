@@ -38,7 +38,7 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
     <Placer>
       <FriendAvatarWrapper href="#">
         {/* Временно, пока отсутствуют ликвидные данные, используем userFoto */}
-        <Avatar src={avatarka || userFoto} size={90} alt={`Аватар ${firstname} ${lastname}`} />
+        <Avatar src={userFoto} size={90} alt={`Аватар ${firstname} ${lastname}`} />
       </FriendAvatarWrapper>
       <FriendInfo>
         <FriendFullName to={funcsRoutes.mainWithId(id)}>

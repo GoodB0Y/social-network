@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { filters } from '../../../common/Articles/menuItemsData';
 
@@ -6,6 +6,7 @@ import Articles from '../../../common/Articles/Articles';
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
 import UserAbout from '../UserAbout';
+import nophoto from '../../../common/Avatar/assets/nophoto.png';
 import { IUser } from '../../../types/user';
 import { ImageDto } from '../../../types/image';
 import {
@@ -17,6 +18,22 @@ import {
   WallInfoUserAbout,
 } from './Wall.styles';
 
+type PhotoItemProps = {
+  url: string;
+};
+
+const PhotoItem = ({ url }: PhotoItemProps): JSX.Element => {
+  const [photoUrl, setPhotoUrl] = useState<string>(nophoto);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => setPhotoUrl(url);
+  }, [url]);
+
+  return <InfoUserPhoto small={photoUrl} medium={photoUrl} />;
+};
+
 const renderPhotoBlock = (photos: ImageDto[] | null) => {
   if (!photos) {
     return null;
@@ -26,7 +43,7 @@ const renderPhotoBlock = (photos: ImageDto[] | null) => {
       <InfoHeaderText>Фотографии</InfoHeaderText>
       <InfoPhotoBlock>
         {photos.map((photo) => (
-          <InfoUserPhoto key={photo.url} small={photo.url} medium={photo.url} />
+          <PhotoItem key={photo.url} url={photo.url} />
         ))}
       </InfoPhotoBlock>
     </WallInfoUserAbout>
