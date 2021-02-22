@@ -38,6 +38,7 @@ const ModalChat: React.FC = () => {
   const switchModalStatus = () => {
     setIsOpen(!isOpen);
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const renderMessages = () =>
     dataMessages1.map((el) => {
       if (el.username === 'bogdan13') {
@@ -68,7 +69,7 @@ const ModalChat: React.FC = () => {
       <ContentWrapper isOpen={isOpen}>
         <Header>Чат JMSN</Header>
         <Content>
-          <ScrollBar style={scrollBarStyles}>
+          <ScrollBar style={scrollBarStyles} scrollTop={9999}>
             {renderMessages()}
             {renderBroadcastMessage}
           </ScrollBar>
