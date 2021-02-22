@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../common/Logo';
 import LoginForm from './LoginForm';
 import RegForm from './RegForm';
@@ -8,7 +9,9 @@ const { TabPane } = Tabs;
 
 const Entry = (): JSX.Element => (
   <EntryPage>
-    <Logo />
+    <Link to="/">
+      <Logo />
+    </Link>
     <TabsWrap>
       <Tabs defaultActiveKey="Login">
         <TabPane tab="Вход" key="Login">

@@ -5,6 +5,7 @@ import IisOpen from '../../../types/IisOpen';
 export const ModalChatWrapper = styled.div<IisOpen>`
   position: relative;
   width: 25em;
+  min-width: 390px;
   height: 840px;
   padding-bottom: 40px;
   overflow: hidden;
@@ -47,7 +48,7 @@ export const Content = styled.div`
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-  padding: 35px 35px 0 35px;
+  padding: 35px 25px 0 35px;
   background-color: #ffffff;
   height: 560px;
   overflow-y: scroll;
@@ -58,7 +59,7 @@ export const ModalChatMessageWrapper = styled.div<{ type?: string }>`
   display: flex;
   flex-direction: row;
   justify-content: ${({ type }) => (type === 'our' ? 'flex-end' : 'flex-start')};
-  padding-right: 35px;
+  padding-right: 10px;
 `;
 
 export const SubmitMessageWrap = styled.div`
@@ -84,6 +85,20 @@ export const ModalChatOpen = styled.button
   border: none;
   outline: none;
   transform: ${({ isOpen }) =>
-    isOpen ? 'translateY(0) rotate(0)' : 'translateY(-750px) rotate(-180deg)'};
+    isOpen
+      ? 'translateY(0) rotate(0) scale(1)'
+      : 'translateY(-750px) rotate(0) scale(1) rotate(180deg)'};
   transition: transform 1s ease-in-out;
+  &:hover {
+    transform: ${({ isOpen }) =>
+      isOpen
+        ? 'scale(1.1) translateY(0) rotate(0)'
+        : 'scale(1.1) translateY(-680px) rotate(-180deg)'};
+    transition-duration: 0.5s;
+  }
+  &:focus,
+  &:active {
+    outline: none;
+    box-shadow: 0 0 10pt 0 #ffb11b;
+  }
 `;

@@ -45,6 +45,9 @@ export const FileIcon = styled.img`
   padding: 5px;
   right: 0;
   transform: translateX(-100%);
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const SignInUpTxt = styled.button`
@@ -57,8 +60,12 @@ export const SignInUpTxt = styled.button`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-
+  outline: none;
   &:hover {
     opacity: 0.7;
+  }
+  &:active,
+  &:focus {
+    filter: drop-shadow(-3px 4px 6px orange);
   }
 `;

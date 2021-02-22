@@ -7,6 +7,12 @@ const Wrapper = styled.div`
   width: 60px;
   height: fit-content;
   cursor: pointer;
+  &:nth-child(2n + 1) {
+    margin-right: 20px;
+  }
+  &:nth-child(2n) {
+    margin-left: 20px;
+  }
   &:hover div {
     color: #bf861a;
   }
@@ -23,7 +29,6 @@ const UserName = styled.div`
   color: #000000;
   font-size: 12px;
   font-weight: 500;
-
   text-align: center;
 `;
 
