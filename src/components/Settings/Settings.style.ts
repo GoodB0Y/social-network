@@ -23,6 +23,7 @@ export const ContainerLabel = styled.div`
 export const Container = styled.div`
   min-height: 66px;
   padding-bottom: 40px;
+  display: flex;
 `;
 
 export const Label = styled.label`
@@ -79,5 +80,19 @@ export const Birthday = styled.input`
     outline: 0;
     outline-offset: 0;
     border-bottom: 2px solid #ffb11b;
+  }
+`;
+
+export const TextArea = styled.textarea`
+  min-width: 37em;
+  color: #000;
+  border: 2px solid #000;
+  height: 31px;
+  &:hover,
+  &:focus,
+  &:active {
+    outline: 0;
+    outline-offset: 0;
+    border: 2px solid #ffb11b;
   }
 `;

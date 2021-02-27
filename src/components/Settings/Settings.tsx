@@ -10,6 +10,7 @@ import {
   Select,
   Birthday,
   ContainerLabel,
+  TextArea,
 } from './Settings.style';
 
 const Settings: React.FC = () => {
@@ -94,8 +95,10 @@ const Settings: React.FC = () => {
               <option value="Backend">Backend-разработчик</option>
               <option value="Mentor">Ментор</option>
             </Select>
+          </Container>
+          <Container>
             <Label htmlFor="specialization">Комментарий</Label>
-            <textarea> </textarea>
+            <TextArea> </TextArea>
           </Container>
         </form>
       </SettingsWrapper>
