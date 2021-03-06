@@ -14,8 +14,10 @@ const AboutMeBlock: React.FC = () => (
       </Select>
     </Container>
     <Container>
-      <Label htmlFor="specialization">Комментарий</Label>
-      <TextArea> </TextArea>
+      <Label htmlFor="aboutMe">Комментарий</Label>
+      <TextArea id="aboutMe" name="aboutMe">
+        {' '}
+      </TextArea>
     </Container>
   </>
 );

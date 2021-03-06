@@ -30,7 +30,7 @@ export const ContainerLast = styled.div`
   min-height: 66px;
   display: flex;
   justify-content: flex-end;
-  max-width: 725px;
+  max-width: 717px;
 `;
 
 export const Label = styled.label`
