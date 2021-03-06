@@ -4,9 +4,9 @@ import Page from '../../common/Page';
 import Chip from '../../common/Chip';
 import UserBlock from './form/userBlock';
 import AuthBlock from './form/authBlock';
+import ContactsBlock from './form/сontactsBlock';
 import {
   SettingsWrapper,
-  UserInput,
   Label,
   Container,
   Select,
@@ -29,19 +29,7 @@ const Settings: React.FC = () => {
           <AuthBlock />
 
           {/* Контакты */}
-          <ContainerLabel>Контакты</ContainerLabel>
-          <Container>
-            <Label htmlFor="country">Страна</Label>
-            <UserInput id="country" type="text" placeholder="Страна" />
-          </Container>
-          <Container>
-            <Label htmlFor="city">Город</Label>
-            <UserInput id="city" type="text" placeholder="Город" />
-          </Container>
-          <Container>
-            <Label htmlFor="phone">Моб. телефон</Label>
-            <UserInput id="phone" type="tel" name="phone" placeholder="Моб. телефон" />
-          </Container>
+          <ContactsBlock />
 
           {/* О себе */}
           <ContainerLabel>О себе</ContainerLabel>
