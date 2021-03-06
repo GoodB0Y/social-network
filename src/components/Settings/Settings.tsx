@@ -5,14 +5,8 @@ import Chip from '../../common/Chip';
 import UserBlock from './form/userBlock';
 import AuthBlock from './form/authBlock';
 import ContactsBlock from './form/сontactsBlock';
-import {
-  SettingsWrapper,
-  Label,
-  Container,
-  Select,
-  ContainerLabel,
-  TextArea,
-} from './Settings.style';
+import AboutMeBlock from './form/aboutMeBlock';
+import { SettingsWrapper } from './Settings.style';
 
 const Settings: React.FC = () => {
   const { register, handleSubmit, errors, setError } = useForm();
@@ -22,30 +16,10 @@ const Settings: React.FC = () => {
       <SettingsWrapper>
         <Chip>Настройки</Chip>
         <form>
-          {/* Основные */}
           <UserBlock />
-
-          {/* Авторизация */}
           <AuthBlock />
-
-          {/* Контакты */}
           <ContactsBlock />
-
-          {/* О себе */}
-          <ContainerLabel>О себе</ContainerLabel>
-          <Container>
-            <Label htmlFor="specialization">Специализация</Label>
-            <Select id="specialization" name="specialization">
-              <option disabled>Я в JM</option>
-              <option value="Frontand">Frontand-разработчик</option>
-              <option value="Backend">Backend-разработчик</option>
-              <option value="Mentor">Ментор</option>
-            </Select>
-          </Container>
-          <Container>
-            <Label htmlFor="specialization">Комментарий</Label>
-            <TextArea> </TextArea>
-          </Container>
+          <AboutMeBlock />
         </form>
       </SettingsWrapper>
     </Page>
