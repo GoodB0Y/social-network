@@ -1,0 +1,36 @@
+$mainColor: #ffb11b;
+$secondColor: #000;
+
+.birthday {
+  min-width: 5.5em;
+  max-width: 9em;
+  border: none;
+  border-bottom: 2px solid $secondColor;
+  color: $secondColor;
+  &:hover,
+  &:focus,
+  &:active {
+    outline: 0;
+    outline-offset: 0;
+    border-bottom: 2px solid $mainColor;
+  }
+}
+
+.react-datepicker {
+  &__header {
+    background-color: $mainColor;
+  }
+  &__navigation {
+    &--previous {
+      border-right-color: $secondColor;
+    }
+    &--next {
+      border-left-color: $secondColor;
+    }
+  }
+  &__day {
+    &--selected {
+      background-color: $mainColor;
+    }
+  }
+}

@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  UserInput,
-  Label,
-  Container,
-  Select,
-  Birthday,
-  ContainerLabel,
-} from '../../Settings.style';
+import { UserInput, Label, Container, Select, ContainerLabel } from '../../Settings.style';
+import SelectBirthday from './DatePicker/DatePiker';
 
 const UserBlock: React.FC = () => (
   <>
@@ -28,10 +22,8 @@ const UserBlock: React.FC = () => (
       </Select>
     </Container>
     <Container>
-      <Label htmlFor="birthday">День рождения</Label>
-      <Birthday id="day" type="text" placeholder="День" />
-      <Birthday id="mounth" type="text" placeholder="Месяц" />
-      <Birthday id="year" type="text" placeholder="Год" />
+      <Label htmlFor="birthday">Дата рождения</Label>
+      <SelectBirthday />
     </Container>
     <Container>
       <Label htmlFor="showBirthday"> </Label>
